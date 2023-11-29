@@ -19,4 +19,16 @@ export class PriorityMasterService {
   getTableData(): Observable<any> {
     return this.http.get(this.apiUrl);
   }
+
+  update(priorityData : any): Observable<any> {
+    return this.http.put(this.apiUrl, priorityData,{observe: 'response'});
+  }
 }
+  export interface PriorityMaster {
+    priorityId: number,
+    priorityName: string,
+    priorityNameAr: string,
+    status: number,
+    createdByUserName: string,
+    createdDate: string  
+  }

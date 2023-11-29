@@ -24,12 +24,12 @@
               <label class="mb-1">Priority Name in Arabic</label>
               <input
               type="text"
-              formControlName="priorityAribic"
+              formControlName="priorityNameAr"
               class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f['priorityAribic'].errors }"
+              [ngClass]="{ 'is-invalid': submitted && f['priorityNameAr'].errors }"
               />
-              <div *ngIf="submitted && f['priorityAribic'].errors" class="invalid-feedback">
-              <div *ngIf="f['priorityAribic'].errors['required']">
+              <div *ngIf="submitted && f['priorityNameAr'].errors" class="invalid-feedback">
+              <div *ngIf="f['priorityNameAr'].errors['required']">
                 Priority Name in Arabic is required
               </div>
               </div>
@@ -39,7 +39,7 @@
           <div class="row btn-row justify-content-center">
             <div class="col-md-5 d-flex justify-content-around">
               <button type="submit" class="btn btn-submit">Submit</button>
-              <button type="button" class="btn btn-update">Update</button>
+              <!-- <button type="button" class="btn btn-update">Update</button> -->
               <button type="button" class="btn btn-danger" (click)="onReset()">Reset</button>
             </div>
           </div>
@@ -58,7 +58,7 @@
               <ng-template let-row let-index="index">
               
                 <td>
-                  <span class="">{{ row.sno }}</span>
+                  <span class="">{{ row.priorityId }}</span>
                 </td>
                 <td>
                   <div class="">{{ row.priorityName }}</div>
@@ -67,15 +67,18 @@
                   <div class="">{{ row.priorityNameAr }}</div>
                 </td>
                 <td>
-                  <div class="">{{ row.status }}</div>
+                  <div  *ngIf="row.status === 1" class="">Active</div>
+                  <div  *ngIf="row.status === 0" class="">In Active</div>
                 </td>
                 <td>
-                  <div class="">{{ row.createdBy }}</div>
+                  <div class="">{{ row.createdByUserName }}</div>
                 </td>
                 <td>
-                  <div class="">{{ row.createdBy }}</div>
+                  <div class="">{{ row.createdDate }}</div>
                 </td>
-                
+                 <td>
+                  <button class="btn table-btn btn-edit" (click)="openModal(content, row)">Edit</button>
+                </td>
               </ng-template>
             </ngx-table>
           </ng-scrollbar>
@@ -91,3 +94,59 @@
   
 
   <!-- <app-table></app-table> -->
+  <ng-template #content let-modal>
+    <div class="modal-header justify-content-center">
+      <h4 class="modal-title" id="modal-basic-title"> update</h4>
+      
+    </div>
+    <div class="modal-body ">
+      <form [formGroup]="editData" (ngSubmit)="onEdit()">
+        <div class="p-2 row">
+            <label class="p-0 mb-1">Priority Name</label>
+            <input 
+            type="text"
+            formControlName="priorityName"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f['priorityName'].errors }"/>
+            <div *ngIf="submitted && f['priorityName'].errors" class="invalid-feedback">
+            <div *ngIf="f['priorityName'].errors['required']">
+              Priority Name is required
+            </div>
+            </div>
+        </div>
+    
+        <div class="p-2 row">
+            <label class="p-0 mb-1">Priority Name in Arabic</label>
+            <input
+            type="text"
+            formControlName="priorityNameAr"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f['priorityNameAr'].errors }"/>
+            <div *ngIf="submitted && f['priorityNameAr'].errors" class="invalid-feedback">
+            <div *ngIf="f['priorityNameAr'].errors['required']">
+              Priority Name in Arabic is required
+            </div>
+            </div>
+        </div>
+        <div class="p-2 row">
+          <label class="p-0 mb-1">Status</label>
+          <input
+          type="text"
+          formControlName="status"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f['status'].errors }"/>
+      </div>
+        <div class="p-2 row">
+          <input 
+          type="hidden"
+          formControlName="priorityId"
+          class="form-control">
+          </div>
+          <pre>{{ selected }}</pre>    
+      </form>
+    </div>
+    <div class="modal-footer mb-2 justify-content-center">
+      <button type="button" class="btn btn-update mx-2" (click)="onUpdate()">Update</button>
+      <button type="button" class="btn btn-danger mx-2" (click)="modal.dismiss('Cross click')">Cancel</button>
+    </div>
+  </ng-template>

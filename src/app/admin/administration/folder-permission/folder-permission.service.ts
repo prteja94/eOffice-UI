@@ -20,5 +20,18 @@ getTableData(): Observable<any> {
   return this.http.get(this.apiUrl);
 }
 
+update(extLocData : any): Observable<any> {
+  return this.http.put(this.apiUrl, extLocData,{observe: 'response'});
+}
 
+}
+
+export interface FolderPermissionMaster {
+  indexvalue: number,
+  folderId: number,
+  permissionType: string,
+  folderNameAr: string,
+  status: number,
+  createdByUserName: string,
+  createdDate: string   
 }

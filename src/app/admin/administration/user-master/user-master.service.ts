@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ExternalLocationService {
+export class UserMasterService {
 
   constructor(private http:HttpClient) { }
 
@@ -24,11 +24,13 @@ export class ExternalLocationService {
   }
 }
 
-export interface ExternalLocationMaster {
-  locationId: number,
-  locationName: string,
-  locationNameAr: string,
-  status: number,
-  createdByUserName: string,
-  createdDate: string   
+export interface UserMaster {
+  loginId: number,
+  displayName: string,
+  firstName: string,
+  lastName: number,
+  ldapIdentifier: string,
+  hiredDate: string,
+  dob: string,
+  designation: string 
 }

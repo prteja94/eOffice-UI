@@ -1,20 +1,18 @@
 
 
 <section class="ejob-section" >
-	<ng-scrollbar class="w-100 h-100">
-
-   
+	<ng-scrollbar class="w-100 h-100">   
           <form class="row g-3 justify-content-center datasearch" [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="col-md-3 ">
               <label class="mb-1">Permission Name</label>
               <input
               type="text"
-              formControlName="permissionName"
+              formControlName="assignPermName"
               class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f['permissionName'].errors }"
+              [ngClass]="{ 'is-invalid': submitted && f['assignPermName'].errors }"
               />
-              <div *ngIf="submitted && f['permissionName'].errors" class="invalid-feedback">
-              <div *ngIf="f['permissionName'].errors['required']">
+              <div *ngIf="submitted && f['assignPermName'].errors" class="invalid-feedback">
+              <div *ngIf="f['assignPermName'].errors['required']">
                 Permission Name is required
               </div>
               </div>
@@ -24,12 +22,12 @@
               <label class="mb-1">Permission Name in Arabic</label>
               <input
               type="text"
-              formControlName="permissionAribic"
+              formControlName="assignPermNameAr"
               class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f['permissionAribic'].errors }"
+              [ngClass]="{ 'is-invalid': submitted && f['assignPermNameAr'].errors }"
               />
-              <div *ngIf="submitted && f['permissionAribic'].errors" class="invalid-feedback">
-              <div *ngIf="f['permissionAribic'].errors['required']">
+              <div *ngIf="submitted && f['assignPermNameAr'].errors" class="invalid-feedback">
+              <div *ngIf="f['assignPermNameAr'].errors['required']">
                 permission Name in Arabic is required
               </div>
               </div>
@@ -39,14 +37,9 @@
           <div class="row btn-row justify-content-center">
             <div class="col-md-5 d-flex justify-content-around">
               <button type="submit" class="btn btn-submit">Submit</button>
-              <!-- <button type="button" class="btn btn-save">Save</button> -->
-              <button type="button" class="btn btn-update">Update</button>
               <button type="button" class="btn btn-danger" (click)="onReset()">Reset</button>
             </div>
-          </div>
-       
-           
-  
+          </div>                    
           </form>
     
   
@@ -57,35 +50,90 @@
           <ng-scrollbar class="table-height" style="height: 59vh;">
           <ngx-table [configuration]="configuration" [data]="data" [columns]="columns" > 
               <ng-template let-row let-index="index">
-
                 <td>
-                  <span class="">{{ row.sno }}</span>
+                  <span class="">{{ row.assignId }}</span>
                 </td>
                 <td>
-                  <div class="">{{ row.permissionName }}</div>
+                  <div class="">{{ row.assignPermName }}</div>
                 </td>
                 <td>
-                  <div class="">{{ row.permissionNameAr }}</div>
+                  <div class="">{{ row.assignPermNameAr }}</div>
                 </td>
                 <td>
-                  <div class="">{{ row.createdBy }}</div>
+                  <div  *ngIf="row.status === 1" class="">Active</div>
+                  <div  *ngIf="row.status === 0" class="">In Active</div>
                 </td>
                 <td>
-                  <div class="">{{ row.createdBy }}</div>
+                  <div class="">{{ row.createdByUserName }}</div>
                 </td>
-                
+                <td>
+                  <div class="">{{ row.createdDate }}</div>
+                </td>   
+                <td>
+                  <button class="btn table-btn btn-edit" (click)="openModal(content, row)">Edit</button>
+                </td>             
               </ng-template>
             </ngx-table>
-          </ng-scrollbar>
-       
-    
+          </ng-scrollbar>           
       </div>
     </div>
-    
-
-
     </ng-scrollbar>
 </section>
   
 
   <!-- <app-table></app-table> -->
+  <ng-template #content let-modal>
+    <div class="modal-header justify-content-center">
+      <h4 class="modal-title" id="modal-basic-title">update</h4>      
+    </div>
+    <div class="modal-body ">
+      <form [formGroup]="editData" (ngSubmit)="onEdit()">
+        <div class="p-2 row">
+            <label class="p-0 mb-1">Permission Name</label>
+            <input 
+            type="text"
+            formControlName="assignPermName"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f['assignPermName'].errors }"/>
+            <div *ngIf="submitted && f['assignPermName'].errors" class="invalid-feedback">
+            <div *ngIf="f['assignPermName'].errors['required']">
+              Permission Name is required
+            </div>
+            </div>
+        </div>
+    
+        <div class="p-2 row">
+            <label class="p-0 mb-1">Permission Name in Arabic</label>
+            <input
+            type="text"
+            formControlName="assignPermNameAr"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f['assignPermNameAr'].errors }"/>
+            <div *ngIf="submitted && f['assignPermNameAr'].errors" class="invalid-feedback">
+            <div *ngIf="f['assignPermNameAr'].errors['required']">
+              Permission Name in Arabic is required
+            </div>
+            </div>
+        </div>
+        <div class="p-2 row">
+          <label class="p-0 mb-1">Status</label>
+          <input
+          type="text"
+          formControlName="status"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f['status'].errors }"/>
+      </div>
+        <div class="p-2 row">
+          <input 
+          type="hidden"
+          formControlName="assignId"
+          class="form-control">
+          </div>
+          <pre>{{ selected }}</pre>    
+      </form>
+    </div>
+    <div class="modal-footer mb-2 justify-content-center">
+      <button type="button" class="btn btn-update mx-2" (click)="onUpdate()">Update</button>
+      <button type="button" class="btn btn-danger mx-2" (click)="modal.dismiss('Cross click')">Cancel</button>
+    </div>
+  </ng-template>

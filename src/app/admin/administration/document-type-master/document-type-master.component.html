@@ -9,12 +9,12 @@
               <label class="mb-1">Document Type Name</label>
               <input
               type="text"
-              formControlName="documentName"
+              formControlName="docTypeName"
               class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f['documentName'].errors }"
+              [ngClass]="{ 'is-invalid': submitted && f['docTypeName'].errors }"
               />
-              <div *ngIf="submitted && f['documentName'].errors" class="invalid-feedback">
-              <div *ngIf="f['documentName'].errors['required']">
+              <div *ngIf="submitted && f['docTypeName'].errors" class="invalid-feedback">
+              <div *ngIf="f['docTypeName'].errors['required']">
                 Document Type Name is required
               </div>
               </div>
@@ -24,12 +24,12 @@
               <label class="mb-1">Document Type Name in Arabic</label>
               <input
               type="text"
-              formControlName="documentAribic"
+              formControlName="docTypeNameAr"
               class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f['documentAribic'].errors }"
+              [ngClass]="{ 'is-invalid': submitted && f['docTypeNameAr'].errors }"
               />
-              <div *ngIf="submitted && f['documentAribic'].errors" class="invalid-feedback">
-              <div *ngIf="f['documentAribic'].errors['required']">
+              <div *ngIf="submitted && f['docTypeNameAr'].errors" class="invalid-feedback">
+              <div *ngIf="f['docTypeNameAr'].errors['required']">
                 Document Type Name in Arabic is required
               </div>
               </div>
@@ -39,7 +39,6 @@
           <div class="row btn-row justify-content-center">
             <div class="col-md-5 d-flex justify-content-around">
               <button type="submit" class="btn btn-submit">Submit</button>
-              <button type="button" class="btn btn-update">Update</button>
               <button type="button" class="btn btn-danger" (click)="onReset()">Reset</button>
             </div>
           </div>
@@ -57,21 +56,27 @@
           <ngx-table [configuration]="configuration" [data]="data" [columns]="columns" > 
               <ng-template let-row let-index="index">
                 <td>
-                  <span class="">{{ row.sno }}</span>
+                  <span class="">{{ row.docTypeId }}</span>
                 </td>
                 <td>
-                  <div class="">{{ row.documentTypeName }}</div>
+                  <div class="">{{ row.docTypeName }}</div>
                 </td>
                 <td>
-                  <div class="">{{ row.documentTypeNameAr }}</div>
+                  <div class="">{{ row.docTypeNameAr }}</div>
                 </td>
                 <td>
-                  <div class="">{{ row.createdBy }}</div>
+                  <div  *ngIf="row.status === 1" class="">Active</div>
+                  <div  *ngIf="row.status === 0" class="">In Active</div>
                 </td>
                 <td>
-                  <div class="">{{ row.createdBy }}</div>
+                  <div class="">{{ row.createdByUserName }}</div>
                 </td>
-                
+                <td>
+                  <div class="">{{ row.createdDate }}</div>
+                </td>   
+                <td>
+                  <button class="btn table-btn btn-edit" (click)="openModal(content, row)">Edit</button>
+                </td>              
               </ng-template>
             </ngx-table>
           </ng-scrollbar>
@@ -87,3 +92,58 @@
   
 
   <!-- <app-table></app-table> -->
+  <ng-template #content let-modal>
+    <div class="modal-header justify-content-center">
+      <h4 class="modal-title" id="modal-basic-title">Update</h4>
+    </div>
+    <div class="modal-body ">
+      <form [formGroup]="editData" (ngSubmit)="onEdit()">
+        <div class="p-2 row">
+            <label class="p-0 mb-1">Classificaton Name</label>
+            <input 
+            type="text"
+            formControlName="docTypeName"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f['docTypeName'].errors }"/>
+            <div *ngIf="submitted && f['docTypeName'].errors" class="invalid-feedback">
+            <div *ngIf="f['docTypeName'].errors['required']">
+              Document Type Name is required
+            </div>
+            </div>
+        </div>
+    
+        <div class="p-2 row">
+            <label class="p-0 mb-1">Classificaton Name in Arabic</label>
+            <input
+            type="text"
+            formControlName="docTypeNameAr"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f['docTypeNameAr'].errors }"/>
+            <div *ngIf="submitted && f['docTypeNameAr'].errors" class="invalid-feedback">
+            <div *ngIf="f['docTypeNameAr'].errors['required']">
+              Document Type Name in Arabic is required
+            </div>
+            </div>
+        </div>
+        <div class="p-2 row">
+          <label class="p-0 mb-1">Status</label>
+          <input
+          type="text"
+          formControlName="status"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f['status'].errors }"/>
+      </div>
+        <div class="p-2 row">
+          <input 
+          type="hidden"
+          formControlName="classId"
+          class="form-control">
+          </div>
+          <pre>{{ selected }}</pre>    
+      </form>
+    </div>
+    <div class="modal-footer mb-2 justify-content-center">
+      <button type="button" class="btn btn-update mx-2" (click)="onUpdate()">Update</button>
+      <button type="button" class="btn btn-danger mx-2" (click)="modal.dismiss('Cross click')">Cancel</button>
+    </div>
+  </ng-template>

@@ -18,13 +18,17 @@ export class PrivilegeMasterService {
   getTableData(): Observable<any> {
     return this.http.get(this.apiUrl);
   }
+
+  update(privData : any): Observable<any> {
+    return this.http.put(this.apiUrl, privData,{observe: 'response'});
+  }
 }
 
-export interface RoleMaster {
-  roleId: number,
-  roleName: string,
-  roleNameAr: string,
-  createdByuserId: string,
+export interface PrivilegeMaster {
+  privilegeId: number,
+  privilegeName: string,
+  privilegeNameAr: string,
+  status: number,
   createdByuserName: string,
   createdDate: string  
   

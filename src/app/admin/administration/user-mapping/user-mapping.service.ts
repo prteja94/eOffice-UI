@@ -5,11 +5,11 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ExternalLocationService {
+export class UserMappingService {
 
   constructor(private http:HttpClient) { }
 
-  private apiUrl = 'http://localhost:8081/admin/ext-location';
+  private apiUrl = 'http://localhost:8081/admin/user-map';
 
   create(extLocData: any): Observable<any> {
     return this.http.post(this.apiUrl, extLocData);
@@ -24,11 +24,12 @@ export class ExternalLocationService {
   }
 }
 
-export interface ExternalLocationMaster {
-  locationId: number,
-  locationName: string,
-  locationNameAr: string,
-  status: number,
-  createdByUserName: string,
-  createdDate: string   
+export interface UserMappingMaster {
+  indexvalue: number,
+  userId: string,
+  orgId: string,
+  roleId: number,
+  superiorUserId: string,
+  createdDate: string,
+  status: string   
 }
