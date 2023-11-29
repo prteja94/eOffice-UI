@@ -1,0 +1,32 @@
+/* Form Styles */
+
+.form-control,.form-select{
+  border-radius: 0;
+  border-color: $border-color;
+}
+.form-select:focus {
+  box-shadow: 0 0 0 0rem rgba(13, 110, 253, 0.25);
+}
+.form-control,
+  .form-select{
+    color:#636b73;
+  }
+
+
+
+.datasearch{
+  width:99%;
+  margin: 0 auto;
+
+
+  label{
+    font-weight: bold;
+    color:#636b73;
+  }
+
+  .form-control,
+  .form-select{
+    color:#636b73;
+  }
+
+}

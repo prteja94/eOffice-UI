@@ -1,0 +1,171 @@
+<section class="ejob-section">  
+	<ng-scrollbar class="w-100 h-100">
+          <form class="row g-3 datasearch justify-content-center" [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="col-md-3 ">
+              <label class="mb-1">Org Type Name</label>
+              <input
+              type="text"
+              formControlName="orgTypeName"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f['orgTypeName'].errors }"
+              />
+              <div *ngIf="submitted && f['orgTypeName'].errors" class="invalid-feedback">
+              <div *ngIf="f['orgTypeName'].errors['required']">
+                Org Name is required
+              </div>
+              </div>
+          </div>
+      
+          <div class="col-md-3">
+              <label class="mb-1">Org Type Name in Arabic</label>
+              <input
+              type="text"
+              formControlName="orgTypeNameAr"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f['orgTypeNameAr'].errors }"
+              />
+              <div *ngIf="submitted && f['orgTypeNameAr'].errors" class="invalid-feedback">
+              <div *ngIf="f['orgTypeNameAr'].errors['required']">
+                Org Name in Arabic is required
+              </div>
+              </div>
+          </div>
+
+          <div class="col-md-3">
+            <label class="mb-1">Top Level</label>
+            <input
+            type="number"
+            formControlName="topLevel"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f['topLevel'].errors }"  min="0"
+            />
+            <div *ngIf="submitted && f['topLevel'].errors" class="invalid-feedback">
+            <div *ngIf="f['topLevel'].errors['required']">
+              Top Level is required
+            </div>
+            </div>
+        </div>
+      
+
+          <div class="row btn-row justify-content-center">
+            <div class="col-md-5 d-flex justify-content-around">
+              <button type="submit" class="btn btn-submit">Submit</button>
+              <button type="button" class="btn btn-danger" (click)="onReset()">Reset</button>
+            </div>
+          </div>
+          </form>  
+    <hr class="gradient-line">
+    <div class="row m-0 p-0 data">
+      <div class="table-result p-0 ">
+          <ng-scrollbar class="table-height" style="height: 59vh;">
+          <ngx-table [configuration]="configuration" [data]="data" [columns]="columns"> 
+              <ng-template let-row let-index="index">
+                <td>
+                  <span class="">{{ row.orgTypeId }}</span>
+                </td>
+                <td>
+                  <div class="">{{ row.orgTypeName }}</div>
+                </td>
+                <td>
+                  <div class="">{{ row.orgTypeNameAr }}</div>
+                </td>
+                <td>
+                  <div class="">{{ row.topLevel }}</div>
+                </td>
+                <td>
+                  <div  *ngIf="row.status === 1" class="">Active</div>
+                  <div  *ngIf="row.status === 0" class="">In Active</div>
+                </td>
+                <td>
+                  <div class="">{{ row.addedByUserName }}</div>
+                </td>
+                <td>
+                  <div class="">{{ row.addedOn }}</div>
+                </td>
+                <td>
+                  <button class="btn table-btn btn-edit" (click)="openModal(content, row)">Edit</button>
+                </td>
+              </ng-template>
+            </ngx-table>
+          </ng-scrollbar>
+      </div>
+    </div>
+    
+
+
+    </ng-scrollbar>
+</section>
+  
+
+  <!-- <app-table></app-table> -->
+  <ng-template #content let-modal>
+    <div class="modal-header justify-content-center">
+      <h4 class="modal-title" id="modal-basic-title"> update</h4>
+      
+    </div>
+    <div class="modal-body ">
+      <form [formGroup]="editData" (ngSubmit)="onEdit()">
+        <div class="p-2 row">
+            <label class="p-0 mb-1">Org Name</label>
+            <input 
+            type="text"
+            formControlName="orgTypeName"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f['orgTypeName'].errors }"/>
+            <div *ngIf="submitted && f['orgTypeName'].errors" class="invalid-feedback">
+            <div *ngIf="f['orgTypeName'].errors['required']">
+              Org Name is required
+            </div>
+            </div>
+        </div>
+    
+        <div class="p-2 row">
+            <label class="p-0 mb-1">Org Name in Arabic</label>
+            <input
+            type="text"
+            formControlName="orgTypeNameAr"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f['orgTypeNameAr'].errors }"/>
+            <div *ngIf="submitted && f['orgTypeNameAr'].errors" class="invalid-feedback">
+            <div *ngIf="f['orgTypeNameAr'].errors['required']">
+              Org Name in Arabic is required
+            </div>
+            </div>
+        </div>
+        <div class="p-2 row">
+          <label class="p-0 mb-1">Status</label>
+          <input
+          type="text"
+          formControlName="status"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f['status'].errors }"/>
+      </div>
+      <div class="p-2 row">
+        <label class="p-0 mb-1">Top Level</label>
+        <input
+        type="number"
+        formControlName="topLevel"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f['topLevel'].errors }"  min="0"
+        />
+        <div *ngIf="submitted && f['topLevel'].errors" class="invalid-feedback">
+        <div *ngIf="f['topLevel'].errors['required']">
+          Top Level is required
+        </div>
+        </div>
+    </div>
+        <div class="p-2 row">
+          <input 
+          type="hidden"
+          formControlName="orgTypeId"
+          class="form-control">
+          </div>
+          <pre>{{ selected }}</pre>
+    
+      </form>
+    </div>
+    <div class="modal-footer mb-2 justify-content-center">
+      <button type="button" class="btn btn-update mx-2" (click)="onUpdate()">Update</button>
+      <button type="button" class="btn btn-danger mx-2" (click)="modal.dismiss('Cross click')">Cancel</button>
+    </div>
+  </ng-template>

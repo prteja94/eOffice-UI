@@ -1,0 +1,155 @@
+/* Buttons */
+.btn{
+  
+}
+.btn-width{
+  padding: 0.6rem 2rem;
+  min-width: 145px;
+  font-size: 1rem;
+}
+.table-btn{
+  padding: 0.6rem 1rem;
+  min-width: 80px;
+  font-size: 0.8rem;
+
+}
+
+.ngb-dp-arrow{
+  .btn-date{
+    min-width: 100%;
+  }
+}
+
+
+.btn-submit{
+  background-color: #5ABA8A;
+  color: #ffffff;
+  outline: none;
+  border-radius: 0.15rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: none;
+
+  &:hover{
+    background-color: #429f71;
+    color: #ffffff;
+  }
+  &:active{
+    background-color: #429f71;
+    color: #ffffff;
+  }
+
+}
+
+.btn-save{
+  background-color: #27A243;
+  color: #ffffff;
+  outline: none;
+  border-radius: 0.15rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: none;
+
+  &:hover{
+    background-color: #13b038;
+    color: #ffffff;
+  }
+  &:active{
+    background-color: #13b038;
+    color: #ffffff;
+  }
+}
+
+.btn-update{
+  background-color: #FEB300;
+  color: #ffffff;
+  outline: none;
+  border-radius: 0.15rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: none;
+
+  &:hover{
+    background-color: #d19915;
+    color: #ffffff;
+  }
+  &:active{
+    background-color: #d19915;
+    color: #ffffff;
+  }
+}
+
+.btn-danger{
+  background-color: #FF6A6A;
+  color: #ffffff;
+  outline: none;
+  border-radius: 0.15rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: none;
+
+  &:hover{
+    background-color: #f83535;
+    color: #ffffff;
+  }
+  &:active{
+    background-color: #f83535;
+    color: #ffffff;
+  }
+}
+
+.btn-edit{
+  background-color: transparent;
+  color: #5ABA8A;
+  outline: none;
+  border-radius: 0.15rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-color: #5ABA8A;
+  padding: 0.2rem 1rem;
+
+  &:hover{
+    background-color: #429f71;
+    color: #ffffff;
+  }
+  &:active{
+    background-color: #429f71;
+    color: #ffffff;
+  }
+}
+
+
+
+.btn{
+
+  &.btn-submit.active, 
+  &.btn-submit:active,
+  &.btn-submit:focus-visible  {
+    color: #ffffff;
+    background-color: #5cb85c;
+    border-color: #5cb85c;
+  }
+
+  &.btn-update.active, 
+  &.btn-update:active,
+  &.btn-update:focus-visible  {
+    color: #ffffff;
+    background-color: #d19915;
+    border-color: #d19915;
+  }
+
+  &.btn-danger.active, 
+  &.btn-danger:active,
+  &.btn-danger:focus-visible  {
+    color: #ffffff;
+    background-color: #f83535;
+    border-color: #f83535;
+  }
+
+
+}
+
+.btn-row{
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
