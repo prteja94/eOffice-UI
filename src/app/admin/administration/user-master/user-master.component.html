@@ -105,7 +105,6 @@
             class="form-control"
             placeholder="yyyy-mm-dd"
             name="dp"
-            [(ngModel)]="model"
             ngbDatepicker
             #d="ngbDatepicker"
           />
@@ -177,25 +176,23 @@
               <ng-template let-row let-index="index">
   
                 <td>
-                  <span class="">{{ row.sno }}</span>
+                  <span class="">{{ row.indexValue }}</span>
                 </td>
                 <td>
-                  <div class="">{{ row.actionName }}</div>
+                  <div class="">{{ row.displayName }}</div>
                 </td>
                 <td>
-                  <div class="">{{ row.actionNameAr }}</div>
+                  <div class="">{{ row.ldapIdentifier }}</div>
                 </td>
                 <td>
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" [checked]="row.status === 'true'">
-                    <label class="form-check-label" for="flexSwitchCheckDefault">{{ row.status === 'true' ? 'Active' : 'In Active' }}</label>
-                  </div>
+                  <div  *ngIf="row.status === 1" class="">Active</div>
+                  <div  *ngIf="row.status === 0" class="">In Active</div>
                 </td>
                 <td>
-                  <div class="">{{ row.createdBy }}</div>
+                  <div class="">{{ row.designation }}</div>
                 </td>
                 <td>
-                  <div class="">{{ row.updatedON }}</div>
+                  <button class="btn table-btn btn-edit" (click)="openModal(content, row)">Edit</button>
                 </td>
               </ng-template>
             </ngx-table>
@@ -213,3 +210,59 @@
   
 
   <!-- <app-table></app-table> -->
+  <ng-template #content let-modal>
+    <div class="modal-header justify-content-center">
+      <h4 class="modal-title" id="modal-basic-title"> update</h4>
+      
+    </div>
+    <div class="modal-body ">
+      <form [formGroup]="editData" (ngSubmit)="onEdit()">
+        <div class="p-2 row">
+            <label class="p-0 mb-1">Display Name</label>
+            <input 
+            type="text"
+            formControlName="displayName"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f['displayName'].errors }"/>
+            <div *ngIf="submitted && f['displayName'].errors" class="invalid-feedback">
+            <div *ngIf="f['displayName'].errors['required']">
+              Display Name is required
+            </div>
+            </div>
+        </div>
+    
+        <div class="p-2 row">
+            <label class="p-0 mb-1">Designation</label>
+            <input
+            type="text"
+            formControlName="designation"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f['designation'].errors }"/>
+            <div *ngIf="submitted && f['designation'].errors" class="invalid-feedback">
+            <div *ngIf="f['designation'].errors['required']">
+              Designation is required
+            </div>
+            </div>
+        </div>
+        <div class="p-2 row">
+          <label class="p-0 mb-1">Status</label>
+          <input
+          type="text"
+          formControlName="status"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f['status'].errors }"/>
+      </div>
+        <div class="p-2 row">
+          <input 
+          type="hidden"
+          formControlName="priorityId"
+          class="form-control">
+          </div>
+          <pre>{{ selected }}</pre>    
+      </form>
+    </div>
+    <div class="modal-footer mb-2 justify-content-center">
+      <button type="button" class="btn btn-update mx-2" (click)="onUpdate()">Update</button>
+      <button type="button" class="btn btn-danger mx-2" (click)="modal.dismiss('Cross click')">Cancel</button>
+    </div>
+  </ng-template>

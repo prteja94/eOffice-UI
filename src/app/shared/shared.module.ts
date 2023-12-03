@@ -78,8 +78,8 @@ import { MaterialModule } from './ng-material/ng-material.module';
     HttpClientModule,
     NgIf,
     NgFor,
-    TableModule
-    
+    TableModule,
+    TranslationModule
     
   ]
 })

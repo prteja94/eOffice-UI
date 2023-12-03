@@ -4,6 +4,7 @@ import {
   ChangeDetectorRef,
   Component,
   OnInit,
+  TemplateRef,
   ViewChild, } from '@angular/core';
 import {
   Validators,
@@ -11,11 +12,12 @@ import {
   FormBuilder,
   FormGroup,
   FormControl,
+  UntypedFormBuilder,
+  UntypedFormGroup,
 } from '@angular/forms';
-import Validation from '../../../shared/validation';
-import { Tabledata, data } from '../../../../assets/active-master';
 import { API, Columns, APIDefinition, DefaultConfig, Config } from 'ngx-easy-table';
-import { NgbAlertModule, NgbDatepickerModule, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbAlertModule, NgbDatepickerModule, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UserMaster, UserMasterService } from './user-master.service';
 
 
 @Component({
@@ -34,34 +36,51 @@ export class UserMasterComponent implements OnInit{
 
   @ViewChild('table') table: APIDefinition;
 
+  dataList: UserMaster[] = [];
+  filterArray: UserMaster[] = [];
+  dataDetail: UserMaster | null = null;
+  config: any;
+  selected:any;
+  editData: UntypedFormGroup | any;
+
   public configuration: Config;
   public columns: Columns[];
-  public data: Tabledata[] = [];
-  public selected = new Set();
+  public data: UserMaster[] = [];
+  userData : UserMaster | null;
 
-  model: NgbDateStruct;
-
-  constructor(private formBuilder: FormBuilder, private cdr: ChangeDetectorRef) {}
+  constructor(private formBuilder: FormBuilder, private cdr: ChangeDetectorRef,
+    private userMasterService: UserMasterService,
+    private fb: UntypedFormBuilder,
+    private modalService: NgbModal) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group(
       {
-        actionName: ['', Validators.required],
-        actionAribic: ['', Validators.required],
-      
+        loginId: ['', Validators.required],
+        displayName: ['', Validators.required],
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        ldapIdentifier: ['', Validators.required],
+        hiredDate: ['', Validators.required],
+        designation: ['', Validators.required]     
       }
       
     );
 
     this.columns = [
-      { key: 'sno', title: 'S.No', width: '5%'  },
-      { key: 'actionName', title: 'Action Name' },
-      { key: 'actionNameAr', title: 'Action Name Ar' },
+      { key: 'indexValue', title: 'S.No', width: '5%'  },
+      { key: 'displayName', title: 'Display Name' },
+      { key: 'ldapIdentifier', title: 'Ldap Identifier' },
       { key: 'status', title: 'Status'},
-      { key: 'createdBy', title: 'CreatedBy' },
-      { key: 'updatedON', title: 'Created On / Updated On' }
+      { key: 'designation', title: 'Designation' },
+      { key: 'isActive', title: 'Edit Data' , searchEnabled: false}
+
     ];
-    this.data = data;
+    //this.data = data;
+
+    this.userMasterService.getTableData().subscribe((response) => {
+      this.data=response;
+    })
 
     this.configuration = { ...DefaultConfig };
     //this.configuration.infiniteScroll = true;
@@ -84,6 +103,10 @@ export class UserMasterComponent implements OnInit{
       return;
     }
 
+    this.userMasterService.create(this.form.value).subscribe((response) => {
+      console.log(response);
+    })
+
     console.log(JSON.stringify(this.form.value, null, 2));
   }
 
@@ -100,6 +123,71 @@ export class UserMasterComponent implements OnInit{
     } else {
       this.selected.add(index);
     }
+  }
+
+  closeResult = '';
+
+  openModal(content: TemplateRef<any>,  userData: UserMaster | null) {
+		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true }).result.then(
+			(result) => {
+				this.closeResult = `Closed with: ${result}`;
+			},
+			(reason) => {
+				this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+			},
+    );
+    
+    if (userData != null) {
+      this.dataDetail = userData;
+      console.log(userData);
+      this.editData?.patchValue({
+        indexValue: userData.indexValue,
+        loginId: userData.loginId,
+        displayName: userData.displayName,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        ldapIdentifier: userData.ldapIdentifier,
+        hiredDate: userData.hiredDate,
+        dob: userData.dob,
+        designation: userData.designation,
+        status: userData.status
+      });
+    }
+  }
+
+  private getDismissReason(reason: any): string {
+		switch (reason) {
+			case ModalDismissReasons.ESC:
+				return 'by pressing ESC';
+			case ModalDismissReasons.BACKDROP_CLICK:
+				return 'by clicking on a backdrop';
+			default:
+				return `with: ${reason}`;
+		}
+	}
+
+  
+  onEdit() {
+    if (this.userData) {
+      if (this.editData != null) {
+        this.userData.indexValue = this.editData.get('indexValue')?.value;
+        this.userData.designation = this.editData.get('designation')?.value;
+        this.userData.displayName = this.editData.get('displayName')?.value;
+        this.userData.status=this.editData.get('status')?.value;
+      }
+    }
+  }
+
+  onUpdate() {
+    console.log(this.editData.value);
+    this.userMasterService.update(this.editData.value).subscribe((response) => {
+      if(response.status === 201){
+        this.modalService.dismissAll('close');
+        this.userMasterService.getTableData().subscribe((response) => {
+          this.data=response;
+        })
+      }
+    })
   }
 }
 

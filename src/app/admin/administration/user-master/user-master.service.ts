@@ -9,7 +9,7 @@ export class UserMasterService {
 
   constructor(private http:HttpClient) { }
 
-  private apiUrl = 'http://localhost:8081/admin/ext-location';
+  private apiUrl = 'http://localhost:8081/admin/user';
 
   create(extLocData: any): Observable<any> {
     return this.http.post(this.apiUrl, extLocData);
@@ -25,6 +25,7 @@ export class UserMasterService {
 }
 
 export interface UserMaster {
+  indexValue : number,
   loginId: number,
   displayName: string,
   firstName: string,
@@ -33,4 +34,5 @@ export interface UserMaster {
   hiredDate: string,
   dob: string,
   designation: string 
+  status: string
 }

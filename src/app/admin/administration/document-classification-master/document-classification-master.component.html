@@ -1,6 +1,4 @@
-
-
-<section class="ejob-section" >
+<section class="ejob-section">
 	<ng-scrollbar class="w-100 h-100">
           <form class="row g-3 datasearch justify-content-center" [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="col-md-3 ">
@@ -19,7 +17,7 @@
           </div>
       
           <div class="col-md-3">
-              <label class="mb-1">Classificaton Name in Arabic</label>
+              <label class="mb-1">{{ 'Classifcation' | translate }}</label>
               <input
               type="text"
               formControlName="classNameAr"

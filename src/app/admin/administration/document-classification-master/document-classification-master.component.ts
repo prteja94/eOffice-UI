@@ -15,7 +15,7 @@ import {
   FormGroup,
   FormControl,
   UntypedFormGroup,
-  UntypedFormBuilder,
+  UntypedFormBuilder
 } from '@angular/forms';
 import Validation from '../../../shared/validation';
 import { Tabledata, data } from '../../../../assets/data-form';
