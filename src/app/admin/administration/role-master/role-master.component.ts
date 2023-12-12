@@ -22,6 +22,7 @@ import { Tabledata, data } from '../../../../assets/data-form';
 import { API, Columns, APIDefinition, DefaultConfig, Config } from 'ngx-easy-table';
 import { RoleMaster, RoleMasterService } from './role-master.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService,ToastrModule } from 'ngx-toastr';
 
 @Component({
   selector: 'app-role-master',
@@ -51,7 +52,8 @@ export class RoleMasterComponent implements OnInit{
   constructor(private formBuilder: FormBuilder, private cdr: ChangeDetectorRef,
      private rolemasterService: RoleMasterService,
      private fb: UntypedFormBuilder,
-    private modalService: NgbModal) {}
+    private modalService: NgbModal,
+    private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group(
@@ -59,8 +61,7 @@ export class RoleMasterComponent implements OnInit{
         roleName: ['', Validators.required],
         roleNameAr: ['', Validators.required],
         createdByUserId: ['1']
-      }
-      
+      }      
     );
 
     this.columns = [
@@ -107,11 +108,16 @@ export class RoleMasterComponent implements OnInit{
     if (this.form.invalid) {
       return;
     }
-
     this.rolemasterService.create(this.form.value).subscribe((response) => {
-      console.log(response);
+      if(response.status === 201) {
+        this.toastr.success('Data is Saved', 'Successfully', {
+          disableTimeOut: true,
+        });
+        this.rolemasterService.getTableData().subscribe((response) => {
+          this.data=response;
+        })
+      }
     })
-
     console.log(JSON.stringify(this.form.value, null, 2));
   }
 
@@ -178,8 +184,20 @@ onEdit() {
 onUpdate() {
   console.log(this.editData.value);
   this.rolemasterService.update(this.editData.value).subscribe((response) => {
-    console.log(response);
+    if(response.status === 201){
+      this.modalService.dismissAll('close');
+      this.rolemasterService.getTableData().subscribe((response) => {
+        this.data=response;
+      })
+    }
   })
 }
+
+showSuccess() {
+  this.toastr.success('You are awesome!', 'Success! dfdf', {
+    disableTimeOut: true,
+  });
+}
+
 }
 

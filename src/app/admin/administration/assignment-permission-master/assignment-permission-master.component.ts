@@ -114,7 +114,11 @@ export class AssignmentPermissionMasterComponent implements OnInit{
     }
 
     this.assignmentPermissionMasterService.create(this.form.value).subscribe((response) => {
-      console.log(response);
+      if(response.status === 201 || response.status === 200){
+        this.assignmentPermissionMasterService.getTableData().subscribe((response) => {
+          this.data=response;
+        })
+      }
     })
 
     console.log(JSON.stringify(this.form.value, null, 2));
@@ -184,7 +188,7 @@ export class AssignmentPermissionMasterComponent implements OnInit{
 
   onUpdate() {
     this.assignmentPermissionMasterService.update(this.editData.value).subscribe((response) => {
-      if(response.status === 201){
+      if(response.status === 201 || response.status === 200){
         this.modalService.dismissAll('close');
         this.assignmentPermissionMasterService.getTableData().subscribe((response) => {
           this.data=response;

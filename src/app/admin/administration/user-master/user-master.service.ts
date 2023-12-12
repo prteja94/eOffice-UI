@@ -25,7 +25,7 @@ export class UserMasterService {
 }
 
 export interface UserMaster {
-  indexValue : number,
+  indexvalue : number,
   loginId: number,
   displayName: string,
   firstName: string,

@@ -24,7 +24,21 @@ export class OrgNameService {
   }
 
   update(orgUnit : any): Observable<any> {
-    return this.http.put(this.apiUrl, orgUnit);
+    return this.http.put(this.apiUrl, orgUnit,{observe: 'response'});
   }
 
 }
+
+
+export interface OrgUnit {
+  orgId: number,
+  orgName: string,
+  orgNameAr: string,
+  status: number,
+  topOrgId: number,
+  parentOrgId: number,
+  orgTypeId: number,
+  addedByUserName: string,
+  addedOn: string,
+  updatedByUserId: number
+} 

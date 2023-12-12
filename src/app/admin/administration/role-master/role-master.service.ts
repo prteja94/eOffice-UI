@@ -21,7 +21,7 @@ export class RoleMasterService {
   }
 
   update(roleData : any): Observable<any> {
-    return this.http.put(this.apiUrl, roleData);
+    return this.http.put(this.apiUrl, roleData,{observe: 'response'});
   }
 
 }

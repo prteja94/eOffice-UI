@@ -61,6 +61,10 @@
                   <div class="">{{ row.locationNameAr }}</div>
                 </td>
                 <td>
+                  <div  *ngIf="row.status === 1" class="">Active</div>
+                  <div  *ngIf="row.status === 0" class="">In Active</div>
+                </td>
+                <td>
                   <div class="">{{ row.createdByUserName }}</div>
                 </td>
                 <td>
@@ -114,11 +118,11 @@
         </div>
         <div class="p-2 row">
           <label class="p-0 mb-1">Status</label>
-          <input
-          type="text"
-          formControlName="status"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f['status'].errors }"/>
+          <select class="form-select" formControlName="status"
+          [ngClass]="{ 'is-invalid': submitted && f['status'].errors }">
+            <option value="1">Active</option> 
+            <option  value="0">In Active</option> 
+          </select>
       </div>
         <div class="p-2 row">
           <input 

@@ -1,22 +1,14 @@
-
-
 <section class="ejob-section" >
 	<ng-scrollbar class="w-100 h-100">
-
     <div class="row justify-content-center">
     <div class="col-md-8">
           <form class="row g-3 datasearch " [formGroup]="form" (ngSubmit)="onSubmit()">
-
-          
           <div class="col-md-6 ">
               <label class="mb-1">User </label>
               <select class="form-select" formControlName="userId"
               [ngClass]="{ 'is-invalid': submitted && f['userId'].errors }">
-                <option>Choose Your Option</option>
-                <option>User 1</option>
-                <option>User 2</option>
-                <option>User 3</option>
-                <option>User 4</option>
+              <option value="" disabled [defaultSelected]="true">Choose Your Option</option>
+              <option *ngFor="let web of userData">{{web.displayName}}</option> 
               </select>
               <div *ngIf="submitted && f['userId'].errors" class="invalid-feedback">
               <div *ngIf="f['userId'].errors['required']">
@@ -29,11 +21,8 @@
             <label class="mb-1">Top Org Unit </label>
             <select class="form-select" formControlName="userId"
             [ngClass]="{ 'is-invalid': submitted && f['userId'].errors }">
-              <option>Choose Your Option</option>
-              <option>Top Org Unit 1</option>
-              <option>Top Org Unit 2</option>
-              <option>Top Org Unit 3</option>
-              <option>Top Org Unit 4</option>
+            <option value="" disabled [defaultSelected]="true">Choose Your Option</option>
+            <option *ngFor="let web of orgTypeData">{{web.orgTypeName}}</option> 
             </select>
             <div *ngIf="submitted && f['userId'].errors" class="invalid-feedback">
             <div *ngIf="f['userId'].errors['required']">
@@ -46,11 +35,8 @@
             <label class="mb-1">Org Unit</label>
             <select class="form-select" formControlName="userId"
             [ngClass]="{ 'is-invalid': submitted && f['userId'].errors }">
-              <option>Choose Your Option</option>
-              <option>Org Unit 1</option>
-              <option>Org Unit 2</option>
-              <option>Org Unit 3</option>
-              <option>Org Unit 4</option>
+            <option value="" disabled [defaultSelected]="true">Choose Your Option</option>
+            <option *ngFor="let web of orgNameData">{{web.orgName}}</option> 
             </select>
             <div *ngIf="submitted && f['userId'].errors" class="invalid-feedback">
             <div *ngIf="f['userId'].errors['required']">
@@ -63,11 +49,8 @@
             <label class="mb-1">Role</label>
             <select class="form-select" formControlName="userId"
             [ngClass]="{ 'is-invalid': submitted && f['userId'].errors }">
-              <option>Choose Your Option</option>
-              <option>Role 1</option>
-              <option>Role 2</option>
-              <option>Role 3</option>
-              <option>Role 4</option>
+            <option value="" disabled [defaultSelected]="true">Choose Your Option</option>
+            <option *ngFor="let web of roleData">{{web.roleName}}</option> 
             </select>
             <div *ngIf="submitted && f['userId'].errors" class="invalid-feedback">
             <div *ngIf="f['userId'].errors['required']">

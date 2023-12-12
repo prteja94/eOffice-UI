@@ -13,10 +13,16 @@ import {
   FormBuilder,
   FormGroup,
   FormControl,
+  UntypedFormBuilder,
 } from '@angular/forms';
 import Validation from '../../../shared/validation';
 import { Tabledata, data } from '../../../../assets/data-form';
 import { API, Columns, APIDefinition, DefaultConfig, Config } from 'ngx-easy-table';
+import { UserMappingService } from './user-mapping.service';
+import { UserMaster, UserMasterService } from '../user-master/user-master.service';
+import { OrgType, OrgTypeService } from '../org-type/org-type.service';
+import { OrgNameService, OrgUnit } from '../org-name/org-name.service';
+import { RoleMaster, RoleMasterService } from '../role-master/role-master.service';
 
 @Component({
   selector: 'app-user-mapping',
@@ -38,9 +44,19 @@ export class UserMappingComponent implements OnInit{
   public columns: Columns[];
   public data: Tabledata[] = [];
   public selected = new Set();
+  userData: UserMaster[] = [];
+  orgTypeData: OrgType[] = [];
+  orgNameData: OrgUnit[] = [];
+  roleData: RoleMaster[] = [];
 
 
-  constructor(private formBuilder: FormBuilder, private cdr: ChangeDetectorRef) {}
+  constructor(private formBuilder: FormBuilder, private cdr: ChangeDetectorRef,
+    private userMappingService: UserMappingService,
+     private userMasterService: UserMasterService,
+     private fb: UntypedFormBuilder,
+     private orgTypeService: OrgTypeService,
+     private orgNameService: OrgNameService,
+     private roleMasterService: RoleMasterService) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group(
@@ -65,7 +81,11 @@ export class UserMappingComponent implements OnInit{
       { key: 'createddate', title: 'Created Date' },
       { key: 'updatedON', title: 'Created On / Updated On' }
     ];
-    this.data = data;
+   // this.data = data;
+
+    this.userMappingService.getTableData().subscribe((response) => {
+      this.data = response;
+    });
 
     this.configuration = { ...DefaultConfig };
     //this.configuration.infiniteScroll = true;
@@ -75,6 +95,22 @@ export class UserMappingComponent implements OnInit{
     this.configuration.resizeColumn = true;
     this.configuration.fixedColumnWidth = false;
     //this.configuration.checkboxes = true;
+
+    this.userMasterService.getTableData().subscribe((response) => {
+      this.userData = response;
+    });
+
+    this.orgTypeService.getTableData().subscribe((response) => {
+      this.orgTypeData = response;
+    });
+
+    this.orgNameService.getTableData().subscribe((response) => {
+      this.orgNameData = response;
+    });
+
+    this.roleMasterService.getTableData().subscribe((response) => {
+      this.roleData = response;
+    })
   }
 
   get f(): { [key: string]: AbstractControl } {
@@ -87,8 +123,11 @@ export class UserMappingComponent implements OnInit{
     if (this.form.invalid) {
       return;
     }
-
+    this.userMappingService.create(this.form.value).subscribe((response) => {
+      console.log(response);
+    })
     console.log(JSON.stringify(this.form.value, null, 2));
+    this.form.reset();
   }
 
   onReset(): void {

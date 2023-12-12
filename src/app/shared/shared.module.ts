@@ -35,6 +35,7 @@ import { TranslationModule } from './translation.module';
 
 import { NgBootstrapModule } from './ng-bootstarp/ng-bootstarp.module';
 import { MaterialModule } from './ng-material/ng-material.module';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { MaterialModule } from './ng-material/ng-material.module';
     NgIf,
     NgFor,
     JsonPipe,
-    TranslationModule
+    TranslationModule,
+    ToastrModule
     
     
   ],
@@ -79,7 +81,8 @@ import { MaterialModule } from './ng-material/ng-material.module';
     NgIf,
     NgFor,
     TableModule,
-    TranslationModule
+    TranslationModule,
+    ToastrModule
     
   ]
 })

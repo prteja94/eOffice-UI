@@ -1,20 +1,16 @@
-
-
-<section class="ejob-section" >
+<section class="ejob-section">
 	<ng-scrollbar class="w-100 h-100">
-
-   
           <form class="row g-3 datasearch justify-content-center" [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="col-md-3 ">
               <label class="mb-1">Folder Name</label>
               <input
               type="text"
-              formControlName="actionName"
+              formControlName="folderName"
               class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f['actionName'].errors }"
+              [ngClass]="{ 'is-invalid': submitted && f['folderName'].errors }"
               />
-              <div *ngIf="submitted && f['actionName'].errors" class="invalid-feedback">
-              <div *ngIf="f['actionName'].errors['required']">
+              <div *ngIf="submitted && f['folderName'].errors" class="invalid-feedback">
+              <div *ngIf="f['folderName'].errors['required']">
                 Action Name is required
               </div>
               </div>
@@ -24,12 +20,12 @@
               <label class="mb-1">Folder Name in Arabic</label>
               <input
               type="text"
-              formControlName="actionAribic"
+              formControlName="folderNameAr"
               class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f['actionAribic'].errors }"
+              [ngClass]="{ 'is-invalid': submitted && f['folderNameAr'].errors }"
               />
-              <div *ngIf="submitted && f['actionAribic'].errors" class="invalid-feedback">
-              <div *ngIf="f['actionAribic'].errors['required']">
+              <div *ngIf="submitted && f['folderNameAr'].errors" class="invalid-feedback">
+              <div *ngIf="f['folderNameAr'].errors['required']">
                 Action Name in Arabic is required
               </div>
               </div>
@@ -39,39 +35,34 @@
             <label class="mb-1">Top Node</label>
             <div class="mt-2">
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+              <input class="form-check-input" type="radio" formControlName="exampleRadios" id="exampleRadios1" value="option1" selected>
               <label class="form-check-label" for="exampleRadios1">
                 Yes
               </label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+              <input class="form-check-input" type="radio" formControlName="exampleRadios" id="exampleRadios2" value="option2">
               <label class="form-check-label" for="exampleRadios2">
                 No
               </label>
             </div>
-
-          
-            <div *ngIf="submitted && f['actionAribic'].errors" class="invalid-feedback">
-            <div *ngIf="f['actionAribic'].errors['required']">
+            <div *ngIf="submitted && f['exampleRadios'].errors" class="invalid-feedback">
+            <div *ngIf="f['exampleRadios'].errors['exampleRadios']">
               Action Name in Arabic is required
             </div>
             </div>
           </div>
         </div>
 
-          <div class="col-md-3 ">
-            <label class="mb-1">Parent Folder </label>
-            <select class="form-select" formControlName="userId"
-            [ngClass]="{ 'is-invalid': submitted && f['userId'].errors }">
-              <option>Choose Your Option</option>
-              <option>Parent Folder 1</option>
-              <option>Parent Folder 2</option>
-              <option>Parent Folder 3</option>
-              <option>Parent Folder 4</option>
+          <div *ngIf="form.get('exampleRadios')?.value === 'option2'" class="col-md-3 ">            
+            <label class="mb-1">Parent Folder</label>
+            <select class="form-select" formControlName="parentFolderId"
+            [ngClass]="{ 'is-invalid': submitted && f['parentFolderId'].errors }">
+            <option value="" disabled selected>Select Parent Org Id</option>
+              <option *ngFor="let web of data">{{web.folderName}}</option> 
             </select>
-            <div *ngIf="submitted && f['userId'].errors" class="invalid-feedback">
-            <div *ngIf="f['userId'].errors['required']">
+            <div *ngIf="submitted && f['parentFolderId'].errors" class="invalid-feedback">
+            <div *ngIf="f['parentFolderId'].errors['required']">
               Parent Folder is required
             </div>
             </div>
@@ -80,8 +71,7 @@
 
           <div class="row btn-row justify-content-center">
             <div class="col-md-5 d-flex justify-content-around">
-              <button type="submit" class="btn btn-submit">Submit</button>
-              <button type="button" class="btn btn-update">Update</button>
+              <button type="submit" class="btn btn-submit">Submit</button>              
               <button type="button" class="btn btn-danger" (click)="onReset()">Reset</button>
             </div>
           </div>
@@ -100,39 +90,125 @@
               <ng-template let-row let-index="index">
   
                 <td>
-                  <span class="">{{ row.sno }}</span>
+                  <span class="">{{ row.folderId }}</span>
                 </td>
                 <td>
-                  <div class="">{{ row.actionName }}</div>
+                  <div class="">{{ row.folderName }}</div>
                 </td>
                 <td>
-                  <div class="">{{ row.actionNameAr }}</div>
+                  <div class="">{{ row.folderNameAr }}</div>
                 </td>
                 <td>
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" [checked]="row.status === 'true'">
-                    <label class="form-check-label" for="flexSwitchCheckDefault">{{ row.status === 'true' ? 'Active' : 'In Active' }}</label>
-                  </div>
+                  <div  *ngIf="row.status === 1" class="">Active</div>
+                  <div  *ngIf="row.status === 0" class="">In Active</div>
                 </td>
                 <td>
-                  <div class="">{{ row.createdBy }}</div>
+                  <div class="">{{ row.createdByUserName }}</div>
                 </td>
                 <td>
-                  <div class="">{{ row.updatedON }}</div>
+                  <div class="">{{ row.createdDate }}</div>
+                </td>
+                <td>
+                  <button class="btn table-btn btn-edit" (click)="openModal(content, row)">Edit</button>
                 </td>
               </ng-template>
-            </ngx-table>
-              
-            </ng-scrollbar>
-       
-    
+            </ngx-table>              
+            </ng-scrollbar>           
       </div>
     </div>
-    
-
-
     </ng-scrollbar>
 </section>
   
 
   <!-- <app-table></app-table> -->
+  <ng-template #content let-modal>
+    <div class="modal-header justify-content-center">
+      <h4 class="modal-title" id="modal-basic-title">update</h4>     
+    </div>
+    <div class="modal-body ">
+      <form [formGroup]="editData" (ngSubmit)="onEdit()">
+        <div class="p-2 row">
+            <label class="p-0 mb-1">Folder Name</label>
+            <input 
+            type="text"
+            formControlName="folderName"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f['folderName'].errors }"/>
+            <div *ngIf="submitted && f['folderName'].errors" class="invalid-feedback">
+            <div *ngIf="f['folderName'].errors['required']">
+              Display Name is required
+            </div>
+            </div>
+        </div>
+    
+        <div class="p-2 row">
+            <label class="p-0 mb-1">Folder Name Arabic</label>
+            <input
+            type="text"
+            formControlName="folderNameAr"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f['folderNameAr'].errors }"/>
+            <div *ngIf="submitted && f['folderNameAr'].errors" class="invalid-feedback">
+            <div *ngIf="f['folderNameAr'].errors['required']">
+              Designation is required
+            </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+          <label class="mb-1">Top Node</label>
+          <div class="mt-2">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" formControlName="exampleRadios" id="exampleRadios1" value="option1" selected>
+            <label class="form-check-label" for="exampleRadios1">
+              Yes
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" formControlName="exampleRadios" id="exampleRadios2" value="option2">
+            <label class="form-check-label" for="exampleRadios2">
+              No
+            </label>
+          </div>
+          <div *ngIf="submitted && f['exampleRadios'].errors" class="invalid-feedback">
+          <div *ngIf="f['exampleRadios'].errors['exampleRadios']">
+            Action Name in Arabic is required
+          </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="form.get('exampleRadios')?.value === 'option2'" class="col-md-3 ">            
+        <label class="mb-1">Parent Folder</label>
+        <select class="form-select" formControlName="parentFolderId"
+        [ngClass]="{ 'is-invalid': submitted && f['parentFolderId'].errors }">
+        <option value="" disabled selected>Select Parent Org Id</option>
+          <option *ngFor="let web of data">{{web.folderName}}</option> 
+        </select>
+        <div *ngIf="submitted && f['parentFolderId'].errors" class="invalid-feedback">
+        <div *ngIf="f['parentFolderId'].errors['required']">
+          Parent Folder is required
+        </div>
+        </div>
+    </div>
+        <div class="p-2 row">
+          <label class="p-0 mb-1">Status</label>
+          <select class="form-select" formControlName="status"
+          [ngClass]="{ 'is-invalid': submitted && f['status'].errors }">
+            <option value="1">Active</option> 
+            <option  value="0">In Active</option> 
+          </select>
+      </div>
+        <div class="p-2 row">
+          <input 
+          type="hidden"
+          formControlName="folderId"
+          class="form-control">
+          </div>
+          <pre>{{ selected }}</pre>    
+      </form>
+    </div>
+    <div class="modal-footer mb-2 justify-content-center">
+      <button type="button" class="btn btn-update mx-2" (click)="onUpdate()">Update</button>
+      <button type="button" class="btn btn-danger mx-2" (click)="modal.dismiss('Cross click')">Cancel</button>
+    </div>
+  </ng-template>
+

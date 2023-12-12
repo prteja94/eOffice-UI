@@ -19,9 +19,8 @@ import {
 } from '@angular/forms';
 import Validation from '../../../shared/validation';
 import { API, Columns, APIDefinition, DefaultConfig, Config } from 'ngx-easy-table';
-import { OrgNameService } from './org-name.service';
+import { OrgNameService, OrgUnit } from './org-name.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { TableDataInf } from './tabledata-inf';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -34,15 +33,14 @@ export class OrgNameComponent implements OnInit{
   form: FormGroup = new FormGroup({
     privilegeName: new FormControl(''),
     privilegeAribic: new FormControl(''),
-   
   });
   submitted = false;
 
   @ViewChild('table') table: APIDefinition;
 
-  dataList: TableDataInf[] = [];
-  filterArray: TableDataInf[] = [];
-  dataDetail: TableDataInf | null = null;
+  dataList: OrgUnit[] = [];
+  filterArray: OrgUnit[] = [];
+  dataDetail: OrgUnit | null = null;
   config: any;
   selected:any;
   editData: UntypedFormGroup | any;
@@ -55,7 +53,7 @@ export class OrgNameComponent implements OnInit{
   public data: any[] = [];
   OrgNameService: any;
   orgNameList: any;
-  orgData: TableDataInf | null;
+  orgData: OrgUnit | null;
 
   constructor(private formBuilder: FormBuilder, private cdr: ChangeDetectorRef,
     private orgNameService:OrgNameService , private fb: UntypedFormBuilder,
@@ -67,9 +65,9 @@ export class OrgNameComponent implements OnInit{
     this.form = this.formBuilder.group(
       {
         orgName: ['', Validators.required],
-        orgAribic: ['', Validators.required],
-        orgId: ['', Validators.required],
-        orgType: ['', Validators.required],
+        orgNameAr: ['', Validators.required],
+        parentOrgId: ['', Validators.required],
+        orgTypeId: ['', Validators.required]
       }
       );
       
@@ -89,7 +87,8 @@ export class OrgNameComponent implements OnInit{
       { key: 'orgNameAr', title: 'org Name Ar' },
       { key: 'status', title: 'Status'},
       { key: 'CreatedBy', title: 'CreatedBy' },
-      { key: 'updatedON', title: 'Created On / Updated On' }
+      { key: 'updatedON', title: 'Created On / Updated On' },
+      { key: 'isActive', title: 'Edit Data' , searchEnabled: false}
     ];
     //this.data = data;
 
@@ -106,6 +105,9 @@ export class OrgNameComponent implements OnInit{
       orgName: ['', Validators.required],
       orgNameAr: ['', Validators.required],
       orgId: ['', Validators.required],
+      status: ['', Validators.required],
+      parentOrgId: ['', Validators.required],
+      topOrgId: ['', Validators.required],
       orgType: ['', Validators.required]
     });
   }
@@ -149,7 +151,7 @@ export class OrgNameComponent implements OnInit{
 
 	closeResult = '';
 
-  openModal(content: TemplateRef<any>,  orgData: TableDataInf | null) {
+  openModal(content: TemplateRef<any>,  orgData: OrgUnit | null) {
 		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true }).result.then(
 			(result) => {
 				this.closeResult = `Closed with: ${result}`;
@@ -164,7 +166,12 @@ export class OrgNameComponent implements OnInit{
       this.editData?.patchValue({
         orgName: orgData.orgName,
         orgNameAr: orgData.orgNameAr,
-        orgId: orgData.orgId
+        orgId: orgData.orgId,
+        status: orgData.status,
+        updatedByUserId: 1,
+        parentOrgId: orgData.parentOrgId,
+        topOrgId: orgData.topOrgId,
+        orgTypeId: orgData.orgTypeId
       });
     }
 
@@ -187,6 +194,12 @@ export class OrgNameComponent implements OnInit{
         this.orgData.orgName = this.editData.get('orgName')?.value;
         this.orgData.orgNameAr = this.editData.get('orgNameAr')?.value;
         this.orgData.orgId = this.editData.get('orgId')?.value;
+        this.orgData.status= this.editData.get('status')?.value;
+        this.orgData.parentOrgId=this.editData.get('parentOrgId')?.value;
+        this.orgData.topOrgId=this.editData.get('topOrgId')?.value;
+        this.orgData.orgTypeId=this.editData.get('orgTypeId')?.value;
+        this.orgData.updatedByUserId=1;
+
       }
     }
   }
@@ -194,7 +207,12 @@ export class OrgNameComponent implements OnInit{
   onUpdate() {
     console.log(this.editData.value);
     this.orgNameService.update(this.editData.value).subscribe((response) => {
-      console.log(response);
+      if(response.status === 201){
+        this.modalService.dismissAll('close');
+        this.orgNameService.getTableData().subscribe((response) => {
+          this.data=response;
+        })
+      }
     })
   }
 }

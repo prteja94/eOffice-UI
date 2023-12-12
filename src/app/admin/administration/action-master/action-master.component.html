@@ -1,9 +1,5 @@
-
-
 <section class="ejob-section" >
 	<ng-scrollbar class="w-100 h-100">
-
-   
           <form class="row g-3 datasearch justify-content-center" [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="col-md-3 ">
               <label class="mb-1">Action Name</label>
@@ -24,12 +20,12 @@
               <label class="mb-1">Action Name in Arabic</label>
               <input
               type="text"
-              formControlName="actionAribic"
+              formControlName="actionNameAr"
               class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f['actionAribic'].errors }"
+              [ngClass]="{ 'is-invalid': submitted && f['actionNameAr'].errors }"
               />
-              <div *ngIf="submitted && f['actionAribic'].errors" class="invalid-feedback">
-              <div *ngIf="f['actionAribic'].errors['required']">
+              <div *ngIf="submitted && f['actionNameAr'].errors" class="invalid-feedback">
+              <div *ngIf="f['actionNameAr'].errors['required']">
                 Action Name in Arabic is required
               </div>
               </div>
@@ -39,16 +35,10 @@
           <div class="row btn-row justify-content-center">
             <div class="col-md-5 d-flex justify-content-around">
               <button type="submit" class="btn btn-submit">Submit</button>
-              <button type="button" class="btn btn-update">Update</button>
               <button type="button" class="btn btn-danger" (click)="onReset()">Reset</button>
             </div>
-          </div>
-       
-           
-
+          </div>                  
           </form>
-    
-  
           <hr class="gradient-line">
 
     <div class="row m-0 p-0 data">
@@ -58,7 +48,7 @@
               <ng-template let-row let-index="index">
   
                 <td>
-                  <span class="">{{ row.sno }}</span>
+                  <span class="">{{ row.actionId }}</span>
                 </td>
                 <td>
                   <div class="">{{ row.actionName }}</div>
@@ -67,16 +57,17 @@
                   <div class="">{{ row.actionNameAr }}</div>
                 </td>
                 <td>
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" [checked]="row.status === 'true'">
-                    <label class="form-check-label" for="flexSwitchCheckDefault">{{ row.status === 'true' ? 'Active' : 'In Active' }}</label>
-                  </div>
+                  <div  *ngIf="row.status === 1" class="">Active</div>
+                  <div  *ngIf="row.status === 0" class="">In Active</div>
                 </td>
                 <td>
-                  <div class="">{{ row.createdBy }}</div>
+                  <div class="">{{ row.createdByUserName }}</div>
                 </td>
                 <td>
-                  <div class="">{{ row.updatedON }}</div>
+                  <div class="">{{ row.createdDate }}</div>
+                </td>
+                <td>
+                  <button class="btn table-btn btn-edit" (click)="openModal(content, row)">Edit</button>
                 </td>
               </ng-template>
             </ngx-table>
@@ -86,11 +77,62 @@
     
       </div>
     </div>
-    
-
-
     </ng-scrollbar>
 </section>
   
 
   <!-- <app-table></app-table> -->
+  <ng-template #content let-modal>
+    <div class="modal-header justify-content-center">
+      <h4 class="modal-title" id="modal-basic-title">Update</h4>
+    </div>
+    <div class="modal-body ">
+      <form [formGroup]="editData" (ngSubmit)="onEdit()">
+        <div class="p-2 row">
+            <label class="p-0 mb-1">Action Name</label>
+            <input 
+            type="text"
+            formControlName="actionName"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f['actionName'].errors }"/>
+            <div *ngIf="submitted && f['actionName'].errors" class="invalid-feedback">
+            <div *ngIf="f['actionName'].errors['required']">
+              Org Name is required
+            </div>
+            </div>
+        </div>
+    
+        <div class="p-2 row">
+            <label class="p-0 mb-1">Action Name in Arabic</label>
+            <input
+            type="text"
+            formControlName="actionNameAr"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f['actionNameAr'].errors }"/>
+            <div *ngIf="submitted && f['actionNameAr'].errors" class="invalid-feedback">
+            <div *ngIf="f['actionNameAr'].errors['required']">
+              Org Name in Arabic is required
+            </div>
+            </div>
+        </div>
+        <div class="p-2 row">
+          <label class="p-0 mb-1">Status</label>
+          <select class="form-select" formControlName="status"
+          [ngClass]="{ 'is-invalid': submitted && f['status'].errors }">
+            <option value="1">Active</option> 
+            <option  value="0">In Active</option> 
+          </select>
+      </div>
+        <div class="p-2 row">
+          <input 
+          type="hidden"
+          formControlName="actionId"
+          class="form-control">
+          </div>
+      </form>
+    </div>
+    <div class="modal-footer mb-2 justify-content-center">
+      <button type="button" class="btn btn-update mx-2" (click)="onUpdate()">Update</button>
+      <button type="button" class="btn btn-danger mx-2" (click)="modal.dismiss('Cross click')">Cancel</button>
+    </div>
+  </ng-template>

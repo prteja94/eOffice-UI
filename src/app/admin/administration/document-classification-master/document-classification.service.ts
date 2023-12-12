@@ -12,7 +12,7 @@ export class DocumentClassificationService {
   private apiUrl = 'http://localhost:8081/admin/doc-classification';
 
   create(docClassData: any): Observable<any> {
-    return this.http.post(this.apiUrl, docClassData);
+    return this.http.post(this.apiUrl, docClassData,{observe: 'response'});
   }
 
   getTableData(): Observable<any> {

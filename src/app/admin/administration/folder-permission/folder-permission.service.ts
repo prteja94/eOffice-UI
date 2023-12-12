@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class FolderPermissionService {
 
-  constructor(private http:HttpClient) { }
+constructor(private http:HttpClient) { }
 
 private apiUrl = 'http://localhost:8081/admin/folder-permission';
 
@@ -30,6 +30,7 @@ export interface FolderPermissionMaster {
   indexvalue: number,
   folderId: number,
   permissionType: string,
+  folderName: string,
   folderNameAr: string,
   status: number,
   createdByUserName: string,

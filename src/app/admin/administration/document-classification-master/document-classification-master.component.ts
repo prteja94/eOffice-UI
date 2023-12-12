@@ -110,7 +110,11 @@ export class DocumentClassificationMasterComponent implements OnInit{
     }
 
     this.documentClassificationService.create(this.form.value).subscribe((response) => {
-      console.log(response);
+      if(response.status === 201 || response.status === 200){
+        this.documentClassificationService.getTableData().subscribe((response) => {
+          this.data=response;
+        })
+      }
     })
 
     console.log(JSON.stringify(this.form.value, null, 2));

@@ -13,7 +13,7 @@ export class OrgTypeService {
   
 
   create(orgTypeData: any): Observable<any> {
-    return this.http.post(this.apiUrl, orgTypeData);
+    return this.http.post(this.apiUrl, orgTypeData,{observe: 'response'});
   }
 
   getTableData(): Observable<Array<OrgType>> {
@@ -21,7 +21,7 @@ export class OrgTypeService {
   }
 
   update(orgTypeData : any): Observable<any> {
-    return this.http.put(this.apiUrl, orgTypeData);
+    return this.http.put(this.apiUrl, orgTypeData,{observe: 'response'});
   }
 
 }
@@ -32,6 +32,7 @@ export interface OrgType {
     status: number,
     topLevel: string,
     addedByUserName: string,
-    addedOn: string  
+    addedOn: string,
+    updatedByUserId: number
   }  
 

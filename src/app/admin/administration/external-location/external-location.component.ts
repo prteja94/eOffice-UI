@@ -62,8 +62,8 @@ export class ExternalLocationComponent implements OnInit{
     this.form = this.formBuilder.group(
       {
         locationName: ['', Validators.required],
-        locationNameAr: ['', Validators.required],
-      
+        locationNameAr: ['', Validators.required]  ,
+        status: ['', Validators.required]    
       }
       
     );
@@ -72,6 +72,7 @@ export class ExternalLocationComponent implements OnInit{
       { key: 'sno', title: 'S.No', width: '5%' },
       { key: 'locationName', title: 'Location Name' },
       { key: 'locationNameAr', title: 'Location Name Ar' },
+      { key: 'status', title: 'Status' },
       { key: 'CreatedBy', title: 'CreatedBy' },
       { key: 'updatedON', title: 'Created On / Updated On' },
       { key: 'isActive', title: 'Edit Data' , searchEnabled: false}
@@ -111,10 +112,12 @@ export class ExternalLocationComponent implements OnInit{
     }
 
     this.externalLocationService.create(this.form.value).subscribe((response) => {
-      console.log(response);
+      if(response.status === 201 || response.status === 200) {
+        this.externalLocationService.getTableData().subscribe((response) => {
+          this.data=response;
+        })
+      }
     })
-
-    console.log(JSON.stringify(this.form.value, null, 2));
   }
 
   onReset(): void {
@@ -180,7 +183,7 @@ export class ExternalLocationComponent implements OnInit{
   onUpdate() {
     console.log(this.editData.value);
     this.externalLocationService.update(this.editData.value).subscribe((response) => {
-      if(response.status === 201){
+      if(response.status === 201 || response.status === 200){
         this.modalService.dismissAll('close');
         this.externalLocationService.getTableData().subscribe((response) => {
           this.data=response;
@@ -188,6 +191,4 @@ export class ExternalLocationComponent implements OnInit{
       }
     })
   }
-
-
 }

@@ -22,7 +22,7 @@ import { MenuSidebarService } from './shared/components/side-navbar/menu-sidebar
 import { MenuService } from './shared/services/menu.service';
 
 import { TranslationModule } from './shared/translation.module';
-
+import { ToastrModule } from 'ngx-toastr';
 
 declare var $: any;
 
@@ -43,6 +43,7 @@ declare var $: any;
     NgbModule,
     TableModule,
     QuillModule.forRoot(),
+    ToastrModule.forRoot(),
     HttpClientModule,
     TranslationModule
   ],

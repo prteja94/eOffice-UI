@@ -31,8 +31,8 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class DocumentTypeMasterComponent implements OnInit{
 
   form: FormGroup = new FormGroup({
-    documentName: new FormControl(''),
-    documentAribic: new FormControl(''),
+    docTypeName: new FormControl(''),
+    docTypeNameAr: new FormControl(''),
    
   });
   submitted = false;
@@ -60,15 +60,15 @@ export class DocumentTypeMasterComponent implements OnInit{
   ngOnInit(): void {
     this.form = this.formBuilder.group(
       {
-        documentName: ['', Validators.required],
-        documentAribic: ['', Validators.required],      
+        docTypeName: ['', Validators.required],
+        docTypeNameAr: ['', Validators.required],      
       }
       
     );
 
     this.columns = [
       { key: 'sno', title: 'S.No', width: '5%' },
-      { key: 'documentName', title: 'Document Type Name' },
+      { key: 'docTypeName', title: 'Document Type Name' },
       { key: 'documentNameAr', title: 'Document Type Name Ar' },
       { key: 'status', title: 'Status'},
       { key: 'CreatedBy', title: 'CreatedBy' },
@@ -111,7 +111,11 @@ export class DocumentTypeMasterComponent implements OnInit{
     }
 
     this.documentTypeMasterService.create(this.form.value).subscribe((response) => {
-      console.log(response);
+      if(response.status === 201){  
+        this.documentTypeMasterService.getTableData().subscribe((response) => {
+          this.data=response;
+        })
+      }
     })
 
     console.log(JSON.stringify(this.form.value, null, 2));

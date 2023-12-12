@@ -109,8 +109,13 @@ export class PriorityMasterComponent implements OnInit{
       return;
     }
 
+
     this.priortityMasterService.create(this.form.value).subscribe((response) => {
-      console.log(response);
+       if(response.status === 201) {
+        this.priortityMasterService.getTableData().subscribe((response) => {
+          this.data=response;
+        })
+      }
     })
 
     console.log(JSON.stringify(this.form.value, null, 2));

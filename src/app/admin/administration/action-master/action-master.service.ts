@@ -9,37 +9,32 @@ import { Observable } from 'rxjs';
   
 export class ActionMasterService {
 
-  private apiUrl = 'http://localhost:8080/admin/action';
+  private apiUrl = 'http://localhost:8081/admin/action';
 
   constructor(private http: HttpClient) { }
   
   create(actionData: any): Observable<any> {
-    return this.http.post(this.apiUrl, actionData);
+    return this.http.post(this.apiUrl, actionData,{observe: 'response'});
   }
 
-  read(): Observable<any> {
+  update(actionData : any): Observable<any> {
+    return this.http.put(this.apiUrl, actionData,{observe: 'response'});
+  }
+
+  // Define a method to get table data //
+  getTableData(): Observable<any> {
     return this.http.get(this.apiUrl);
   }
-
-  update(actionId: number, actionData: any): Observable<any> {
-    const url = `${this.apiUrl}/${actionId}`;
-    return this.http.put(url, actionData);
-  }
-
-  delete(actionId: number): Observable<any> {
-    const url = `${this.apiUrl}/${actionId}`;
-    return this.http.delete(url);
-  }
-
-   // Define a method to save a record
-   saveRecord(data: any) {
-    return this.http.post(`${this.apiUrl}/saveRecord`, data);
-  }
-
-  // Define a method to get table data
-  getTableData() {
-    return this.http.get(`${this.apiUrl}/tableData`);
-  }
 }
+
+export interface ActionMaster {
+  actionId: number,
+  actionName: string,
+  actionNameAr: string,
+  status:number,
+  createdByuserId: string,
+  createdByuserName: string,
+  createdDate: string  
+} 
 
 

@@ -2,7 +2,7 @@
 	<ng-scrollbar class="w-100 h-100">   
           <form class="row g-3 datasearch justify-content-center" [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="col-md-3 ">
-              <label class="mb-1">Org Name</label>
+              <label class="mb-1">Org Unit</label>
               <input
               type="text"
               formControlName="orgName"
@@ -10,32 +10,30 @@
               [ngClass]="{ 'is-invalid': submitted && f['orgName'].errors }"/>
               <div *ngIf="submitted && f['orgName'].errors" class="invalid-feedback">
               <div *ngIf="f['orgName'].errors['required']">
-                Org Name is required
+                Org Unit is required
               </div>
               </div>
           </div>
       
           <div class="col-md-3">
-              <label class="mb-1">Org Name in Arabic</label>
+              <label class="mb-1">Org Unit in Arabic</label>
               <input
               type="text"
-              formControlName="orgAribic"
+              formControlName="orgNameAr"
               class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f['orgAribic'].errors }"/>
-              <div *ngIf="submitted && f['orgAribic'].errors" class="invalid-feedback">
-              <div *ngIf="f['orgAribic'].errors['required']">
-                Org Name in Arabic is required
+              [ngClass]="{ 'is-invalid': submitted && f['orgNameAr'].errors }"/>
+              <div *ngIf="submitted && f['orgNameAr'].errors" class="invalid-feedback">
+              <div *ngIf="f['orgNameAr'].errors['required']">
+                Org Unit in Arabic is required
               </div>
               </div>
           </div>
 
           <div class="col-md-3">
             <label class="mb-1">Parent Org Id</label>
-            <select class="form-select" formControlName="orgId" [ngClass]="{ 'is-invalid': submitted && f['orgId'].errors }">
+            <select class="form-select" formControlName="parentOrgId" [ngClass]="{ 'is-invalid': submitted && f['orgId'].errors }">
               <option value="" disabled selected>Select Parent Org Id</option>
-              <option value="1">Parent Org Id 1</option>
-              <option value="2">Parent Org Id 2</option>
-              <option value="3">Parent Org Id 3</option>
+              <option value="{{web.orgId}}" *ngFor="let web of websiteList">{{web.orgName}}</option> 
             </select>
             <div *ngIf="submitted && f['orgId'].hasError('required')" class="invalid-feedback">
               Parent Org Id is required
@@ -44,11 +42,11 @@
       
           <div class="col-md-3">
             <label class="mb-1">Org Type</label>
-            <select class="form-select" formControlName="orgType" [ngClass]="{ 'is-invalid': submitted && f['orgType'].errors }">
-              <option value="" disabled selected>Select Parent Org Id</option>
-              <option *ngFor="let web of websiteList">{{web}}</option> 
+            <select class="form-select" formControlName="orgTypeId" [ngClass]="{ 'is-invalid': submitted && f['orgType'].errors }">
+              <option value="" disabled selected>Select Org Type</option>
+              <option value="{{web.orgId}}" *ngFor="let web of websiteList">{{web.orgName}}</option> 
             </select>
-            <div *ngIf="submitted && f['orgType'].hasError('required')" class="invalid-feedback">
+            <div *ngIf="submitted && f['orgTypeId'].hasError('required')" class="invalid-feedback">
               Org Type is required
             </div>
           </div>
@@ -56,7 +54,6 @@
           <div class="row btn-row justify-content-center">
             <div class="col-md-5 d-flex justify-content-around">
               <button type="submit" class="btn btn-submit">Submit</button>
-              <button type="button" class="btn btn-update">Update</button>
               <button type="button" class="btn btn-danger" (click)="onReset()">Reset</button>
             </div>
           </div>
@@ -72,7 +69,6 @@
           <ng-scrollbar class="table-height" style="height: 59vh;">
           <ngx-table [configuration]="configuration" [data]="orgNameList" [columns]="columns" > 
               <ng-template let-row let-index="index">
-
                 <td>
                   <span class="">{{ row.orgId }}</span>
                 </td>
@@ -83,7 +79,8 @@
                   <div class="">{{ row.orgNameAr }}</div>
                 </td>
                 <td>
-                  <div class="">{{ row.status }}</div>
+                  <div  *ngIf="row.status === 1" class="">Active</div>
+                  <div  *ngIf="row.status === 0" class="">In Active</div>
                 </td>
                 <td>
                   <div class="">{{ row.addedByUserName }}</div>
@@ -97,15 +94,9 @@
               </ng-template>
             </ngx-table>
           </ng-scrollbar>
-       
-    
       </div>
     </div>
-    
-
-
     </ng-scrollbar>
-
 </section>
   
 
@@ -113,8 +104,7 @@
   <!-- <app-table></app-table> -->
   <ng-template #content let-modal>
     <div class="modal-header justify-content-center">
-      <h4 class="modal-title" id="modal-basic-title"> update</h4>
-      
+      <h4 class="modal-title" id="modal-basic-title">Update</h4>
     </div>
     <div class="modal-body ">
       <form [formGroup]="editData" (ngSubmit)="onEdit()">
@@ -127,7 +117,7 @@
             [ngClass]="{ 'is-invalid': submitted && f['orgName'].errors }"/>
             <div *ngIf="submitted && f['orgName'].errors" class="invalid-feedback">
             <div *ngIf="f['orgName'].errors['required']">
-              Org Name is required
+              Org Unit is required
             </div>
             </div>
         </div>
@@ -138,21 +128,45 @@
             type="text"
             formControlName="orgNameAr"
             class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f['orgAribic'].errors }"/>
-            <div *ngIf="submitted && f['orgAribic'].errors" class="invalid-feedback">
-            <div *ngIf="f['orgAribic'].errors['required']">
-              Org Name in Arabic is required
+            [ngClass]="{ 'is-invalid': submitted && f['orgNameAr'].errors }"/>
+            <div *ngIf="submitted && f['orgNameAr'].errors" class="invalid-feedback">
+            <div *ngIf="f['orgNameAr'].errors['required']">
+              Org Unit in Arabic is required
             </div>
             </div>
         </div>
+        <div class="p-2 row">
+          <label class="p-0 mb-1">Status</label>
+          <select class="form-select" formControlName="status"
+          [ngClass]="{ 'is-invalid': submitted && f['status'].errors }">
+            <option value="1">Active</option> 
+            <option  value="0">In Active</option> 
+          </select>
+      </div>
         <div class="p-2 row">
           <input 
           type="hidden"
           formControlName="orgId"
           class="form-control">
+        </div>
+          <div class="p-2 row">
+            <input 
+            type="hidden"
+            formControlName="parentOrgId"
+            class="form-control">
           </div>
-          <pre>{{ selected }}</pre>
-    
+        <div class="p-2 row">
+          <input 
+          type="hidden"
+          formControlName="topOrgId"
+          class="form-control">
+        </div>    
+        <div class="p-2 row">
+          <input 
+          type="hidden"
+          formControlName="orgTypeId"
+          class="form-control">
+        </div>           
       </form>
     </div>
     <div class="modal-footer mb-2 justify-content-center">

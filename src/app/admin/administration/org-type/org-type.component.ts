@@ -97,7 +97,8 @@ export class OrgTypeComponent implements OnInit {
       orgTypeName: ['', Validators.required],
       orgTypeNameAr: ['', Validators.required],
       topLevel: ['', Validators.required],
-      status: ['', Validators.required]
+      status: ['', Validators.required],
+      updatedByUserId: ['', Validators.nullValidator],
     });
 
   }
@@ -152,7 +153,8 @@ export class OrgTypeComponent implements OnInit {
         orgTypeName: orgTypeData.orgTypeName,
         orgTypeNameAr: orgTypeData.orgTypeNameAr,
         status: orgTypeData.status,
-        topLevel: orgTypeData.topLevel
+        topLevel: orgTypeData.topLevel,
+        updatedByUserId: 1
       });
     }
   }
@@ -184,7 +186,12 @@ export class OrgTypeComponent implements OnInit {
   onUpdate() {
     console.log(this.editData.value);
     this.orgTypeService.update(this.editData.value).subscribe((response) => {
-      console.log(response);
+      if(response.status === 201){
+        this.modalService.dismissAll('close');
+        this.orgTypeService.getTableData().subscribe((response) => {
+          this.data=response;
+        })
+      }
     })
   }
  }

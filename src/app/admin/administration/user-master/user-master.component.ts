@@ -56,19 +56,17 @@ export class UserMasterComponent implements OnInit{
   ngOnInit(): void {
     this.form = this.formBuilder.group(
       {
-        loginId: ['', Validators.required],
+        indexvalue: ['', Validators.required],
         displayName: ['', Validators.required],
-        firstName: ['', Validators.required],
-        lastName: ['', Validators.required],
         ldapIdentifier: ['', Validators.required],
-        hiredDate: ['', Validators.required],
+        status: ['', Validators.required],
         designation: ['', Validators.required]     
       }
       
     );
 
     this.columns = [
-      { key: 'indexValue', title: 'S.No', width: '5%'  },
+      { key: 'indexvalue', title: 'S.No', width: '5%'  },
       { key: 'displayName', title: 'Display Name' },
       { key: 'ldapIdentifier', title: 'Ldap Identifier' },
       { key: 'status', title: 'Status'},
@@ -90,6 +88,14 @@ export class UserMasterComponent implements OnInit{
     this.configuration.resizeColumn = true;
     this.configuration.fixedColumnWidth = false;
     //this.configuration.checkboxes = true;
+
+    this.editData = this.fb.group({
+      indexvalue: ['', Validators.required],
+      displayName: ['', Validators.required],
+      designation: ['', Validators.required],
+      status: ['', Validators.required],
+      updatedByUserId: ['', Validators.nullValidator],
+    });    
   }
 
   get f(): { [key: string]: AbstractControl } {
@@ -141,7 +147,7 @@ export class UserMasterComponent implements OnInit{
       this.dataDetail = userData;
       console.log(userData);
       this.editData?.patchValue({
-        indexValue: userData.indexValue,
+        indexvalue: userData.indexvalue,
         loginId: userData.loginId,
         displayName: userData.displayName,
         firstName: userData.firstName,
@@ -170,7 +176,7 @@ export class UserMasterComponent implements OnInit{
   onEdit() {
     if (this.userData) {
       if (this.editData != null) {
-        this.userData.indexValue = this.editData.get('indexValue')?.value;
+        this.userData.indexvalue = this.editData.get('indexvalue')?.value;
         this.userData.designation = this.editData.get('designation')?.value;
         this.userData.displayName = this.editData.get('displayName')?.value;
         this.userData.status=this.editData.get('status')?.value;

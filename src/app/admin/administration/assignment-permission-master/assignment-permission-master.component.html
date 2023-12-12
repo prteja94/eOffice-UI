@@ -117,11 +117,11 @@
         </div>
         <div class="p-2 row">
           <label class="p-0 mb-1">Status</label>
-          <input
-          type="text"
-          formControlName="status"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f['status'].errors }"/>
+          <select class="form-select" formControlName="status"
+          [ngClass]="{ 'is-invalid': submitted && f['status'].errors }">
+            <option value="1">Active</option> 
+            <option  value="0">In Active</option> 
+          </select>
       </div>
         <div class="p-2 row">
           <input 

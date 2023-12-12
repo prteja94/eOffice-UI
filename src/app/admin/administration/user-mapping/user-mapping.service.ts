@@ -15,10 +15,9 @@ export class UserMappingService {
     return this.http.post(this.apiUrl, extLocData);
   }
 
-  getTableData(): Observable<any> {
-    return this.http.get(this.apiUrl);
+  getTableData(): Observable<Array<UserMappingMaster>> {
+    return this.http.get<Array<UserMappingMaster>>(this.apiUrl);
   }
-
   update(extLocData : any): Observable<any> {
     return this.http.put(this.apiUrl, extLocData,{observe: 'response'});
   }
