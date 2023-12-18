@@ -22,6 +22,7 @@ import { Tabledata, data } from '../../../../assets/data-form';
 import { API, Columns, APIDefinition, DefaultConfig, Config } from 'ngx-easy-table';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ExternalLocationMaster, ExternalLocationService } from './external-location.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-external-location',
@@ -56,7 +57,8 @@ export class ExternalLocationComponent implements OnInit{
   constructor(private formBuilder: FormBuilder, private cdr: ChangeDetectorRef,
     private externalLocationService: ExternalLocationService,
     private fb: UntypedFormBuilder,
-    private modalService: NgbModal) {}
+    private modalService: NgbModal,
+    private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group(
@@ -113,6 +115,10 @@ export class ExternalLocationComponent implements OnInit{
 
     this.externalLocationService.create(this.form.value).subscribe((response) => {
       if(response.status === 201 || response.status === 200) {
+        this.toastr.success('You are awesome!', 'Date Saved Successfully!', {
+          timeOut: 3000,
+          
+        });
         this.externalLocationService.getTableData().subscribe((response) => {
           this.data=response;
         })
@@ -184,6 +190,10 @@ export class ExternalLocationComponent implements OnInit{
     console.log(this.editData.value);
     this.externalLocationService.update(this.editData.value).subscribe((response) => {
       if(response.status === 201 || response.status === 200){
+        this.toastr.success('You are awesome!', 'Date Updated Successfully!', {
+          timeOut: 3000,
+          
+        });
         this.modalService.dismissAll('close');
         this.externalLocationService.getTableData().subscribe((response) => {
           this.data=response;

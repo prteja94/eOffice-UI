@@ -154,18 +154,18 @@
             </div>
             </div>
         </div>
-        <div class="col-md-2">
+      <div class="p-2 row">
           <label class="mb-1">Top Node</label>
           <div class="mt-2">
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" formControlName="exampleRadios" id="exampleRadios1" value="option1" selected>
-            <label class="form-check-label" for="exampleRadios1">
+            <input class="form-check-input" type="radio" formControlName="exRadios" id="exRadios1" value="0">
+            <label class="form-check-label" for="exRadios1">
               Yes
             </label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" formControlName="exampleRadios" id="exampleRadios2" value="option2">
-            <label class="form-check-label" for="exampleRadios2">
+            <input class="form-check-input" type="radio" formControlName="exRadios" id="exRadios2" value="1">
+            <label class="form-check-label" for="exRadios2">
               No
             </label>
           </div>
@@ -176,19 +176,20 @@
           </div>
         </div>
       </div>
-      <div *ngIf="form.get('exampleRadios')?.value === 'option2'" class="col-md-3 ">            
-        <label class="mb-1">Parent Folder</label>
-        <select class="form-select" formControlName="parentFolderId"
-        [ngClass]="{ 'is-invalid': submitted && f['parentFolderId'].errors }">
-        <option value="" disabled selected>Select Parent Org Id</option>
-          <option *ngFor="let web of data">{{web.folderName}}</option> 
-        </select>
-        <div *ngIf="submitted && f['parentFolderId'].errors" class="invalid-feedback">
-        <div *ngIf="f['parentFolderId'].errors['required']">
-          Parent Folder is required
-        </div>
-        </div>
-    </div>
+      <div *ngIf="editData.get('exRadios')?.value === '1'" class="p-2 row">     
+          <label class="mb-1">Parent Folder</label>
+          <select class="form-select" formControlName="parentFolderId"
+          [ngClass]="{ 'is-invalid': submitted && f['parentFolderId'].errors }">
+          <option value="" disabled selected>Select Parent Org Id</option>
+            <option *ngFor="let web of data">{{web.folderName}}</option> 
+          </select>
+          <div *ngIf="submitted && f['parentFolderId'].errors" class="invalid-feedback">
+          <div *ngIf="f['parentFolderId'].errors['required']">
+            Parent Folder is required
+          </div>
+      </div>
+      </div>
+      
         <div class="p-2 row">
           <label class="p-0 mb-1">Status</label>
           <select class="form-select" formControlName="status"

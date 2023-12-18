@@ -11,7 +11,7 @@
               />
               <div *ngIf="submitted && f['orgTypeName'].errors" class="invalid-feedback">
               <div *ngIf="f['orgTypeName'].errors['required']">
-                Org Name is required
+                Org Type Name is required
               </div>
               </div>
           </div>
@@ -26,24 +26,32 @@
               />
               <div *ngIf="submitted && f['orgTypeNameAr'].errors" class="invalid-feedback">
               <div *ngIf="f['orgTypeNameAr'].errors['required']">
-                Org Name in Arabic is required
+                Org Type Name in Arabic is required
               </div>
               </div>
           </div>
 
-          <div class="col-md-3">
-            <label class="mb-1">Top Level</label>
-            <input
-            type="number"
-            formControlName="topLevel"
-            class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f['topLevel'].errors }"  min="0"
-            />
+          <div class="col-md-2">
+            <label class="mb-1">Top Node</label>
+            <div class="mt-2">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" formControlName="topLevel" id="exRadios1" value="1" selected>
+              <label class="form-check-label" for="exRadios1">
+                Yes
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" formControlName="topLevel" id="exRadios2" value="0">
+              <label class="form-check-label" for="exRadios2">
+                No
+              </label>
+            </div>
             <div *ngIf="submitted && f['topLevel'].errors" class="invalid-feedback">
-            <div *ngIf="f['topLevel'].errors['required']">
-              Top Level is required
+            <div *ngIf="f['topLevel'].errors['topLevel']">
+              Top Node is required
             </div>
             </div>
+          </div>
         </div>
           <div class="row btn-row justify-content-center">
             <div class="col-md-5 d-flex justify-content-around">
@@ -68,7 +76,8 @@
                   <div class="">{{ row.orgTypeNameAr }}</div>
                 </td>
                 <td>
-                  <div class="">{{ row.topLevel }}</div>
+                  <div  *ngIf="row.topLevel=== 1" class="">Yes</div>
+                  <div  *ngIf="row.topLevel === 0" class="">No</div>
                 </td>
                 <td>
                   <div  *ngIf="row.status === 1" class="">Active</div>
@@ -114,38 +123,48 @@
             </div>
         </div>
         <div class="p-2 row">
-            <label class="p-0 mb-1">Org Name in Arabic</label>
-            <input
-            type="text"
-            formControlName="orgTypeNameAr"
-            class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f['orgTypeNameAr'].errors }"/>
-            <div *ngIf="submitted && f['orgTypeNameAr'].errors" class="invalid-feedback">
-            <div *ngIf="f['orgTypeNameAr'].errors['required']">
-              Org Name in Arabic is required
+          <label class="mb-1">Org Type Name in Arabic</label>
+          <input
+          type="text"
+          formControlName="orgTypeNameAr"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f['orgTypeNameAr'].errors }"
+          />
+          <div *ngIf="submitted && f['orgTypeNameAr'].errors" class="invalid-feedback">
+          <div *ngIf="f['orgTypeNameAr'].errors['required']">
+            Org Name in Arabic is required
+          </div>
+          </div>
+        </div>
+        <div class="p-2 row">
+            <label class="mb-1">Top Node</label>
+            <div class="mt-2">
+            <div class="form-check form-check-inline">
+              <input [(ngModel)]="editData.topLevel" class="form-check-input" type="radio"
+              formControlName="topLevel" value="1">
+              <label class="form-check-label">
+                Yes
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input [(ngModel)]="editData.topLevel" class="form-check-input" type="radio" formControlName="topLevel" value="0">
+              <label class="form-check-label">
+                No
+              </label>
+            </div>
+            <div *ngIf="submitted && f['topLevel'].errors" class="invalid-feedback">
+            <div *ngIf="f['topLevel'].errors['topLevel']">
+              Top Node is required
             </div>
             </div>
+          </div>
         </div>
-      <div class="p-2 row">
-        <label class="p-0 mb-1">Top Level</label>
-        <input
-        type="number"
-        formControlName="topLevel"
-        class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f['topLevel'].errors }"  min="0"
-        />
-        <div *ngIf="submitted && f['topLevel'].errors" class="invalid-feedback">
-        <div *ngIf="f['topLevel'].errors['required']">
-          Top Level is required
-        </div>
-        </div>
-    </div>
         <div class="p-2 row">
           <label class="p-0 mb-1">Status</label>
           <select class="form-select" formControlName="status"
           [ngClass]="{ 'is-invalid': submitted && f['status'].errors }">
             <option value="1">Active</option> 
-            <option  value="0">In Active</option> 
+            <option  value="0">In Active</option>
           </select>
       </div>
         <div class="p-2 row">

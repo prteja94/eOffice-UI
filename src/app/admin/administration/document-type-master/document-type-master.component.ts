@@ -22,6 +22,7 @@ import { Tabledata, data } from '../../../../assets/data-form';
 import { API, Columns, APIDefinition, DefaultConfig, Config } from 'ngx-easy-table';
 import { DocumentTypeMaster, DocumentTypeService } from './document-type.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-document-type-master',
@@ -55,7 +56,8 @@ export class DocumentTypeMasterComponent implements OnInit{
 
   constructor(private formBuilder: FormBuilder, private cdr: ChangeDetectorRef
     ,private documentTypeMasterService:DocumentTypeService, private fb: UntypedFormBuilder,
-    private modalService: NgbModal) {}
+    private modalService: NgbModal,
+    private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group(
@@ -112,6 +114,10 @@ export class DocumentTypeMasterComponent implements OnInit{
 
     this.documentTypeMasterService.create(this.form.value).subscribe((response) => {
       if(response.status === 201){  
+        this.toastr.success('You are awesome!', 'Date Saved Successfully!', {
+          timeOut: 3000,
+          
+        });
         this.documentTypeMasterService.getTableData().subscribe((response) => {
           this.data=response;
         })
@@ -186,6 +192,10 @@ export class DocumentTypeMasterComponent implements OnInit{
     console.log(this.editData.value);
     this.documentTypeMasterService.update(this.editData.value).subscribe((response) => {
       if(response.status === 201){
+        this.toastr.success('You are awesome!', 'Date Updated Successfully!', {
+          timeOut: 3000,
+          
+        });
         this.modalService.dismissAll('close');
         this.documentTypeMasterService.getTableData().subscribe((response) => {
           this.data=response;

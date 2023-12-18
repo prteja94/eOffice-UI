@@ -12,7 +12,7 @@ export class UserMappingService {
   private apiUrl = 'http://localhost:8081/admin/user-map';
 
   create(extLocData: any): Observable<any> {
-    return this.http.post(this.apiUrl, extLocData);
+    return this.http.post(this.apiUrl, extLocData,{observe: 'response'});
   }
 
   getTableData(): Observable<Array<UserMappingMaster>> {
@@ -27,8 +27,11 @@ export interface UserMappingMaster {
   indexvalue: number,
   userId: string,
   orgId: string,
+  orgTypeId: number,
   roleId: number,
   superiorUserId: string,
+  privilegeId: number,
+  assignId: number,
   createdDate: string,
   status: string   
 }

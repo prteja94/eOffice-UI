@@ -62,7 +62,7 @@ export class FolderMasterComponent implements OnInit{
       {
         folderName: ['', Validators.required],
         folderNameAr: ['', Validators.required],
-        exampleRadios: ['', Validators.required]      
+        exampleRadios: ['', Validators.required]  
       }
       
     );
@@ -94,7 +94,9 @@ export class FolderMasterComponent implements OnInit{
       folderName: ['', Validators.required],
       folderNameAr: ['', Validators.required],
       folderId: ['', Validators.required],
-      status: ['', Validators.required]
+      status: ['', Validators.required],
+      exRadios: ['', Validators.required],
+      parentFolderId: [''],
     });
   }
 
@@ -151,7 +153,9 @@ export class FolderMasterComponent implements OnInit{
         folderId: folderData.folderId,
         folderName: folderData.folderName,
         folderNameAr: folderData.folderNameAr,
-        status: folderData.status
+        status: folderData.status,
+        exRadios: folderData.topNode,
+        parentFolderId: folderData.parentFolderId
       });
     }
   }
@@ -175,6 +179,10 @@ export class FolderMasterComponent implements OnInit{
         this.folderData.folderName = this.editData.get('folderName')?.value;
         this.folderData.folderNameAr = this.editData.get('folderNameAr')?.value;
         this.folderData.status=this.editData.get('status')?.value;
+        this.folderData.topNode=this.editData.get('exRadios')?.value;
+        if(this.editData.get('exRadios')?.value == 'option2'){
+          this.folderData.parentFolderId=this.editData.get('parentFolderId')?.value;
+        }
       }
     }
   }

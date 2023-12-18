@@ -21,6 +21,7 @@ import Validation from '../../../shared/validation';
 import { API, Columns, APIDefinition, DefaultConfig, Config } from 'ngx-easy-table';
 import { ActionMaster, ActionMasterService } from './action-master.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-action-master',
@@ -51,7 +52,8 @@ export class ActionMasterComponent implements OnInit{
   constructor(private formBuilder: FormBuilder, private cdr: ChangeDetectorRef,
     private actionMasterService:ActionMasterService,
     private fb: UntypedFormBuilder,
-    private modalService: NgbModal) {}
+    private modalService: NgbModal,
+    private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group(
@@ -106,6 +108,10 @@ export class ActionMasterComponent implements OnInit{
     }
     this.actionMasterService.create(this.form.value).subscribe((response) => {
       if(response.status === 201 || response.status === 200) {
+        this.toastr.success('You are awesome!', 'Date Saved Successfully!', {
+          timeOut: 3000,
+          
+        });
         this.actionMasterService.getTableData().subscribe((response) => {
           this.data=response;
         })
@@ -177,6 +183,10 @@ onEdit() {
 onUpdate() {
   this.actionMasterService.update(this.editData.value).subscribe((response) => {
     if(response.status === 201 || response.status === 200){
+      this.toastr.success('You are awesome!', 'Date Updated Successfully!', {
+        timeOut: 3000,
+        
+      });
       this.modalService.dismissAll('close');
       this.actionMasterService.getTableData().subscribe((response) => {
         this.data=response;

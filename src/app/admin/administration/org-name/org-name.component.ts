@@ -22,6 +22,8 @@ import { API, Columns, APIDefinition, DefaultConfig, Config } from 'ngx-easy-tab
 import { OrgNameService, OrgUnit } from './org-name.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
+import { OrgType, OrgTypeService } from '../org-type/org-type.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-org-name',
@@ -54,10 +56,12 @@ export class OrgNameComponent implements OnInit{
   OrgNameService: any;
   orgNameList: any;
   orgData: OrgUnit | null;
+  orgTypeList: OrgType[] | null ;
 
   constructor(private formBuilder: FormBuilder, private cdr: ChangeDetectorRef,
     private orgNameService:OrgNameService , private fb: UntypedFormBuilder,
-    private modalService: NgbModal){}
+    private modalService: NgbModal, private orgTypeService: OrgTypeService,
+    private toastr: ToastrService){}
 
       
 
@@ -79,12 +83,18 @@ export class OrgNameComponent implements OnInit{
       this.orgNameService.getTableData().subscribe((response) => {
         this.orgNameList = response;
       })
+
+      this.orgTypeService.getTableData().subscribe((response) => {
+        this.orgTypeList = response;
+      })
     
 
     this.columns = [
       { key: 'sno', title: 'S.No', width: '5%' },
-      { key: 'orgName', title: 'org Name' },
-      { key: 'orgNameAr', title: 'org Name Ar' },
+      { key: 'orgName', title: 'Org Unit' },
+      { key: 'orgNameAr', title: 'Org Unit Ar' },
+      { key: 'parentOrgName', title: 'Parent Org Name' },
+      { key: 'orgTypeName', title: 'Org Type Name' },
       { key: 'status', title: 'Status'},
       { key: 'CreatedBy', title: 'CreatedBy' },
       { key: 'updatedON', title: 'Created On / Updated On' },
@@ -108,7 +118,7 @@ export class OrgNameComponent implements OnInit{
       status: ['', Validators.required],
       parentOrgId: ['', Validators.required],
       topOrgId: ['', Validators.required],
-      orgType: ['', Validators.required]
+      orgTypeId: ['', Validators.required]
     });
   }
 
@@ -124,7 +134,15 @@ export class OrgNameComponent implements OnInit{
     }
 
     this.orgNameService.create(this.form.value).subscribe((response) => {
-      console.log(response);
+      if(response.status === 201){
+        this.toastr.success('You are awesome!', 'Date Saved Successfully!', {
+          timeOut: 3000,
+          
+        });
+        this.orgNameService.getTableData().subscribe((response) => {
+          this.data=response;
+        })
+      }
     })
 
     console.log(JSON.stringify(this.form.value, null, 2));
@@ -208,9 +226,12 @@ export class OrgNameComponent implements OnInit{
     console.log(this.editData.value);
     this.orgNameService.update(this.editData.value).subscribe((response) => {
       if(response.status === 201){
+        this.toastr.success('You are awesome!', 'Date Updated Successfully!', {
+          timeOut: 3000,
+        });
         this.modalService.dismissAll('close');
         this.orgNameService.getTableData().subscribe((response) => {
-          this.data=response;
+          this.orgNameList=response;
         })
       }
     })

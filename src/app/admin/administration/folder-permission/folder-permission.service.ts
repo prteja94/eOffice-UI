@@ -13,7 +13,7 @@ private apiUrl = 'http://localhost:8081/admin/folder-permission';
 
 
 create(privData: any): Observable<any> {
-  return this.http.post(this.apiUrl, privData);
+  return this.http.post(this.apiUrl, privData,{observe: 'response'});
 }
 
 getTableData(): Observable<any> {
@@ -34,5 +34,6 @@ export interface FolderPermissionMaster {
   folderNameAr: string,
   status: number,
   createdByUserName: string,
-  createdDate: string   
+  createdDate: string,
+  dataId: number   
 }

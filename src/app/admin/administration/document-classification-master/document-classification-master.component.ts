@@ -22,6 +22,7 @@ import { Tabledata, data } from '../../../../assets/data-form';
 import { API, Columns, APIDefinition, DefaultConfig, Config } from 'ngx-easy-table';
 import { DocumentClassificationMaster, DocumentClassificationService } from './document-classification.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-document-classification-master',
@@ -55,7 +56,8 @@ export class DocumentClassificationMasterComponent implements OnInit{
   constructor(private formBuilder: FormBuilder, private cdr: ChangeDetectorRef,
     private documentClassificationService:DocumentClassificationService,
     private fb: UntypedFormBuilder,
-    private modalService: NgbModal) {}
+    private modalService: NgbModal,
+    private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group(
@@ -111,6 +113,10 @@ export class DocumentClassificationMasterComponent implements OnInit{
 
     this.documentClassificationService.create(this.form.value).subscribe((response) => {
       if(response.status === 201 || response.status === 200){
+        this.toastr.success('You are awesome!', 'Date Saved Successfully!', {
+          timeOut: 3000,
+          
+        });
         this.documentClassificationService.getTableData().subscribe((response) => {
           this.data=response;
         })
@@ -184,7 +190,11 @@ export class DocumentClassificationMasterComponent implements OnInit{
   onUpdate() {
     console.log(this.editData.value);
     this.documentClassificationService.update(this.editData.value).subscribe((response) => {
-      if(response.status === 201){
+      if(response.status === 201 || response.status === 200){
+        this.toastr.success('You are awesome!', 'Date Saved Successfully!', {
+          timeOut: 3000,
+          
+        });
         this.modalService.dismissAll('close');
         this.documentClassificationService.getTableData().subscribe((response) => {
           this.data=response;

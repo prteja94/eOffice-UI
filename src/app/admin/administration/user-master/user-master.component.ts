@@ -5,7 +5,8 @@ import {
   Component,
   OnInit,
   TemplateRef,
-  ViewChild, } from '@angular/core';
+  ViewChild} from '@angular/core';
+import { DatePipe } from '@angular/common';
 import {
   Validators,
   AbstractControl,
@@ -18,6 +19,7 @@ import {
 import { API, Columns, APIDefinition, DefaultConfig, Config } from 'ngx-easy-table';
 import { ModalDismissReasons, NgbAlertModule, NgbDatepickerModule, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserMaster, UserMasterService } from './user-master.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -51,16 +53,22 @@ export class UserMasterComponent implements OnInit{
   constructor(private formBuilder: FormBuilder, private cdr: ChangeDetectorRef,
     private userMasterService: UserMasterService,
     private fb: UntypedFormBuilder,
-    private modalService: NgbModal) {}
+    private modalService: NgbModal,
+    private datePipe: DatePipe,
+    private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group(
       {
-        indexvalue: ['', Validators.required],
+        loginId: ['', Validators.required],
         displayName: ['', Validators.required],
         ldapIdentifier: ['', Validators.required],
-        status: ['', Validators.required],
-        designation: ['', Validators.required]     
+        designation: ['', Validators.required] ,
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        hiredDate: ['', Validators.required] ,
+        dob: ['', Validators.required],
+        userId: ['', Validators.required],
       }
       
     );
@@ -104,13 +112,16 @@ export class UserMasterComponent implements OnInit{
 
   onSubmit(): void {
     this.submitted = true;
-
     if (this.form.invalid) {
       return;
     }
-
     this.userMasterService.create(this.form.value).subscribe((response) => {
-      console.log(response);
+      this.toastr.success('You are awesome!', 'Date Saved Successfully!', {
+        timeOut: 3000,        
+      });
+      this.userMasterService.getTableData().subscribe((response) => {
+        this.data=response;
+      })
     })
 
     console.log(JSON.stringify(this.form.value, null, 2));
@@ -188,6 +199,9 @@ export class UserMasterComponent implements OnInit{
     console.log(this.editData.value);
     this.userMasterService.update(this.editData.value).subscribe((response) => {
       if(response.status === 201){
+        this.toastr.success('You are awesome!', 'Date Updated Successfully!', {
+          timeOut: 3000,            
+        });
         this.modalService.dismissAll('close');
         this.userMasterService.getTableData().subscribe((response) => {
           this.data=response;

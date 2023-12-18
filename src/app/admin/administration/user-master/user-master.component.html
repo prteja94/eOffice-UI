@@ -84,12 +84,13 @@
 
     <div class="col-md-6">
       <label class="mb-1">Hired Date</label>
-      <input
-      type="text"
-      formControlName="hiredDate"
+      <input type="date"
       class="form-control"
-      [ngClass]="{ 'is-invalid': submitted && f['hiredDate'].errors }"
-      />
+      placeholder="yyyy-mm-dd"
+      name="dp"
+      formControlName="hiredDate"
+    />
+    <!-- <button class="btn btn-outline-secondary" (click)="b.toggle()" type="button"><svg class="icon" ><use xlink:href="#calendar" /></svg></button> -->
       <div *ngIf="submitted && f['hiredDate'].errors" class="invalid-feedback">
       <div *ngIf="f['hiredDate'].errors['required']">
         Hired Date is required
@@ -101,14 +102,13 @@
       <div class="col-md-6">
         <label class="mb-1">Date of Birth</label>
         <div class="input-group">
-          <input
+          <input type="date"
             class="form-control"
             placeholder="yyyy-mm-dd"
             name="dp"
-            ngbDatepicker
-            #d="ngbDatepicker"
+            formControlName="dob"
           />
-          <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button"><svg class="icon" ><use xlink:href="#calendar" /></svg></button>
+          <!-- <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button"><svg class="icon" ><use xlink:href="#calendar" /></svg></button> -->
         </div>
 
         <!-- <input
@@ -157,8 +157,7 @@
           <div class="row btn-row justify-content-center">
             <div class="col-md-8 d-flex justify-content-around">
               <button type="submit" class="btn btn-width btn-submit">Submit</button>
-              <button type="button" class="btn btn-width btn-update">Update</button>
-              <button type="button" class="btn btn-width  nbtn-danger" (click)="onReset()">Reset</button>
+              <button type="button" class="btn btn-width btn-danger" (click)="onReset()">Reset</button>
             </div>
           </div>
        
@@ -255,7 +254,7 @@
         <div class="p-2 row">
           <input 
           type="hidden"
-          formControlName="priorityId"
+          formControlName="indexvalue"
           class="form-control">
           </div>
           <pre>{{ selected }}</pre>    

@@ -110,7 +110,7 @@ export class RoleMasterComponent implements OnInit{
     }
     this.rolemasterService.create(this.form.value).subscribe((response) => {
       if(response.status === 201) {
-        this.toastr.success('Data is Saved', 'Successfully', {
+        this.toastr.success('You are awesome!', 'Date Saved Successfully!', {
           disableTimeOut: true,
         });
         this.rolemasterService.getTableData().subscribe((response) => {
@@ -185,6 +185,9 @@ onUpdate() {
   console.log(this.editData.value);
   this.rolemasterService.update(this.editData.value).subscribe((response) => {
     if(response.status === 201){
+      this.toastr.success('You are awesome!', 'Date Updated Successfully!', {
+        disableTimeOut: true,
+      });
       this.modalService.dismissAll('close');
       this.rolemasterService.getTableData().subscribe((response) => {
         this.data=response;
@@ -192,12 +195,5 @@ onUpdate() {
     }
   })
 }
-
-showSuccess() {
-  this.toastr.success('You are awesome!', 'Success! dfdf', {
-    disableTimeOut: true,
-  });
-}
-
 }
 

@@ -30,7 +30,7 @@ export interface OrgType {
     orgTypeName: string,
     orgTypeNameAr: string,
     status: number,
-    topLevel: string,
+    topLevel: number,
     addedByUserName: string,
     addedOn: string,
     updatedByUserId: number

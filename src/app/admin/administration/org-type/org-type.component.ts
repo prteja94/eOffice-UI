@@ -22,6 +22,7 @@ import { Tabledata, data } from '../../../../assets/data-form';
 import { API, Columns, APIDefinition, DefaultConfig, Config } from 'ngx-easy-table';
 import { OrgType, OrgTypeService } from './org-type.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService, ToastrModule } from 'ngx-toastr';
 
 @Component({
   selector: 'app-org-type',
@@ -33,7 +34,7 @@ export class OrgTypeComponent implements OnInit {
   form: FormGroup = new FormGroup({
     privilegeName: new FormControl(''),
     privilegeAribic: new FormControl(''),
-   
+    
   });
   submitted = false;
 
@@ -57,7 +58,8 @@ export class OrgTypeComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, 
     private cdr: ChangeDetectorRef,private orgTypeService: OrgTypeService,
     private fb: UntypedFormBuilder,
-    private modalService: NgbModal) {}
+    private modalService: NgbModal,
+    private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group(
@@ -113,10 +115,16 @@ export class OrgTypeComponent implements OnInit {
       return;
     }
     this.orgTypeService.create(this.form.value).subscribe((response) => {
-      console.log(response);
+      if(response.status === 201){
+        this.toastr.success('You are awesome!', 'Date Saved Successfully!', {
+          timeOut: 3000,
+          
+        });
+        this.orgTypeService.getTableData().subscribe((response) => {
+          this.data=response;
+        })
+      }
     })
-    console.log(JSON.stringify(this.form.value, null, 2));
-    this.form.reset();
   }
 
   onReset(): void {
@@ -137,6 +145,7 @@ export class OrgTypeComponent implements OnInit {
   closeResult = '';
 
   openModal(content: TemplateRef<any>,  orgTypeData: OrgType | null) {
+    this.submitted = false;
 		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true }).result.then(
 			(result) => {
 				this.closeResult = `Closed with: ${result}`;
@@ -187,6 +196,9 @@ export class OrgTypeComponent implements OnInit {
     console.log(this.editData.value);
     this.orgTypeService.update(this.editData.value).subscribe((response) => {
       if(response.status === 201){
+        this.toastr.success('You are awesome!', 'Date Updated Successfully!', {
+          timeOut: 3000,
+        });
         this.modalService.dismissAll('close');
         this.orgTypeService.getTableData().subscribe((response) => {
           this.data=response;

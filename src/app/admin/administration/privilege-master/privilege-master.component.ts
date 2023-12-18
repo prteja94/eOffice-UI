@@ -22,6 +22,7 @@ import { Tabledata, data } from '../../../../assets/data-form';
 import { API, Columns, APIDefinition, DefaultConfig, Config } from 'ngx-easy-table';
 import { PrivilegeMaster, PrivilegeMasterService } from './privilege-master.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-privilege-master',
@@ -56,7 +57,8 @@ export class PrivilegeMasterComponent implements OnInit{
   constructor(private formBuilder: FormBuilder, private cdr: ChangeDetectorRef, 
     private privilegeMasterService: PrivilegeMasterService,
     private fb: UntypedFormBuilder,
-    private modalService: NgbModal) {}
+    private modalService: NgbModal,
+    private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group(
@@ -111,7 +113,14 @@ export class PrivilegeMasterComponent implements OnInit{
       return;
     }
     this.privilegeMasterService.create(this.form.value).subscribe((response) => {
-      console.log(response);
+      if(response.status === 201) {
+        this.toastr.success('You are awesome!', 'Date Saved Successfully!', {
+          timeOut: 3000,
+        });
+        this.privilegeMasterService.getTableData().subscribe((response) => {
+          this.data=response;
+        })
+      }
     })
     console.log(JSON.stringify(this.form.value, null, 2));
   }
@@ -179,7 +188,10 @@ export class PrivilegeMasterComponent implements OnInit{
   onUpdate() {
     console.log(this.editData.value);
     this.privilegeMasterService.update(this.editData.value).subscribe((response) => {
-      if(response.status === 201){
+      if(response.status === 201) {      
+        this.toastr.success('You are awesome!', 'Date Updated Successfully!', {
+          timeOut: 3000,
+        })
         this.modalService.dismissAll('close');
         this.privilegeMasterService.getTableData().subscribe((response) => {
           this.data=response;
