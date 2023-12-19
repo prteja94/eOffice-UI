@@ -53,6 +53,7 @@ export class OrgTypeComponent implements OnInit {
   OrgNameService: any;
   orgNameList: any;
   orgTypeData: OrgType | null;
+  topLevel: any;
 
 
   constructor(private formBuilder: FormBuilder, 

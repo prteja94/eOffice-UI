@@ -39,7 +39,7 @@ const routes: Routes = [
           title: 'Scanning Index',
           urls: [{ title: 'Scanning Index', url: '/ScanningIndex' }, { title: 'Scanning Index' }],
         },
-      },
+      }, 
       {
         path: 'userGroup',
         loadChildren: () => import('./user-group/user-group.module').then(m => m.UserGroupModule),
