@@ -39,7 +39,7 @@ const routes: Routes = [
           title: 'Scanning Index',
           urls: [{ title: 'Scanning Index', url: '/ScanningIndex' }, { title: 'Scanning Index' }],
         },
-      }, 
+      },
       {
         path: 'userGroup',
         loadChildren: () => import('./user-group/user-group.module').then(m => m.UserGroupModule),
@@ -56,10 +56,17 @@ const routes: Routes = [
           urls: [{ title: 'democomponent', url: '/democomponent' }, { title: 'democomponent' }],
         },
       },
+      {
+        path: 'widget',
+        loadChildren: () => import('./widgets/widgets.module').then(m => m.WidgetsModule),
+        data: {
+          title: 'widget',
+          urls: [{ title: 'widget', url: '/widget' }, { title: 'widget' }],
+        },
+      },
     ]
   },
  
-  
  
 ];
 

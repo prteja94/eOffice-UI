@@ -8,7 +8,7 @@
           <form class="row g-3 datasearch " [formGroup]="form" (ngSubmit)="onSubmit()">
             
           <div class="col-md-6 ">
-              <label class="mb-1">Login Id</label>
+              <label class="mb-1">{{ 'Login Id' | translate }}</label>
               <input
               type="text"
               formControlName="loginId"
@@ -23,7 +23,7 @@
           </div>
       
           <div class="col-md-6">
-              <label class="mb-1">Display Name</label>
+              <label class="mb-1">{{ 'Display Name' | translate }}</label>
               <input
               type="text"
               formControlName="displayName"
@@ -38,7 +38,7 @@
           </div>
 
           <div class="col-md-6">
-            <label class="mb-1">First Name</label>
+            <label class="mb-1">{{ 'First Name' | translate }}</label>
             <input
             type="text"
             formControlName="firstName"
@@ -53,7 +53,7 @@
         </div>
 
         <div class="col-md-6">
-          <label class="mb-1">Last Name</label>
+          <label class="mb-1">{{ 'Last Name' | translate }}</label>
           <input
           type="text"
           formControlName="lastName"
@@ -68,7 +68,7 @@
       </div>
 
       <div class="col-md-6">
-        <label class="mb-1">Ldap Identifier</label>
+        <label class="mb-1">{{ 'Ldap Identifier' | translate }}</label>
         <input
         type="text"
         formControlName="ldapIdentifier"
@@ -83,7 +83,7 @@
     </div>
 
     <div class="col-md-6">
-      <label class="mb-1">Hired Date</label>
+      <label class="mb-1">{{ 'Hired Date' | translate }}</label>
       <input type="date"
       class="form-control"
       placeholder="yyyy-mm-dd"
@@ -100,7 +100,7 @@
 
 
       <div class="col-md-6">
-        <label class="mb-1">Date of Birth</label>
+        <label class="mb-1">{{ 'Date of Birth' | translate }}</label>
         <div class="input-group">
           <input type="date"
             class="form-control"
@@ -125,7 +125,7 @@
     </div>
 
     <div class="col-md-6">
-      <label class="mb-1">Designation</label>
+      <label class="mb-1">{{ 'Designation' | translate }}</label>
       <input
       type="text"
       formControlName="designation"
@@ -140,7 +140,7 @@
     </div>
 
     <div class="col-md-6">
-      <label class="mb-1">User Id</label>
+      <label class="mb-1">U{{ 'ser Id' | translate }}</label>
       <input
       type="text"
       formControlName="userId"
@@ -154,12 +154,12 @@
       </div>
     </div>
 
-          <div class="row btn-row justify-content-center">
-            <div class="col-md-8 d-flex justify-content-around">
-              <button type="submit" class="btn btn-width btn-submit">Submit</button>
-              <button type="button" class="btn btn-width btn-danger" (click)="onReset()">Reset</button>
-            </div>
-          </div>
+    <div class="row btn-row justify-content-center">
+      <div class="d-flex justify-content-center">
+        <button type="submit" class="btn-submit mx-2">{{ 'Submit' | translate }}</button>
+        <button type="button" class="btn-danger mx-2" (click)="onReset()">{{ 'Reset' | translate }}</button>
+      </div>
+    </div>  
        
           
           </form>

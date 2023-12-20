@@ -4,7 +4,7 @@
     <div class="col-md-8">
           <form class="row g-3 datasearch " [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="col-md-6 ">
-              <label class="mb-1">User </label>
+              <label class="mb-1">{{ 'User' | translate }}</label>
               <select class="form-select" formControlName="userId"
               [ngClass]="{ 'is-invalid': submitted && f['userId'].errors }">
               <option value="" disabled [defaultSelected]="true">Choose Your Option</option>
@@ -18,7 +18,7 @@
           </div>
 
           <div class="col-md-6 ">
-            <label class="mb-1">Top Org Unit </label>
+            <label class="mb-1">{{ 'Top Org Unit' | translate }} </label>
             <select class="form-select" formControlName="orgTypeId"
             [ngClass]="{ 'is-invalid': submitted && f['orgTypeId'].errors }">
             <option value="" disabled [defaultSelected]="true">Choose Your Option</option>
@@ -32,7 +32,7 @@
           </div>
 
           <div class="col-md-6 ">
-            <label class="mb-1">Org Unit</label>
+            <label class="mb-1">{{ 'Org Unit' | translate }}</label>
             <select class="form-select" formControlName="orgId"
             [ngClass]="{ 'is-invalid': submitted && f['orgId'].errors }">
             <option value="" disabled [defaultSelected]="true">Choose Your Option</option>
@@ -46,7 +46,7 @@
           </div>
 
           <div class="col-md-6 ">
-            <label class="mb-1">Role</label>
+            <label class="mb-1">{{ 'Role' | translate }}</label>
             <select class="form-select" formControlName="roleId"
             [ngClass]="{ 'is-invalid': submitted && f['roleId'].errors }">
             <option value="" disabled [defaultSelected]="true">Choose Your Option</option>
@@ -60,7 +60,7 @@
           </div>
 
           <div class="col-md-6 ">
-            <label class="mb-1">Superior</label>
+            <label class="mb-1">{{ 'Superior' | translate }}</label>
             <select class="form-select" formControlName="superiorUserId"
             [ngClass]="{ 'is-invalid': submitted && f['superiorUserId'].errors }">
             <option value="" disabled [defaultSelected]="true">Choose Your Option</option>
@@ -74,7 +74,7 @@
           </div>
       
           <div class="col-md-6">
-              <label class="mb-1">User Assignment Permission</label>
+              <label class="mb-1">{{ 'User Assignment Permission' | translate }}</label>
               <select class="form-select" formControlName="assignId"
             [ngClass]="{ 'is-invalid': submitted && f['assignId'].errors }">
             <option value="" disabled [defaultSelected]="true">Choose Your Option</option>
@@ -88,7 +88,7 @@
           </div>
 
           <div class="col-md-6">
-            <label class="mb-1">User Privileges</label>
+            <label class="mb-1">{{ 'User Privileges' | translate }}</label>
             <select class="form-select" formControlName="privilegeId"
             [ngClass]="{ 'is-invalid': submitted && f['privilegeId'].errors }">
             <option value="" disabled [defaultSelected]="true">Choose Your Option</option>
@@ -115,13 +115,12 @@
           </div>
           </div>
       </div> -->
-          <div class="row btn-row justify-content-center">
-            <div class="col-md-8 d-flex justify-content-around">
-              <button type="submit" class="btn btn-submit">Submit</button>
-              <button type="button" class="btn btn-update">Update</button>
-              <button type="button" class="btn btn-danger" (click)="onReset()">Reset</button>
-            </div>
-          </div>                  
+      <div class="row btn-row justify-content-center">
+        <div class="d-flex justify-content-center">
+          <button type="submit" class="btn-submit mx-2">{{ 'Submit' | translate }}</button>
+          <button type="button" class="btn-danger mx-2" (click)="onReset()">{{ 'Reset' | translate }}</button>
+        </div>
+      </div>                    
           </form>
         </div>
         </div>  

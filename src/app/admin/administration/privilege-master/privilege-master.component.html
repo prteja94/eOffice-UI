@@ -6,7 +6,7 @@
    
           <form class="row g-3 datasearch justify-content-center" [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="col-md-3 ">
-              <label class="mb-1">Privilege Name</label>
+              <label class="mb-1">{{ 'Privilege Name' | translate }}</label>
               <input
               type="text"
               formControlName="privilegeName"
@@ -21,7 +21,7 @@
           </div>
       
           <div class="col-md-3">
-              <label class="mb-1">Privilege Name in Arabic</label>
+              <label class="mb-1">{{ 'Privilege Name in Arabic' | translate }}</label>
               <input
               type="text"
               formControlName="privilegeNameAr"
@@ -37,11 +37,11 @@
       
 
           <div class="row btn-row justify-content-center">
-            <div class="col-md-5 d-flex justify-content-around">
-              <button type="submit" class="btn btn-submit">Submit</button>
-              <button type="button" class="btn btn-danger" (click)="onReset()">Reset</button>
+            <div class="d-flex justify-content-center">
+              <button type="submit" class="btn-submit mx-2">{{ 'Submit' | translate }}</button>
+              <button type="button" class="btn-danger mx-2" (click)="onReset()">{{ 'Reset' | translate }}</button>
             </div>
-          </div>                    
+          </div>                      
           </form>
     
   

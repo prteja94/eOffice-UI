@@ -16,7 +16,7 @@ const ngboostrapModules = [
   NgbDatepickerModule,
   NgbCarouselModule,
   NgbTooltipModule,
-  NgbAlertModule 
+  NgbAlertModule
 ]
 
 

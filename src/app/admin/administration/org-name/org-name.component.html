@@ -2,7 +2,7 @@
 	<ng-scrollbar class="w-100 h-100">   
           <form class="row g-3 datasearch justify-content-center" [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="col-md-3 ">
-              <label class="mb-1">Org Unit</label>
+              <label class="mb-1">{{ 'Org Unit' | translate }}</label>
               <input
               type="text"
               formControlName="orgName"
@@ -16,7 +16,7 @@
           </div>
       
           <div class="col-md-3">
-              <label class="mb-1">Org Unit in Arabic</label>
+              <label class="mb-1">{{ 'Org Unit in Arabic' | translate }}</label>
               <input
               type="text"
               formControlName="orgNameAr"
@@ -30,7 +30,7 @@
           </div>
 
           <div class="col-md-3">
-            <label class="mb-1">Parent Org Id</label>
+            <label class="mb-1">{{ 'Parent Org Id' | translate }}</label>
             <select class="form-select" formControlName="parentOrgId" [ngClass]="{ 'is-invalid': submitted && f['parentOrgId'].errors }">
               <option value="" disabled selected>Select Parent Org Id</option>
               <option value="{{web.orgId}}" *ngFor="let web of websiteList">{{web.orgName}}</option> 
@@ -41,7 +41,7 @@
           </div>
       
           <div class="col-md-3">
-            <label class="mb-1">Org Type</label>
+            <label class="mb-1">{{ 'Org Type' | translate }}</label>
             <select class="form-select" formControlName="orgTypeId" [ngClass]="{ 'is-invalid': submitted && f['orgTypeId'].errors }">
               <option value="" disabled selected>Select Org Type</option>
               <option value="{{web.orgTypeId}}" *ngFor="let web of orgTypeList">{{web.orgTypeName}}</option> 
@@ -52,11 +52,11 @@
           </div>
 
           <div class="row btn-row justify-content-center">
-            <div class="col-md-5 d-flex justify-content-around">
-              <button type="submit" class="btn btn-submit">Submit</button>
-              <button type="button" class="btn btn-danger" (click)="onReset()">Reset</button>
+            <div class="d-flex justify-content-center">
+              <button type="submit" class="btn-submit mx-2">{{ 'Submit' | translate }}</button>
+              <button type="button" class="btn-danger mx-2" (click)="onReset()">{{ 'Reset' | translate }}</button>
             </div>
-          </div>                    
+          </div>                     
           </form>
     
   

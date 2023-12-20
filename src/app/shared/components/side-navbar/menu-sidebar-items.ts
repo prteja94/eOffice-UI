@@ -517,7 +517,15 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
       }
     ],
-   },
+  },
+  {
+    path: 'widget',
+    title: 'widgets',
+    icon: '#userGroup',
+    class: '',
+    extralink: false,
+    submenu: [],
+  },
   //   {
   //       path: '',
   //       title: 'Departments',

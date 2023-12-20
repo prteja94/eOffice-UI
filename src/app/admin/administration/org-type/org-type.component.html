@@ -2,7 +2,7 @@
 	<ng-scrollbar class="w-100 h-100">
           <form class="row g-3 datasearch justify-content-center" [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="col-md-3 ">
-              <label class="mb-1">Org Type Name</label>
+              <label class="mb-1">{{ 'Org Type Name' | translate }}</label>
               <input
               type="text"
               formControlName="orgTypeName"
@@ -17,7 +17,7 @@
           </div>
       
           <div class="col-md-3">
-              <label class="mb-1">Org Type Name in Arabic</label>
+              <label class="mb-1"> {{ 'Org Type Name in Arabic' | translate }}</label>
               <input
               type="text"
               formControlName="orgTypeNameAr"
@@ -32,7 +32,7 @@
           </div>
 
           <div class="col-md-2">
-            <label class="mb-1">Top Node</label>
+            <label class="mb-1">{{ 'Top Node' | translate }}</label>
             <div class="mt-2">
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" formControlName="topLevel" id="exRadios1" value="1" selected>
@@ -53,12 +53,14 @@
             </div>
           </div>
         </div>
+
           <div class="row btn-row justify-content-center">
-            <div class="col-md-5 d-flex justify-content-around">
-              <button type="submit" class="btn btn-submit">Submit</button>
-              <button type="button" class="btn btn-danger" (click)="onReset()">Reset</button>
+            <div class="d-flex justify-content-center">
+              <button type="submit" class="btn-submit mx-2">{{ 'Submit' | translate }}</button>
+              <button type="button" class="btn-danger mx-2" (click)="onReset()">{{ 'Reset' | translate }}</button>
             </div>
-          </div>
+          </div>  
+
           </form>  
     <hr class="gradient-line">
     <div class="row m-0 p-0 data">

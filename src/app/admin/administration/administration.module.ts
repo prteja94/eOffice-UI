@@ -21,7 +21,6 @@ import { UserMasterComponent } from './user-master/user-master.component';
 import { UserMappingComponent } from './user-mapping/user-mapping.component';
 import { FolderMasterComponent } from './folder-master/folder-master.component';
 import { FolderPermissionComponent } from './folder-permission/folder-permission.component';
-import { TranslationModule } from 'src/app/shared/translation.module';
 
 
 @NgModule({

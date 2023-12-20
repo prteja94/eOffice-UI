@@ -20,7 +20,8 @@
           "options": {
             "allowedCommonJsDependencies": [
               "ngx-scrollbar",
-              "quill"
+              "quill",
+              "lodash"
             ],
             "outputPath": "dist/eOffice",
             "index": "src/index.html",
