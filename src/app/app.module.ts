@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
+import { APP_BASE_HREF } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
@@ -19,6 +20,9 @@ import { MenuService } from './shared/services/menu.service';
 import { TranslationModule } from './shared/translation.module';
 import { ToastrModule } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
+import { AuthModule } from './auth/auth.module';
+
+
 
 declare var $: any;
 
@@ -42,9 +46,12 @@ declare var $: any;
     QuillModule.forRoot(),
     ToastrModule.forRoot(),
     HttpClientModule,
-    TranslationModule
+    TranslationModule,
+
+    AuthModule
   ],
   providers: [DirectionService, MenuSidebarService, MenuService, DatePipe, 
+    //{ provide: APP_BASE_HREF, useValue: '/evolut/' } ,
     { 
       provide: NG_SCROLLBAR_OPTIONS,
       useValue: {

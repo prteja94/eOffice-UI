@@ -4,7 +4,6 @@ import { JsonPipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component, inject, TemplateRef } from '@angular/core';
 
-
 import {
   Validators,
   FormsModule,
@@ -14,6 +13,8 @@ import {
   FormGroup,
   FormControl,
 } from '@angular/forms';
+
+import { Observable, Subscription } from 'rxjs';
 
 import { NgScrollbarModule, NG_SCROLLBAR_OPTIONS } from 'ngx-scrollbar';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -28,7 +29,7 @@ import { MainsectionComponent } from './components/mainsection/mainsection.compo
 import { StatsComponent } from './components/stats/stats.component';
 import { TableComponent } from './components/table/table.component';
 
-
+import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectConfig, NgSelectModule } from '@ng-select/ng-select';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 
@@ -58,6 +59,7 @@ import { PrimeNgModule } from './primeng.module';
     //MaterialModule,
     SharedRoutingModule,
     NgScrollbarModule,
+    NgbCarouselModule,
     NgbModule,
     FeatherModule,
     FeatherModule.pick(allIcons),
@@ -91,6 +93,7 @@ import { PrimeNgModule } from './primeng.module';
     TranslationModule,
     ReactiveFormsModule,
     NgScrollbarModule,
+    NgbCarouselModule,
     HttpClientModule,
     NgIf,
     NgFor,

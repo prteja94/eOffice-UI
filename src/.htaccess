@@ -4,5 +4,8 @@
   RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^([^/]+)/([^/]+)/([^/]+)/$ /$1/index.html?page=$2&section=$3 [L]
+  
+  # Catch-all route for non-static assets (adjust path if needed)
   RewriteRule . /index.html [L]
 </IfModule>

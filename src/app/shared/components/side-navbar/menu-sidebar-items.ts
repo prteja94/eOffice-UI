@@ -42,8 +42,8 @@ export const ROUTES: RouteInfo[] = [
             submenu: [],
           },
           {
-            path: 'administration/org-name',
-            title: 'Org Name',
+            path: 'administration/org-unit',
+            title: 'Org Unit',
             icon: '',
             class: '',
             extralink: false,

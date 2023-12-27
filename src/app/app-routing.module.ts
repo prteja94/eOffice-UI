@@ -3,23 +3,28 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { LocationStrategy, PathLocationStrategy, HashLocationStrategy  } from '@angular/common';
 
-import { LoginComponent } from './shared/login/login.component';
+import { NotfoundComponent } from './auth/404/not-found.component'
+import { LoginComponent } from './auth/login/login.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
-  // { path: 'home', component: HomeComponent },
-  // { path: 'admin', component: AdminComponent },
+
   {
-    path: '', redirectTo: '/login', pathMatch: 'full' // Redirect to 'home' module on root path
+      path: 'admin',
+      loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+      canActivate: [AuthGuard],
+      data: { requiredRole: 'Admin' }
   },
   {
-    path: 'admin',
-    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+      path: '404',
+      component: NotfoundComponent
   },
-  { path: 'home', redirectTo: '/admin/home', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  { path: '**', redirectTo: '/login' }, 
-  
-  //{ path: '**', component: PageNotFoundComponent }
+  {
+      // Redirect to login or another appropriate page if the path is not recognized
+      path: '**',
+      redirectTo: 'login'
+  }
+
 
 ];
 @NgModule({

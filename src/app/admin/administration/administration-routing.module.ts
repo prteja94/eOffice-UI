@@ -102,10 +102,10 @@ const routes: Routes = [
     },
   },
   {
-    path: 'org-name', component: OrgNameComponent,
+    path: 'org-unit', component: OrgNameComponent,
     data: {
       title: 'Org Name',
-      urls: [{ title: 'Home', url: '/home' }, { title: 'Org Name' }],
+      urls: [{ title: 'Home', url: '/home' }, { title: 'Org Unit' }],
     },
   },
   {
