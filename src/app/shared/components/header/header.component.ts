@@ -2,6 +2,9 @@ import { Component, AfterViewInit } from '@angular/core';
 import { DirectionService } from 'src/app/shared/services/direction.service';
 import { TranslateService } from '@ngx-translate/core';
 
+import { Router } from '@angular/router';
+import { AuthService } from '../../../auth/auth.service';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -49,7 +52,7 @@ export class HeaderComponent implements AfterViewInit {
     this.changeLanguage(lang);
   }
 
-  constructor(public directionService: DirectionService, private translate: TranslateService) {
+  constructor(public directionService: DirectionService, private translate: TranslateService, private authService: AuthService, private router: Router) {
     translate.setDefaultLang('en');
   }
 
@@ -70,6 +73,11 @@ export class HeaderComponent implements AfterViewInit {
     this.selectedLanguage = lang;
   }
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() { }
+  
+  onLogout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']); // Redirect to login or any other page
+  }
 
 }

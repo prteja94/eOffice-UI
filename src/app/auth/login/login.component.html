@@ -60,8 +60,8 @@
                       <button type="submit" class="btn-submit w-100 mt-3">Login</button>
                   </form>
 
-                  <div *ngIf="loginError" class="alert alert-danger mt-3 rounded-0">
-                    Invalid username or password.
+                  <div *ngIf="errorMessage" class="alert alert-danger mt-3 rounded-0">
+                    {{ errorMessage }}
                   </div>
                  </div>
               </div>

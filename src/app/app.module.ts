@@ -21,7 +21,7 @@ import { TranslationModule } from './shared/translation.module';
 import { ToastrModule } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
 import { AuthModule } from './auth/auth.module';
-
+import { LoginComponent } from './auth/login/login.component';
 
 
 declare var $: any;

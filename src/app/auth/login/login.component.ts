@@ -17,32 +17,44 @@ export class LoginComponent {
 
   username: string = '';
   password: string = '';
+  errorMessage = '';
+
   loginError: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) { }
-  
+  constructor(private authService: AuthService, private router: Router) {}
 
   onLogin(): void {
-    console.log('Attempting login for:', this.username); // Debugging line
-    
-    this.authService.login(this.username, this.password).subscribe(isLoggedIn => {
-      console.log('Login successful:', isLoggedIn); // Debugging line
-      if (isLoggedIn) {
-        if (this.authService.hasRole('Admin')) {
-          this.router.navigate(['/admin/home']);
-        } else if (this.authService.hasRole('Scan')) {
-          this.router.navigate(['/admin/scan']);
-        } else if (this.authService.hasRole('Widgets')) {
-          this.router.navigate(['/admin/widgets']);
-        } else {
-          this.router.navigate(['/login']);
-        }
+    this.authService.login(this.username, this.password).subscribe(success => {
+      if (success) {
+        this.router.navigate(['/admin/home']); // Update as needed
       } else {
-        this.loginError = true;
-
+        this.errorMessage = 'Invalid Username or Password';
       }
     });
   }
+  
+
+  // onLogin(): void {
+  //   console.log('Attempting login for:', this.username); // Debugging line
+    
+  //   this.authService.login(this.username, this.password).subscribe(isLoggedIn => {
+  //     console.log('Login successful:', isLoggedIn); // Debugging line
+  //     if (isLoggedIn) {
+  //       if (this.authService.hasRole('Admin')) {
+  //         this.router.navigate(['/admin/home']);
+  //       } else if (this.authService.hasRole('Scan')) {
+  //         this.router.navigate(['/admin/scan']);
+  //       } else if (this.authService.hasRole('Widgets')) {
+  //         this.router.navigate(['/admin/widgets']);
+  //       } else {
+  //         this.router.navigate(['/login']);
+  //       }
+  //     } else {
+  //       this.loginError = true;
+
+  //     }
+  //   });
+  // }
 
 
 }

@@ -11,11 +11,23 @@ import { Roles } from './roles.enum';
 export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(): boolean {
-    if (!this.authService.isLoggedIn()) {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    // Check if the user is authenticated
+    if (!this.authService.isAuthenticated()) {
       this.router.navigate(['/login']);
       return false;
     }
+
+    // Check if the route has required roles
+    const requiredRoles = route.data['roles'] as string[];
+    if (requiredRoles) {
+      const hasRequiredRole = requiredRoles.some(role => this.authService.hasRole(role));
+      if (!hasRequiredRole) {
+        this.router.navigate(['/unauthorized']); // Or any other fallback route
+        return false;
+      }
+    }
+
     return true;
   }
 }
