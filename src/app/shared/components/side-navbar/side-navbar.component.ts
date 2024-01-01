@@ -4,7 +4,7 @@ import { Router, RouterModule } from '@angular/router';
 import { RouteInfo } from './menu-sidebar.metadata';
 import { MenuSidebarService } from './menu-sidebar.service';
 import { MenuService } from '../../../shared/services/menu.service';
-
+import { AuthService } from '../../../auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -39,6 +39,7 @@ export class SideNavbarComponent {
     private menuServise: MenuSidebarService,
     private menuService: MenuService,
     private router: Router,
+    public authService: AuthService,
     private translate: TranslateService
   ) {
     translate.setDefaultLang('en');
@@ -96,4 +97,10 @@ export class SideNavbarComponent {
     }
   }
 
+  isNavItemVisible(itemRoles: string[] | undefined): boolean {
+    if (!itemRoles || itemRoles.length === 0) {
+      return true; // Show the item if no roles are specified
+    }
+    return itemRoles.some(role => this.authService.hasRole(role));
+  }
 }

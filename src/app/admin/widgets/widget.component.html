@@ -132,6 +132,27 @@
               </div>
           </div>
 
+          <div class="mb-3 ng-select">
+            <label class="mb-1" for="defaultSelectM">Default Select</label>
+              <ng-select [multiple]="true" [(ngModel)]="defaultSelectM" formControlName="defaultSelectM"  placeholder="Default Select" 
+              clearAllText="Clear" [ngClass]="{ 'is-invalid': submitted && f['defaultSelect'].errors }" bindLabel="name">
+                <ng-option *ngFor="let defaultSelect of defaultSelect" [value]="defaultSelect.id">
+                {{ defaultSelect.name }}</ng-option>
+              </ng-select>
+            <div *ngIf="submitted && f['multi'].errors" class="invalid-feedback">
+              <div *ngIf="f['multi'].errors['required']">
+               Single select is required
+              </div>
+              </div>
+
+              <div>Currently selected IDs: {{ defaultSelectM | json }}</div>
+              <div>Currently selected Names: {{ defaultSelectedNames | json }}</div>
+
+              <ul>
+                <li *ngFor="let name of defaultSelectedNames">{{ name }}</li>
+              </ul>
+          </div>
+
           <div class="mb-3 ">
             
      
@@ -235,7 +256,7 @@
           ></button>
         </div>
         <div class="modal-body">
-          <form>
+          <form [formGroup]="setData" >
             <div class="mb-3">
               <label for="dateOfBirth">Date of birth</label>
               <div class="input-group">
@@ -255,6 +276,28 @@
                   <i-feather name="calendar" class="feather-sm"></i-feather>
                 </button>
               </div>
+            </div>
+
+
+            <div class="mb-3 ng-select">
+              <label class="mb-1" for="defaultSelectM">Default Select</label>
+                <ng-select [multiple]="true" [(ngModel)]="defaultSelectM" formControlName="defaultSelectM"  placeholder="Default Select" 
+                clearAllText="Clear" [ngClass]="{ 'is-invalid': submitted && f['defaultSelect'].errors }" bindLabel="name">
+                  <ng-option *ngFor="let defaultSelect of defaultSelect" [value]="defaultSelect.id">
+                  {{ defaultSelect.name }}</ng-option>
+                </ng-select>
+              <div *ngIf="submitted && f['multi'].errors" class="invalid-feedback">
+                <div *ngIf="f['multi'].errors['required']">
+                 Single select is required
+                </div>
+                </div>
+  
+                <div>Currently selected IDs: {{ defaultSelectM | json }}</div>
+                <div>Currently selected Names: {{ defaultSelectedNames | json }}</div>
+  
+                <ul>
+                  <li *ngFor="let name of defaultSelectedNames">{{ name }}</li>
+                </ul>
             </div>
           </form>
         </div>

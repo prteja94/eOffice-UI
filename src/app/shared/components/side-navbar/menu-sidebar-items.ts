@@ -8,6 +8,7 @@ export const ROUTES: RouteInfo[] = [
         class: '',
         extralink: false,
         submenu: [],
+        roles: ['Admin', 'User', 'Dev'],
      },
   
       {
@@ -16,23 +17,9 @@ export const ROUTES: RouteInfo[] = [
         icon: '#admin',
         class: 'has-arrow',
         extralink: false,
+        roles: ['Admin', 'User'],
         submenu: [
-          // {
-          //   path: 'administration/country-master',
-          //   title: 'Country Master',
-          //   icon: '',
-          //   class: '',
-          //   extralink: false,
-          //   submenu: [],
-          // },
-          // {
-          //   path: 'administration/state-master',
-          //   title: 'State Master',
-          //   icon: '',
-          //   class: '',
-          //   extralink: false,
-          //   submenu: [],
-          // },
+        
           {
             path: 'administration/org-type',
             title: 'Org Type',
@@ -49,38 +36,7 @@ export const ROUTES: RouteInfo[] = [
             extralink: false,
             submenu: [],
           },
-          // {
-          //   path: 'democomponent',
-          //   title: 'Region Master',
-          //   icon: '',
-          //   class: '',
-          //   extralink: false,
-          //   submenu: [],
-          // },
-          // {
-          //   path: 'democomponent',
-          //   title: 'Branch Master',
-          //   icon: '',
-          //   class: '',
-          //   extralink: false,
-          //   submenu: [],
-          // },
-          // {
-          //   path: 'democomponent',
-          //   title: 'Category Master',
-          //   icon: '',
-          //   class: '',
-          //   extralink: false,
-          //   submenu: [],
-          // },
-          // {
-          //   path: 'democomponent',
-          //   title: 'Group Master',
-          //   icon: '',
-          //   class: '',
-          //   extralink: false,
-          //   submenu: [],
-          // },
+         
           {
             path: 'administration/role-master',
             title: 'Role Master',
@@ -105,14 +61,7 @@ export const ROUTES: RouteInfo[] = [
             extralink: false,
             submenu: [],
           },
-          // {
-          //   path: 'democomponent',
-          //   title: 'Folder Master',
-          //   icon: '',
-          //   class: '',
-          //   extralink: false,
-          //   submenu: [],
-          // },
+       
           {
             path: 'administration/action-master',
             title: 'Action Master',
@@ -137,14 +86,7 @@ export const ROUTES: RouteInfo[] = [
             extralink: false,
             submenu: [],
           },
-          // {
-          //   path: 'democomponent',
-          //   title: 'User Master',
-          //   icon: '',
-          //   class: '',
-          //   extralink: false,
-          //   submenu: [],
-          // },
+       
           {
             path: 'administration/classification-master',
             title: 'Classification Master',
@@ -193,22 +135,7 @@ export const ROUTES: RouteInfo[] = [
             extralink: false,
             submenu: [],
           },
-          // {
-          //   path: 'democomponent',
-          //   title: 'Retention Policy',
-          //   icon: '',
-          //   class: '',
-          //   extralink: false,
-          //   submenu: [],
-          // },
-          // {
-          //   path: 'democomponent',
-          //   title: 'Expired Documents',
-          //   icon: '',
-          //   class: '',
-          //   extralink: false,
-          //   submenu: [],
-          // }
+        
         ],
   },
   {
@@ -217,6 +144,7 @@ export const ROUTES: RouteInfo[] = [
     icon: '#eScan',
     class: 'has-arrow',
     extralink: false,
+    roles: ['Admin', 'User'],
     submenu: [
       {
         path: 'ScanningIndex',
@@ -242,6 +170,7 @@ export const ROUTES: RouteInfo[] = [
     icon: '#eJob',
     class: '',
     extralink: false,
+    roles: ['Admin', 'User'],
     submenu: [],
 },
 {
@@ -250,6 +179,7 @@ export const ROUTES: RouteInfo[] = [
   icon: '#queues',
   class: 'has-arrow',
   extralink: false,
+  roles: ['Admin', 'User'],
   submenu: [
     {
       path: 'democomponent',
@@ -315,6 +245,7 @@ export const ROUTES: RouteInfo[] = [
   icon: '#delegation',
   class: 'has-arrow',
   extralink: false,
+  roles: ['Admin', 'User'],
   submenu: [
     {
       path: 'democomponent',
@@ -348,6 +279,7 @@ export const ROUTES: RouteInfo[] = [
     icon: '#updates',
     class: 'has-arrow',
     extralink: false,
+    roles: ['Admin', 'User'],
     submenu: [
       {
         path: 'democomponent',
@@ -375,6 +307,7 @@ export const ROUTES: RouteInfo[] = [
     icon: '#circular',
     class: 'has-arrow',
     extralink: false,
+    roles: ['Admin', 'User'],
     submenu: [
       {
         path: 'democomponent',
@@ -400,6 +333,7 @@ export const ROUTES: RouteInfo[] = [
     icon: '#work',
     class: 'has-arrow',
     extralink: false,
+    roles: ['Admin', 'User'],
     submenu: [
       {
         path: 'democomponent',
@@ -475,6 +409,7 @@ export const ROUTES: RouteInfo[] = [
     class: '',
     extralink: false,
     submenu: [],
+    roles: ['Admin', 'User'],
   },
   {
     path: '',
@@ -525,189 +460,7 @@ export const ROUTES: RouteInfo[] = [
     class: '',
     extralink: false,
     submenu: [],
+    roles: ['Admin', 'Dev'],
   },
-  //   {
-  //       path: '',
-  //       title: 'Departments',
-  //       icon: '#pull',
-  //       class: 'has-arrow',
-  //       extralink: false,
-  //       submenu: [
-  //         {
-  //           path: '',
-  //           title: 'Department Master',
-  //           icon: '',
-  //           class: '',
-  //           extralink: false,
-  //           submenu: [],
-  //         },
-  //         {
-  //           path: '',
-  //           title: 'Role Master',
-  //           icon: '',
-  //           class: '',
-  //           extralink: false,
-  //           submenu: [],
-  //         },
-  //         {
-  //           path: '',
-  //           title: 'User Master',
-  //           icon: '',
-  //           class: '',
-  //           extralink: false,
-  //           submenu: [],
-  //         },
-  //         {
-  //           path: '',
-  //           title: 'Priority Master',
-  //           icon: '',
-  //           class: '',
-  //           extralink: false,
-  //           submenu: [],
-  //         },
-  //         {
-  //           path: '',
-  //           title: 'Action Master',
-  //           icon: '',
-  //           class: '',
-  //           extralink: false,
-  //           submenu: [],
-  //         },
-  //         {
-  //           path: '',
-  //           title: 'Folder Master',
-  //           icon: '',
-  //           class: '',
-  //           extralink: false,
-  //           submenu: [],
-  //         },
-  //         {
-  //           path: '',
-  //           title: 'Cabinet Master',
-  //           icon: '',
-  //           class: '',
-  //           extralink: false,
-  //           submenu: [],
-  //         },
-  //       ],
-  //     },
 
-  //     {
-  //       path: '',
-  //       title: 'Permission',
-  //       icon: '#pull',
-  //       class: 'has-arrow',
-  //       extralink: false,
-  //       submenu: [
-  //         {
-  //           path: '',
-  //           title: 'Folder Permission',
-  //           icon: '',
-  //           class: '',
-  //           extralink: false,
-  //           submenu: [],
-  //         },
-  //         {
-  //           path: '',
-  //           title: 'User Wise Permission',
-  //           icon: '',
-  //           class: '',
-  //           extralink: false,
-  //           submenu: [],
-  //         },
-  //         {
-  //           path: '',
-  //           title: 'Multi Folder Permission',
-  //           icon: '',
-  //           class: '',
-  //           extralink: false,
-  //           submenu: [],
-  //         },
-  //       ],
-  //     },
-
-  //     {
-  //       path: '',
-  //       title: 'Documents',
-  //       icon: '#pull',
-  //       class: 'has-arrow',
-  //       extralink: false,
-  //       submenu: [
-  //         {
-  //           path: '',
-  //           title: 'Doc Type Master',
-  //           icon: '',
-  //           class: '',
-  //           extralink: false,
-  //           submenu: [],
-  //         },
-  //         {
-  //           path: '',
-  //           title: 'Templates',
-  //           icon: '',
-  //           class: '',
-  //           extralink: false,
-  //           submenu: [],
-  //         },
-  //         {
-  //           path: '',
-  //           title: 'New Templates',
-  //           icon: '',
-  //           class: '',
-  //           extralink: false,
-  //           submenu: [],
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       path: '',
-  //       title: 'External Location',
-  //       icon: '#location',
-  //       class: '',
-  //       extralink: false,
-  //       submenu: [],
-  //     },
-      // {
-      //   path: '',
-      //   title: 'Menu Levels',
-      //   icon: '',
-      //   class: 'has-arrow',
-      //   extralink: false,
-      //   submenu: [
-      //     {
-      //       path: '',
-      //       title: 'Second Level',
-      //       icon: '',
-      //       class: '',
-      //       extralink: true,
-      //       submenu: [],
-      //     },
-      //     {
-      //       path: '',
-      //       title: 'Second Child',
-      //       icon: '',
-      //       class: 'has-arrow',
-      //       extralink: false,
-      //       submenu: [
-      //         {
-      //           path: '',
-      //           title: 'Third 1.1',
-      //           icon: '',
-      //           class: '',
-      //           extralink: false,
-      //           submenu: [],
-      //         },
-      //         {
-      //           path: '',
-      //           title: 'Third 1.2',
-      //           icon: '',
-      //           class: '',
-      //           extralink: false,
-      //           submenu: [],
-      //         },
-      //       ],
-      //     },
-      //   ],
-      // },
- 
 ];

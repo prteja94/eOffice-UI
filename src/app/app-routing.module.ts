@@ -8,7 +8,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
-
+  { path: 'home', redirectTo: '/admin/home', pathMatch: 'full' },
   {
       path: 'admin',
       loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),

@@ -4,6 +4,8 @@
         <!-- <ng-scrollbar class="w-100"> -->
 
         <li (click)="setActiveMenuItem('Home')"class="nav-item" [class.selected]="showMenu === sidebarnavItem.title" *ngFor="let sidebarnavItem of sidebarnavItems; let i = index;" (click)="sidebarnavItem.submenu.length != 0 ? '' : handleNotify(); setActiveMenuItem(sidebarnavItem.title)"  >
+            <ng-container *ngIf="isNavItemVisible(sidebarnavItem.roles || [])">
+
             <div class="nav-small-cap" *ngIf="sidebarnavItem.extralink === true"></div>
             <a class="nav-link main-navitem" [routerLink]="sidebarnavItem.class === '' ? [sidebarnavItem.path] : null"
               [ngClass]="[sidebarnavItem.class]" *ngIf="!sidebarnavItem.extralink;"
@@ -48,7 +50,7 @@
             </li>
         </ul>
 
-           
+    </ng-container>
         </li>
     <!-- </ng-scrollbar> -->
     </ul>
