@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 import { AdministrationComponent } from './administration.component';
-
 import { CountryMasterComponent } from './country-master/country-master.component';
 import { StateMasterComponent } from './state-master/state-master.component';
 import { PrivilegeMasterComponent } from './privilege-master/privilege-master.component';

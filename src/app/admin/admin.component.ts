@@ -14,6 +14,7 @@ export class AdminComponent implements AfterViewInit{
 
   //active = 1;
   constructor(public directionService: DirectionService, public router: Router) {
+    
   }
   
   ngAfterViewInit() {}

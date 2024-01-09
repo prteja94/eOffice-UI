@@ -24,14 +24,20 @@ export class UserMappingService {
 }
 
 export interface UserMappingMaster {
+  userprivilegesList: any;
   indexvalue: number,
   userId: string,
   orgId: string,
   orgTypeId: number,
   roleId: number,
   superiorUserId: string,
-  privilegeId: number,
+  privilegeId: Array<UserPrivileges>,
   assignId: number,
   createdDate: string,
-  status: string   
+  status: string
+}
+
+export interface UserPrivileges {
+  privilegeId: number,
+  privilegeName: string
 }
