@@ -35,8 +35,8 @@
                       <img src="assets/img/SudaneseMinistryAgricultureForestry.png" class="img-fluid">
                     </div>
                     </div>
-                      <h1 class="loginform-h1">Hello Again</h1>
-                      <p class="loginform-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+                      <!-- <h1 class="loginform-h1">Hello Again</h1>
+                      <p class="loginform-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry</p> -->
 
                       <div *ngIf="msg" class="alert alert-danger">{{ msg }}</div>
                   <form class="w-100 col-9" (ngSubmit)="onLogin()">
@@ -55,10 +55,12 @@
                       
                       <!-- <small class="text-danger mt-2 text-center">Click Login Button For Homepage</small> -->
 
-                      <!-- <button type="submit" class="btn btn-submit w-100 mt-3" routerLink="/admin/home">Login</button> -->
+                      <!-- <button type="submit" class="btn btn-submit w-100 mt-3" >Login</button> -->
 
                       <button type="submit" class="btn-submit w-100 mt-3">Login</button>
                   </form>
+
+                  <button type="button" routerLink="/admin/home" class="btn-submit my-3">Home</button>
 
                   <div *ngIf="errorMessage" class="alert alert-danger mt-3 rounded-0">
                     {{ errorMessage }}

@@ -40,7 +40,6 @@ export class WidgetComponent implements OnInit{
 
   selectedFolder: string;
 
-
   closeResult = '';
   files!: TreeNode[];
   nodes!: any[];
@@ -48,7 +47,8 @@ export class WidgetComponent implements OnInit{
   disabled: boolean = false;
 
   formTree!: FormGroup;
-
+  setData: UntypedFormGroup | any;
+  //selectData: OrgUnit | null;
 
   form: FormGroup = new FormGroup({
     name: new FormControl(''),
@@ -58,6 +58,7 @@ export class WidgetComponent implements OnInit{
     confirmPassword: new FormControl(''),
     singleSelect: new FormControl(''),
     multiSelect: new FormControl(''),
+    defaultSelectM: new FormControl(''),
     acceptTerms: new FormControl(false),
     folderSelect: new FormControl(''),
   });
@@ -75,7 +76,11 @@ export class WidgetComponent implements OnInit{
 
   singleSelect: number | null = null;
   multiSelect: number | null = null;
+  defaultSelectM: number[] = [];
+  defaultSelectedNames: string[] = [];
+
   selectedOrg: { id: number; name: string } | undefined;
+  defaultSelectID: { id: number; name: string } | undefined;
 
 
   single: any[] = [
@@ -90,6 +95,13 @@ export class WidgetComponent implements OnInit{
     { id: 2, name: 'Multi 2' },
     { id: 3, name: 'Multi 3' },
     { id: 4, name: 'Multi 4' },
+  ];
+
+  defaultSelect: any[] = [
+    { id: 1, name: 'Def Multi 1' },
+    { id: 2, name: 'Def Multi 2' },
+    { id: 3, name: 'Def Multi 3' },
+    { id: 4, name: 'Def Multi 4' },
   ];
 
 
@@ -118,9 +130,11 @@ export class WidgetComponent implements OnInit{
         acceptTerms: [false, Validators.requiredTrue],
         single: ['', Validators.required], 
         multi: ['', Validators.required], 
+        defaultSelect: ['', Validators.required], 
         folderSelect: [null, Validators.required],
         singleSelect: [null], 
         multiSelect: [null],
+        defaultSelectM: [], 
       },
       {
         validators: [Validation.match('password', 'confirmPassword')],
@@ -130,6 +144,11 @@ export class WidgetComponent implements OnInit{
 
     this.form.get('singleSelect')?.valueChanges.subscribe((selectedOrgId) => {
       this.selectedOrg = this.single.find((single) => single.id === selectedOrgId);
+    });
+
+    this.form.get('defaultSelectM')?.valueChanges.subscribe((selectedIds: number[]) => {
+      this.defaultSelectM = selectedIds;
+      this.updateSelectedNames(); 
     });
   
     
@@ -145,8 +164,24 @@ export class WidgetComponent implements OnInit{
       selectedNodes: new FormControl()
     });
 
- 
+    this.setData = this.fb.group({
+      defaultSelectM: ['', Validators.required]
+    });
     
+  }
+
+  // setEdit() {
+  //   if (this.setData) {
+  //     if (this.setData != null) {
+  //       this.setData.defaultSelectM=this.setData.get('defaultSelectM')?.value;
+  //     }
+  //   }
+  // }
+
+  updateSelectedNames() { // Ensure this method is inside the class
+    this.defaultSelectedNames = this.defaultSelectM.map(id => 
+      this.defaultSelect.find(option => option.id === id)?.name || 'Unknown'
+    );
   }
 
   onFolderChange(): void {
@@ -165,7 +200,6 @@ export class WidgetComponent implements OnInit{
     if (this.form.invalid) {
       return;
     }
-
     console.log(JSON.stringify(this.form.value, null, 2));
   }
 
@@ -260,8 +294,12 @@ export class WidgetComponent implements OnInit{
   showSuccess() {
    
     this.toastr.success('You are awesome!', 'Success!', {
-      disableTimeOut: true,
-      positionClass: 'toast-top-full-width'
+      timeOut: 3000,
+     // disableTimeOut: true,
+      positionClass: 'toast-top-center',
+      closeButton: true,
+
+      titleClass: 'custom-toast-title'
     });
   }
 

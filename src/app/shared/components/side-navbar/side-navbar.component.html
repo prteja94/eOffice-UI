@@ -3,7 +3,9 @@
     <ul class="menu-nav d-flex flex-column align-items-center flex-nowrap">
         <!-- <ng-scrollbar class="w-100"> -->
         <li (click)="setActiveMenuItem('Home')"class="nav-item" [class.selected]="showMenu === sidebarnavItem.title" *ngFor="let sidebarnavItem of sidebarnavItems; let i = index;" (click)="sidebarnavItem.submenu.length != 0 ? '' : handleNotify(); setActiveMenuItem(sidebarnavItem.title)"  >
-            <div class="nav-small-cap" *ngIf="sidebarnavItem.extralink === true "></div>
+            <ng-container *ngIf="isNavItemVisible(sidebarnavItem.roles || [])">
+
+            <div class="nav-small-cap" *ngIf="sidebarnavItem.extralink === true"></div>
             <a class="nav-link main-navitem" [routerLink]="sidebarnavItem.class === '' ? [sidebarnavItem.path] : null"
               [ngClass]="[sidebarnavItem.class]" *ngIf="!sidebarnavItem.extralink;"
               [attr.aria-expanded]="expandedIndex === i ? 'true' : 'false'" (click)="toggleExpand(i)"
@@ -47,7 +49,7 @@
             </li>
         </ul>
 
-           
+    </ng-container>
         </li>
     <!-- </ng-scrollbar> -->
     </ul>
