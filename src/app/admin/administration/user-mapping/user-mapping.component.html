@@ -264,7 +264,7 @@
         </div>
         <div class="p-2 ng-select">
           <label class="mb-1">User Privileges</label>
-            <ng-select  [multiple]="true" [(ngModel)]="privilegeId" formControlName="privilegeId"
+            <ng-select [multiple]="true" [(ngModel)]="privilegeIds" formControlName="privilegeIds"
             [ngClass]="{ 'is-invalid': submitted && f['privilegeId'].errors }">
             <ng-option value="" disabled>Choose Your Option</ng-option>
             <ng-option [value]="web.privilegeId" *ngFor="let web of privilegeData">{{web.privilegeName}}</ng-option> 

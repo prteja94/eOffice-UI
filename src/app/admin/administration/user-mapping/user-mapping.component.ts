@@ -46,7 +46,6 @@ export class UserMappingComponent implements OnInit{
   submitted = false;
 
   @ViewChild('table') table: APIDefinition;
-
   dataList: UserMappingMaster[] = [];
   filterArray: UserMappingMaster[] = [];
   dataDetail: UserMappingMaster | null = null;
@@ -62,6 +61,7 @@ export class UserMappingComponent implements OnInit{
   orgNameData: OrgUnit[] = [];
   roleData: RoleMaster[] = [];
   privilegeId: UserPrivileges[] = [];
+  privilegeIds : number[] = [];
   assignPermData: AssignmentPermMaster[] = [];
   privilegeData: PrivilegeMaster[]=[];
   userMapData: UserMappingMaster | null;
@@ -159,7 +159,7 @@ export class UserMappingComponent implements OnInit{
       orgId: ['', Validators.required],
       roleId: ['', Validators.required],
       assignId: ['', Validators.required],
-      privilegeId: ['', Validators.required],
+      privilegeIds: ['', Validators.required],
       status: ['', Validators.required],
       superiorUserId: ['', Validators.nullValidator]
     });
@@ -224,7 +224,7 @@ export class UserMappingComponent implements OnInit{
         orgId: userMapData.orgId,
         roleId: userMapData.roleId,
         superiorUserId: userMapData.superiorUserId,
-        privilegeId: userMapData.userprivilegesList.map((userPrivilege: UserPrivileges) => userPrivilege.privilegeName),
+        privilegeIds: userMapData.userprivilegesList.map((userPrivilege: UserPrivileges) => userPrivilege.privilegeName),
         orgTypeId: userMapData.orgTypeId,
         assignId: userMapData.assignId,  
         status: userMapData.status
