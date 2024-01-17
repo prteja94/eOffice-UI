@@ -155,7 +155,7 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
       },
       {
-        path: 'democomponent',
+        path: 'ScanningIndex/ScanSearch',
         title: 'Scan Document Search',
         icon: '',
         class: '',

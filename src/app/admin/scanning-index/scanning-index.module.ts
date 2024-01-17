@@ -6,10 +6,12 @@ import { ScanningIndexRoutingModule } from './scanning-index-routing.module';
 import { ScanningIndexComponent } from './scanning-index.component';
 
 import { TranslationModule } from '../../shared/translation.module';
+import { ScanSearchComponent } from './scan-search/scan-search.component';
 
 @NgModule({
   declarations: [
-    ScanningIndexComponent
+    ScanningIndexComponent,
+    ScanSearchComponent
   ],
   imports: [
     CommonModule,

@@ -11,8 +11,7 @@
             <ng-scrollbar class="w-100 h-100">
 
               <div class="row doc-scantab">
-                  <div class="col-8">
-
+                  <div class="col-9">
 
                     <ul class="d-flex align-items-center">
                         <li placement="bottom" ngbTooltip="Remove Current Page"> <svg class="icon"><use xlink:href="#removedoc"></use> </svg> </li>
@@ -27,17 +26,107 @@
                           <span><svg class="stroke"><use xlink:href="#pluse"></use></svg></span>
                         </li>
                         <li class="vr m-0"></li>
+                        <li (click)="showEditor()" placement="bottom" ngbTooltip="Image Edit" > <svg class="icon" ><use xlink:href="#imageEdit"></use> </svg> </li>
+                        <li class="vr m-0"></li>
                     </ul> 
                     
+                    <div id={{containerId}} class="mt-2"></div>
+
+
                   </div>
                   
-                  <div class="col-4 border docsave-section p-0">
+                  <div class="col-3 border docsave-section p-0">
                      
-                    <h1 class="docsave-title">Save Documents</h1>
+                    <h1 class="docsave-title">Custom Scan</h1>
+
+                    <!-- <div class="input-group-prepend" style="display: flex;">
+                      <label class="input-group-text" style="width: 32%;margin-right: 2%;">
+                        <input type="checkbox" [(ngModel)]="scanOptions.IfShowUI" aria-label="Checkbox for ShowUI">&nbsp;&nbsp;Show
+                        UI</label>
+                      <label class="input-group-text" style="width: 32%;margin-right: 2%;">
+                        <input type="checkbox" [(ngModel)]="scanOptions.IfFeederEnabled"
+                          aria-label="Checkbox for ADF">&nbsp;&nbsp;AutoFeeder
+                      </label>
+                      <label class="input-group-text" style="width: 32%;">
+                        <input type="checkbox" [(ngModel)]="scanOptions.IfDuplexEnabled"
+                          aria-label="Checkbox for Duplex">&nbsp;&nbsp;Duplex
+                      </label>
+                    </div> -->
 
                     <form class="docsave-formsection mb-3">
 
                       <div class="row mb-2 ">
+                        <div class="col-12">
+                          <label for="scanner" class="col-form-label py-0">{{ 'Select Scanner' | translate }}</label>
+                          <select id="scanner" class="form-select" aria-label="Default select example">
+                            <option selected>Choose the Scanner</option>
+                            <option value="1">Device 1</option>
+                            <option value="2">Device 2</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="row mt-1 mb-2 ">
+                        <div class="col-5">
+                          <div class="form-check py-1">
+                            <input class="form-check-input" type="checkbox" value="" id="showScannerUI">
+                            <label class="form-check-label" for="showScannerUI">
+                              Show Scanner UI
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="form-check py-1">
+                            <input class="form-check-input" type="checkbox" value="" id="useAdf">
+                            <label class="form-check-label" for="useAdf">
+                              Use ADF
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-12">
+                          <div class="form-check py-1">
+                            <input class="form-check-input" type="checkbox" value="" id="useAdf">
+                            <label class="form-check-label" for="useAdf">
+                              Auto Remove Blank Page
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row mb-2 ">
+                        <div class="col-12">
+                            <fieldset class="border p-1">
+                              <legend class="float-none w-auto px-2 py-0 col-form-label">{{ 'Pixel Type' | translate }} </legend>
+                            <div class="form-check form-check-inline mx-3">
+                              <input class="form-check-input" type="radio" name="pageSelect" id="b&w" value="b&w" >
+                              <label class="form-check-label" for="b&w">{{ 'B&W' | translate }}</label>
+                            </div>
+                            <div class="form-check form-check-inline mx-3">
+                              <input class="form-check-input" type="radio" name="pageSelect" id="gray" value="gray" >
+                              <label class="form-check-label" for="gray">{{ 'Gray' | translate }}</label>
+                            </div>
+                            <div class="form-check form-check-inline mx-3">
+                              <input class="form-check-input" type="radio" name="pageSelect" id="color" value="color" >
+                              <label class="form-check-label" for="color">{{ 'Color' | translate }}</label>
+                            </div>
+                          </fieldset>
+                        </div>
+                      </div>
+
+                      <div class="row mb-2 ">
+                        <div class="col-12">
+                          <label for="resolution" class="col-form-label py-0">{{ 'Resolution' | translate }}</label>
+                          <select id="resolution" class="form-select" aria-label="Default select example">
+                            <option selected>Select the resolution </option>
+                            <option value="1">100</option>
+                            <option value="2">150</option>
+                            <option value="3">200</option>
+                            <option value="4">300</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <!-- <div class="row mb-2 ">
                         <div class="col-12">
                           <label for="filename" class="col-form-label">{{ 'File Name' | translate }}</label>
                           <input type="text" id="filename" class="form-control">
@@ -65,9 +154,19 @@
                           <label for="cstinfo" class="col-form-label"> {{ 'Optional Custom Info' | translate }} </label>
                           <input type="text" id="cstinfo" class="form-control">
                         </div>
+                      </div> -->
+
+                      <div class="my-3 d-flex justify-content-between">
+
+                        <button class="btn-update" (click)="acquireImage()">Scan</button>
+
+                        <button class="btn-edit" (click)="acquireImage()">Import Local Images</button>
+
                       </div>
 
-                      <!-- <div class="row mt-3 align-items-center text-left">
+                      
+
+                     <!-- <div class="row mt-3 align-items-center text-left">
                         <div class="">
                           <button type="button" class="btn btn-submit">Upload</button>
                         </div>
@@ -108,7 +207,8 @@
       
             <div class="row">
               <div class="col-12 d-flex justify-content-center align-items-center ">
-             
+
+               
                 <form class="form-section col-7">
 								
                   <div class="input-block mt-2 shadow-sm">

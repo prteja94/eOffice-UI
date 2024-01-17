@@ -1,0 +1,214 @@
+<section class="ejob-section" >
+
+  <div class="row">
+    <div class="col-md-7">
+      <div class="row m-0 p-0 ">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">Priority</th>
+              <th scope="col">To</th>
+              <th scope="col">Doc Received Date</th>
+              <th scope="col">Doc Referance Name</th>
+              <th scope="col">Issue To </th>
+              <th scope="col">Subject</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-5">
+        <form class="form-section">	
+          <div class="input-block mt-2 shadow-sm">
+
+          <div class="row mb-2 ">
+            <div class="col-12">
+              <label for="" class="col-form-label">{{ 'Documnet Type' | translate }} </label>
+                <select class="form-select" >
+                  <option selected>Select The Type</option>
+                  <option value="letter">Letter</option>
+                  <option value="memo">Memo</option>
+                  <option value="email">Email</option>
+                </select>
+            </div>
+          </div>
+
+          <div class="row mb-2 ">
+            <div class="col-12">
+              <label for="refno" class="col-form-label">{{ 'Ref Number' | translate }}</label>
+              <input type="text" id="refno" class="form-control" >
+            </div>
+          </div>
+
+          <div class="row mb-2 ">
+            <div class="col-2">
+              <input type="checkbox" class="btn-check" id="btn-check-outlined1" autocomplete="off">
+              <label class="btn btn-outline-primary rounded-0" for="btn-check-outlined1">Incoming</label>
+            </div>
+
+            <div class="col-2">
+              <input type="checkbox" class="btn-check" id="btn-check-outlined2" autocomplete="off">
+              <label class="btn btn-outline-primary rounded-0" for="btn-check-outlined2">Incoming</label>
+            </div>
+
+            <div class="col-2">
+              <input type="checkbox" class="btn-check" id="btn-check-outlined3" autocomplete="off">
+              <label class="btn btn-outline-primary rounded-0" for="btn-check-outlined3">Incoming</label>
+            </div>
+
+            <div class="col-2">
+              <input type="checkbox" class="btn-check" id="btn-check-outlined4" autocomplete="off">
+              <label class="btn btn-outline-primary rounded-0" for="btn-check-outlined4">Incoming</label>
+            </div>
+          </div>
+
+            <div class="row mb-2 ">
+              <div class="col-6">
+                <fieldset class="border p-2">
+                  <legend class="float-none w-auto px-2 col-form-label">{{ 'Document Route' | translate }}</legend>
+                    <div class="form-check form-check-inline mx-3">
+                      <input class="form-check-input" type="radio" name="route" id="incoming" value="incoming" [(ngModel)]="selectedOption">
+                      <label class="form-check-label" for="incoming">{{ 'Incoming' | translate }}</label>
+                    </div>
+                    <div class="form-check form-check-inline mx-3">
+                      <input class="form-check-input" type="radio" name="route" id="outgoing" value="outgoing" [(ngModel)]="selectedOption">
+                      <label class="form-check-label" for="outgoing" >{{ 'Outgoing' | translate }}</label>
+                    </div>
+                </fieldset>
+              </div>
+
+              <div class="col-6">
+                <fieldset class="border p-2">
+                  <legend class="float-none w-auto px-2 col-form-label">{{ 'Document Sub Route' | translate }}</legend>
+                <div class="form-check form-check-inline mx-3">
+                  <input class="form-check-input" type="radio" name="subroute" id="internal" value="internal" [(ngModel)]="selectedOption">
+                  <label class="form-check-label" for="internal">{{ 'Internal' | translate }}</label>
+                </div>
+                <div class="form-check form-check-inline mx-3">
+                  <input class="form-check-input" type="radio" name="subroute" id="external" value="external" [(ngModel)]="selectedOption">
+                  <label class="form-check-label" for="external">{{ 'External' | translate }}</label>
+                </div>
+              </fieldset>
+              </div>
+            </div>
+
+            <div class="row mb-2 " *ngIf="selectedOption === 'incoming'">
+              <div class="col-12">
+                <label for="folder" class="col-form-label">{{ 'Folder' | translate }}</label>
+                <input type="text" id="folder" class="form-control">
+              </div>
+            </div>
+
+            <div class="row mb-2 " *ngIf="selectedOption === 'internal'">
+                <div class="col-6">
+                  <label for="" class="col-form-label">{{ 'Org Unit1' | translate }}</label>
+                    <select class="form-select">
+                      <option selected>Select Unit</option>
+                      <option value="unit1">Unit1</option>
+                      <option value="unit2">Unit2</option>
+                    </select>
+                </div>
+                <div class="col-6">
+                  <label for="" class="col-form-label">{{ 'Org Unit2' | translate }}</label>
+                    <select class="form-select">
+                      <option selected>Select Unit</option>
+                      <option value="unit1">Unit1</option>
+                      <option value="unit2">Unit2</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-2 " *ngIf="selectedOption === 'external'">
+              <div class="col-12 mb-2">
+                <label for="" class="col-form-label">{{ 'External Location' | translate }}</label>
+                  <select class="form-select">
+                    <option selected>Select Location</option>
+                    <option value="location1">Location 1</option>
+                    <option value="location2">Location 2</option>
+                    <option value="location3">Location 3</option>
+                    <option value="location4">Location 4</option>
+                  </select>
+              </div>
+              <div class="col-12">
+                <label for="folder" class="col-form-label">{{ 'User Name' | translate }}</label>
+                <input type="text" id="folder" class="form-control">
+              </div>
+          </div>
+
+          <div class="row mb-2 ">
+            <div class="col-12">
+              <label for="subject" class="col-form-label">{{ 'Subject' | translate }}</label>
+              <input type="text" id="subject" class="form-control">
+            </div>
+          </div>
+
+          <div class="row mb-2 ">
+            <div class="col-6">
+              <label for="" class="col-form-label">{{ 'Priority' | translate }} </label>
+                <select class="form-select">
+                  <option selected>Select Priority</option>
+                  <option value="priority1">priority1</option>
+                  <option value="priority2">priority2</option>
+                  <option value="priority3">priority3</option>
+                </select>
+            </div>
+            <div class="col-6">
+              <label for="" class="col-form-label">{{ 'Classifcation' | translate }} </label>
+                <select class="form-select">
+                  <option selected>Select Classifcation</option>
+                  <option value="Classifcation1">Classifcation1</option>
+                  <option value="Classifcation2">classifcation2</option>
+                  <option value="Classifcation3">classifcation3</option>
+                </select>
+            </div>
+          </div>
+
+          <div class="row mb-2 ">
+            <div class="col-6">
+              <label for="receivedDate" class="col-form-label">{{ 'Received Date' | translate }}</label>
+              <input type="text" id="receivedDate" class="form-control">
+            </div>
+            <div class="col-6">
+              <label for="drefno" class="col-form-label">{{ 'Ref No' | translate }} </label>
+              <input type="text" id="drefno" class="form-control">
+            </div>
+          </div>
+
+          <div class="row mb-2 ">
+            <div class="col-12">
+              <label for="" class="col-form-label">{{ 'Archiever' | translate }} </label>
+                <select class="form-select">
+                  <option selected>Select Archiever</option>
+                  <option value="Archiever1">Archiever1</option>
+                  <option value="Archiever2">Archiever2</option>
+                  <option value="Archiever3">Archiever3</option>
+                </select>
+            </div>
+          </div>
+
+
+          <!-- <div class="row mt-3 align-items-center text-center">
+            <div class="">
+              <button type="submit" class="btn btn-submit">Next</button>
+            </div>
+          </div> -->
+            
+          </div>
+      </form>
+
+    </div>
+  </div>
+  
+
+
+</section>

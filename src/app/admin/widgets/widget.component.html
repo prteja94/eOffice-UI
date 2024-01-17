@@ -146,7 +146,13 @@
               </div>
 
               <div>Currently selected IDs: {{ defaultSelectM | json }}</div>
-              <div>Currently selected Names: {{ defaultSelectedNames | json }}</div>
+              <div>Currently selected Names: {{ defaultSelectedNamesI | json }}</div>
+              <br>
+              <div>
+                Currently selected (JSON):
+                <pre>{{ defaultSelectedNames }}</pre>
+              </div>
+              <br>
 
               <ul>
                 <li *ngFor="let name of defaultSelectedNames">{{ name }}</li>
@@ -207,9 +213,7 @@
           </div>
          
        
-           
-  
-          </form>
+        </form>
 
 
           

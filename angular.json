@@ -20,8 +20,7 @@
           "options": {
             "allowedCommonJsDependencies": [
               "ngx-scrollbar",
-              "quill",
-              "lodash"
+              "quill"
             ],
             "outputPath": "dist/eOffice",
             "index": "src/index.html",
@@ -34,15 +33,17 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/web.config",
-              "src/.htaccess"
+              {
+                "glob": "**/*",
+                "input": "./node_modules/dwt/dist",
+                "output": "/assets/dwt-resources/"
+              }
             ],
             "styles": [
               "node_modules/quill/dist/quill.core.css",
               "node_modules/quill/dist/quill.bubble.css",
               "node_modules/quill/dist/quill.snow.css",
               "node_modules/ngx-easy-table/style.css",
-              "node_modules/ngx-toastr/toastr.css",
               "src/assets/scss/style.scss"
             ],
             "scripts": []
@@ -86,6 +87,9 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "port": 5200
+          },
           "configurations": {
             "production": {
               "browserTarget": "doc_app:build:production"
