@@ -2,7 +2,6 @@
 <div class="side-navbar">
     <ul class="menu-nav d-flex flex-column align-items-center flex-nowrap">
         <!-- <ng-scrollbar class="w-100"> -->
-
         <li (click)="setActiveMenuItem('Home')"class="nav-item" [class.selected]="showMenu === sidebarnavItem.title" *ngFor="let sidebarnavItem of sidebarnavItems; let i = index;" (click)="sidebarnavItem.submenu.length != 0 ? '' : handleNotify(); setActiveMenuItem(sidebarnavItem.title)"  >
             <ng-container *ngIf="isNavItemVisible(sidebarnavItem.roles || [])">
 

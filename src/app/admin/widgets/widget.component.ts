@@ -154,11 +154,11 @@ export class WidgetComponent implements OnInit{
     });
   
     
-    this.nodeService.getNodes().subscribe((data) => {
+    this.nodeService.getNodes().subscribe((data: TreeNode<any>[]) => {
       this.files = data;
     });
 
-    this.nodeService.getSelectNodes().subscribe((data) => {
+    this.nodeService.getSelectNodes().subscribe((data: any[]) => {
       this.nodes = data;
     });
 

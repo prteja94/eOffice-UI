@@ -20,7 +20,7 @@ import {
 import Validation from '../../../shared/validation';
 import { Tabledata, data } from '../../../../assets/data-form';
 import { API, Columns, APIDefinition, DefaultConfig, Config } from 'ngx-easy-table';
-import { UserMappingMaster, UserMappingService } from './user-mapping.service';
+import { UserMappingMaster, UserMappingService, UserPrivileges } from './user-mapping.service';
 import { UserMaster, UserMasterService } from '../user-master/user-master.service';
 import { OrgType, OrgTypeService } from '../org-type/org-type.service';
 import { OrgNameService, OrgUnit } from '../org-name/org-name.service';
@@ -46,7 +46,6 @@ export class UserMappingComponent implements OnInit{
   submitted = false;
 
   @ViewChild('table') table: APIDefinition;
-
   dataList: UserMappingMaster[] = [];
   filterArray: UserMappingMaster[] = [];
   dataDetail: UserMappingMaster | null = null;
@@ -61,10 +60,13 @@ export class UserMappingComponent implements OnInit{
   orgTypeData: OrgType[] = [];
   orgNameData: OrgUnit[] = [];
   roleData: RoleMaster[] = [];
+  privilegeId: UserPrivileges[] = [];
+  privilegeIds : number[] = [];
   assignPermData: AssignmentPermMaster[] = [];
   privilegeData: PrivilegeMaster[]=[];
   userMapData: UserMappingMaster | null;
-content: TemplateRef<any>;
+  content: TemplateRef<any>;
+  topOrgUnitData: OrgUnit[] = [];
 
 
   constructor(private formBuilder: FormBuilder, private cdr: ChangeDetectorRef,
@@ -131,6 +133,10 @@ content: TemplateRef<any>;
     });
 
     this.orgNameService.getTableData().subscribe((response) => {
+      this.topOrgUnitData=response;
+    })
+
+    this.orgNameService.getTableData().subscribe((response) => {
       this.orgNameData = response;
     });
 
@@ -153,9 +159,9 @@ content: TemplateRef<any>;
       orgId: ['', Validators.required],
       roleId: ['', Validators.required],
       assignId: ['', Validators.required],
-      privilegeId: ['', Validators.required],
+      privilegeIds: ['', Validators.required],
       status: ['', Validators.required],
-      superiorUserId: ['', Validators.nullValidator],
+      superiorUserId: ['', Validators.nullValidator]
     });
 
   }
@@ -218,7 +224,7 @@ content: TemplateRef<any>;
         orgId: userMapData.orgId,
         roleId: userMapData.roleId,
         superiorUserId: userMapData.superiorUserId,
-        privilegeId: userMapData.privilegeId,
+        privilegeIds: userMapData.userprivilegesList.map((userPrivilege: UserPrivileges) => userPrivilege.privilegeName),
         orgTypeId: userMapData.orgTypeId,
         assignId: userMapData.assignId,  
         status: userMapData.status
@@ -264,9 +270,4 @@ content: TemplateRef<any>;
       }
     })
   }
-
-
-
-
-
 }

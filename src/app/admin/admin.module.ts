@@ -1,12 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
 import { SharedModule } from '../shared/shared.module';
 import { BreadcrumbComponent } from '../shared/breadcrumb/breadcrumb.component';
-
-
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -37,7 +34,6 @@ export function HttpLoaderFactory(http: HttpClient) {
 })
   
 export class AdminModule { 
-
 
 }
 

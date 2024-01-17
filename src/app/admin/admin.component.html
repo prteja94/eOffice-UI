@@ -1,9 +1,7 @@
 <!-- <div class="app" [dir]="directionService.isRtl ? 'rtl' : 'ltr'">-->
-
-
 <div class="app" [dir]="directionService.isRtl ? 'rtl' : 'ltr'">
   <app-header></app-header>
-  <main >
+  <main>
     <div class="main" >
         <div class="navigation">
           <app-side-navbar></app-side-navbar>
@@ -13,7 +11,6 @@
             <section class="main-content">
                <app-breadcrumb></app-breadcrumb>
               <div class="content-inner">
-
                 <!-- {{'Name' | translate}} <br>
                 {{'NameError' | translate}} <br>
                 {{'Email' | translate}} <br>
@@ -21,14 +18,12 @@
                 {{'Password' | translate}} <br>
                 {{'Bio' | translate}} <br>
                 {{'TermsConditions' | translate}} <br> -->
-
                  <router-outlet></router-outlet> 
               </div>
             </section>
            </ng-scrollbar>
         </div>
       </div>
-
   </main>
 </div>
 

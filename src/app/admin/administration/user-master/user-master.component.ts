@@ -103,6 +103,11 @@ export class UserMasterComponent implements OnInit{
       designation: ['', Validators.required],
       status: ['', Validators.required],
       updatedByUserId: ['', Validators.nullValidator],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      hiredDate: ['', Validators.required] ,
+      dob: ['', Validators.required],
+      ldapIdentifier: ['', Validators.required],
     });    
   }
 
@@ -156,6 +161,8 @@ export class UserMasterComponent implements OnInit{
     
     if (userData != null) {
       this.dataDetail = userData;
+     const formattedDob = this.datePipe.transform(userData.dob, 'yyyy-MM-dd');
+     const formattedHireDate = this.datePipe.transform(userData.hiredDate, 'yyyy-MM-dd');
       console.log(userData);
       this.editData?.patchValue({
         indexvalue: userData.indexvalue,
@@ -164,8 +171,8 @@ export class UserMasterComponent implements OnInit{
         firstName: userData.firstName,
         lastName: userData.lastName,
         ldapIdentifier: userData.ldapIdentifier,
-        hiredDate: userData.hiredDate,
-        dob: userData.dob,
+        hiredDate: formattedHireDate,
+        dob: formattedDob,
         designation: userData.designation,
         status: userData.status
       });
@@ -191,6 +198,10 @@ export class UserMasterComponent implements OnInit{
         this.userData.designation = this.editData.get('designation')?.value;
         this.userData.displayName = this.editData.get('displayName')?.value;
         this.userData.status=this.editData.get('status')?.value;
+        this.userData.firstName=this.editData.get('firstName')?.value;
+        this.userData.lastName=this.editData.get('lastName')?.value;
+        this.userData.hiredDate=this.editData.get('hiredDate')?.value;
+        this.userData.ldapIdentifier=this.editData.get('ldapIdentifier')?.value;
       }
     }
   }

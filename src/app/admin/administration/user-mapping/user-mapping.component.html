@@ -22,7 +22,7 @@
             <select class="form-select" formControlName="orgTypeId"
             [ngClass]="{ 'is-invalid': submitted && f['orgTypeId'].errors }">
             <option value="" disabled [defaultSelected]="true">Choose Your Option</option>
-            <option value="{{web.orgTypeId}}" *ngFor="let web of orgTypeData">{{web.orgTypeName}}</option> 
+            <option value="{{web.orgId}}" *ngFor="let web of topOrgUnitData">{{web.orgName}}</option> 
             </select>
             <div *ngIf="submitted && f['orgTypeId'].errors" class="invalid-feedback">
             <div *ngIf="f['orgTypeId'].errors['required']">
@@ -89,14 +89,14 @@
 
           <div class="col-md-6">
             <label class="mb-1">{{ 'User Privileges' | translate }}</label>
-            <select class="form-select" formControlName="privilegeId"
+            <ng-select [multiple]="true" [(ngModel)]="privilegeId" formControlName="privilegeId"
             [ngClass]="{ 'is-invalid': submitted && f['privilegeId'].errors }">
-            <option value="" disabled [defaultSelected]="true">Choose Your Option</option>
-            <option value="{{web.privilegeId}}" *ngFor="let web of privilegeData">{{web.privilegeName}}</option> 
-            </select>
+            <ng-option value="" disabled>Choose Your Option</ng-option>
+            <ng-option [value]="web.privilegeId" *ngFor="let web of privilegeData">{{web.privilegeName}}</ng-option> 
+            </ng-select>
             <div *ngIf="submitted && f['privilegeId'].errors" class="invalid-feedback">
             <div *ngIf="f['privilegeId'].errors['required']">
-              First Name is required
+              User Privilges is required
             </div>
             </div>
         </div>
@@ -202,7 +202,7 @@
           <select class="form-select" formControlName="orgTypeId"
           [ngClass]="{ 'is-invalid': submitted && f['orgTypeId'].errors }">
           <option value="" disabled [defaultSelected]="true">Choose Your Option</option>
-          <option value="{{web.orgTypeId}}" *ngFor="let web of orgTypeData">{{web.orgTypeName}}</option> 
+          <option value="{{web.orgId}}" *ngFor="let web of topOrgUnitData">{{web.orgName}}</option> 
           </select>
           <div *ngIf="submitted && f['orgTypeId'].errors" class="invalid-feedback">
           <div *ngIf="f['orgTypeId'].errors['required']">
@@ -262,13 +262,13 @@
         </div>
         </div>
         </div>
-        <div class="p-2 row">
+        <div class="p-2 ng-select">
           <label class="mb-1">User Privileges</label>
-            <select class="form-select" formControlName="privilegeId"
+            <ng-select [multiple]="true" [(ngModel)]="privilegeIds" formControlName="privilegeIds"
             [ngClass]="{ 'is-invalid': submitted && f['privilegeId'].errors }">
-            <option value="" disabled [defaultSelected]="true">Choose Your Option</option>
-            <option value="{{web.privilegeId}}" *ngFor="let web of privilegeData">{{web.privilegeName}}</option> 
-            </select>
+            <ng-option value="" disabled>Choose Your Option</ng-option>
+            <ng-option [value]="web.privilegeId" *ngFor="let web of privilegeData">{{web.privilegeName}}</ng-option> 
+            </ng-select>
             <div *ngIf="submitted && f['privilegeId'].errors" class="invalid-feedback">
             <div *ngIf="f['privilegeId'].errors['required']">
               User Privileges is required
