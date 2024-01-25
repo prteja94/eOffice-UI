@@ -22,6 +22,10 @@ export class UserMasterService {
   update(extLocData : any): Observable<any> {
     return this.http.put(this.apiUrl, extLocData,{observe: 'response'});
   }
+
+  getUsersbyOrgUnit(orgId: number): Observable<any> {
+    return this.http.get(this.apiUrl+"/orgunit/"+orgId);
+  }
 }
 
 export interface UserMaster {

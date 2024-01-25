@@ -60,13 +60,26 @@ export class UserMappingComponent implements OnInit{
   orgTypeData: OrgType[] = [];
   orgNameData: OrgUnit[] = [];
   roleData: RoleMaster[] = [];
-  privilegeId: UserPrivileges[] = [];
-  privilegeIds : number[] = [];
+  privilegeId: any;
   assignPermData: AssignmentPermMaster[] = [];
   privilegeData: PrivilegeMaster[]=[];
   userMapData: UserMappingMaster | null;
   content: TemplateRef<any>;
   topOrgUnitData: OrgUnit[] = [];
+  defaultSelectedNames: any[];
+  userMappingData: UserMappingMaster = {
+    userprivilegesList: [],
+    indexvalue: 0,
+    userId: '',
+    orgId: '',
+    orgTypeId: 0,
+    roleId: 0,
+    superiorUserId: '',
+    privilegeId: [],
+    assignId: 0,
+    createdDate: '',
+    status: ''
+  }
 
 
   constructor(private formBuilder: FormBuilder, private cdr: ChangeDetectorRef,
@@ -159,7 +172,7 @@ export class UserMappingComponent implements OnInit{
       orgId: ['', Validators.required],
       roleId: ['', Validators.required],
       assignId: ['', Validators.required],
-      privilegeIds: ['', Validators.required],
+      privilegeId: ['', Validators.required],
       status: ['', Validators.required],
       superiorUserId: ['', Validators.nullValidator]
     });
@@ -218,13 +231,13 @@ export class UserMappingComponent implements OnInit{
     
     if (userMapData != null) {
       this.dataDetail = userMapData;
+      this.userMappingData.privilegeId = userMapData.privilegeId;
       this.editData?.patchValue({
         indexvalue: userMapData.indexvalue,
         userId: userMapData.userId,
         orgId: userMapData.orgId,
         roleId: userMapData.roleId,
         superiorUserId: userMapData.superiorUserId,
-        privilegeIds: userMapData.userprivilegesList.map((userPrivilege: UserPrivileges) => userPrivilege.privilegeName),
         orgTypeId: userMapData.orgTypeId,
         assignId: userMapData.assignId,  
         status: userMapData.status
@@ -252,6 +265,7 @@ export class UserMappingComponent implements OnInit{
         this.userMapData.roleId = this.editData.get('roleId')?.value;
         this.userMapData.superiorUserId = this.editData.get('superiorUserId')?.value;
         this.userMapData.status=this.editData.get('status')?.value;
+        this.userMapData.privilegeId = this.editData.get('privilegeId')?.value;
       }
     }
   }

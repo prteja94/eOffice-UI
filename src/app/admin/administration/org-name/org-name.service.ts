@@ -23,6 +23,14 @@ export class OrgNameService {
     return this.http.get(this.apiUrl+"/topOrgUnit");
   }
 
+  getOrgUnit(orgId: number): Observable<any> {
+    return this.http.get(this.apiUrl+"/"+orgId);
+  }
+
+  getOrgUnitByTopLevel(orgId: number): Observable<any> {
+    return this.http.get(this.apiUrl+"/toplevel/"+orgId);
+  }
+
   create(orgUnit : any): Observable<any> {
     return this.http.post(this.apiUrl, orgUnit,{observe: 'response'});
   }

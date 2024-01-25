@@ -36,8 +36,8 @@
               {
                 "glob": "**/*",
                 "input": "./node_modules/dwt/dist",
-                "output": "/assets/dwt-resources/"
-              }
+                "output": "assets/dwt-resources"
+               }
             ],
             "styles": [
               "node_modules/quill/dist/quill.core.css",

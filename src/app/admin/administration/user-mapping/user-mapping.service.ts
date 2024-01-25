@@ -31,7 +31,7 @@ export interface UserMappingMaster {
   orgTypeId: number,
   roleId: number,
   superiorUserId: string,
-  privilegeId: Array<UserPrivileges>,
+  privilegeId: Array<number>,
   assignId: number,
   createdDate: string,
   status: string

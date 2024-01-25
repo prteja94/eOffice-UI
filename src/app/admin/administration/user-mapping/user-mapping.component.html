@@ -2,10 +2,10 @@
 	<ng-scrollbar class="w-100 h-100">
     <div class="row justify-content-center">
     <div class="col-md-8">
-          <form class="row g-3 datasearch " [formGroup]="form" (ngSubmit)="onSubmit()">
+          <form class="row g-3 datasearch" (ngSubmit)="onSubmit()">
           <div class="col-md-6 ">
               <label class="mb-1">{{ 'User' | translate }}</label>
-              <select class="form-select" formControlName="userId"
+              <select class="form-select"  [(ngModel)]="userMappingData.userId" name="userId"
               [ngClass]="{ 'is-invalid': submitted && f['userId'].errors }">
               <option value="" disabled [defaultSelected]="true">Choose Your Option</option>
               <option value="{{web.indexvalue}}" *ngFor="let web of userData">{{web.displayName}}</option> 
@@ -19,7 +19,7 @@
 
           <div class="col-md-6 ">
             <label class="mb-1">{{ 'Top Org Unit' | translate }} </label>
-            <select class="form-select" formControlName="orgTypeId"
+            <select class="form-select" [(ngModel)]="userMappingData.orgTypeId" name="orgTypeId"
             [ngClass]="{ 'is-invalid': submitted && f['orgTypeId'].errors }">
             <option value="" disabled [defaultSelected]="true">Choose Your Option</option>
             <option value="{{web.orgId}}" *ngFor="let web of topOrgUnitData">{{web.orgName}}</option> 
@@ -33,7 +33,7 @@
 
           <div class="col-md-6 ">
             <label class="mb-1">{{ 'Org Unit' | translate }}</label>
-            <select class="form-select" formControlName="orgId"
+            <select class="form-select" [(ngModel)]="userMappingData.orgId" name="orgId"
             [ngClass]="{ 'is-invalid': submitted && f['orgId'].errors }">
             <option value="" disabled [defaultSelected]="true">Choose Your Option</option>
             <option  value="{{web.orgId}}" *ngFor="let web of orgNameData">{{web.orgName}}</option> 
@@ -47,7 +47,7 @@
 
           <div class="col-md-6 ">
             <label class="mb-1">{{ 'Role' | translate }}</label>
-            <select class="form-select" formControlName="roleId"
+            <select class="form-select" [(ngModel)]="userMappingData.roleId" name="roleId"
             [ngClass]="{ 'is-invalid': submitted && f['roleId'].errors }">
             <option value="" disabled [defaultSelected]="true">Choose Your Option</option>
             <option value="{{web.roleId}}" *ngFor="let web of roleData">{{web.roleName}}</option> 
@@ -61,7 +61,8 @@
 
           <div class="col-md-6 ">
             <label class="mb-1">{{ 'Superior' | translate }}</label>
-            <select class="form-select" formControlName="superiorUserId"
+            <select class="form-select" [(ngModel)]="userMappingData.superiorUserId" 
+            name="superiorUserId"
             [ngClass]="{ 'is-invalid': submitted && f['superiorUserId'].errors }">
             <option value="" disabled [defaultSelected]="true">Choose Your Option</option>
             <option value="{{web.indexvalue}}" *ngFor="let web of userData">{{web.displayName}}</option> 
@@ -75,7 +76,8 @@
       
           <div class="col-md-6">
               <label class="mb-1">{{ 'User Assignment Permission' | translate }}</label>
-              <select class="form-select" formControlName="assignId"
+              <select class="form-select"  
+              [(ngModel)]="userMappingData.assignId" name="assignId"
             [ngClass]="{ 'is-invalid': submitted && f['assignId'].errors }">
             <option value="" disabled [defaultSelected]="true">Choose Your Option</option>
             <option value="{{web.assignId}}" *ngFor="let web of assignPermData">{{web.assignPermName}}</option> 
@@ -89,7 +91,8 @@
 
           <div class="col-md-6">
             <label class="mb-1">{{ 'User Privileges' | translate }}</label>
-            <ng-select [multiple]="true" [(ngModel)]="privilegeId" formControlName="privilegeId"
+            <ng-select [multiple]="true"
+            [(ngModel)]="userMappingData.privilegeId" name="privilegeId"
             [ngClass]="{ 'is-invalid': submitted && f['privilegeId'].errors }">
             <ng-option value="" disabled>Choose Your Option</ng-option>
             <ng-option [value]="web.privilegeId" *ngFor="let web of privilegeData">{{web.privilegeName}}</ng-option> 
@@ -264,8 +267,8 @@
         </div>
         <div class="p-2 ng-select">
           <label class="mb-1">User Privileges</label>
-            <ng-select [multiple]="true" [(ngModel)]="privilegeIds" formControlName="privilegeIds"
-            [ngClass]="{ 'is-invalid': submitted && f['privilegeId'].errors }">
+            <ng-select [multiple]="true" [(ngModel)]="userMappingData.privilegeId" name="privilegeId" formControlName="privilegeId"
+            [ngClass]="{ 'is-invalid': submitted && f['privilegeId'].errors }" bindLabel="name">
             <ng-option value="" disabled>Choose Your Option</ng-option>
             <ng-option [value]="web.privilegeId" *ngFor="let web of privilegeData">{{web.privilegeName}}</ng-option> 
             </ng-select>

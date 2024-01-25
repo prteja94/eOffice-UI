@@ -77,9 +77,7 @@ export class WidgetComponent implements OnInit{
   singleSelect: number | null = null;
   multiSelect: number | null = null;
   defaultSelectM: number[] = [];
-  defaultSelectedNamesI: any = '[]';
-  defaultSelectedNames: string = '';
-
+  defaultSelectedNames: string[] = [];
 
   selectedOrg: { id: number; name: string } | undefined;
   defaultSelectID: { id: number; name: string } | undefined;
@@ -172,7 +170,6 @@ export class WidgetComponent implements OnInit{
     
   }
 
-
   // setEdit() {
   //   if (this.setData) {
   //     if (this.setData != null) {
@@ -181,27 +178,11 @@ export class WidgetComponent implements OnInit{
   //   }
   // }
 
-  updateSelectedNamesI() { // Ensure this method is inside the class
-    this.defaultSelectedNamesI = this.defaultSelectM.map(id => 
+  updateSelectedNames() { // Ensure this method is inside the class
+    this.defaultSelectedNames = this.defaultSelectM.map(id => 
       this.defaultSelect.find(option => option.id === id)?.name || 'Unknown'
     );
   }
-
-
-  updateSelectedNames() {
-    const selectedOptions = this.defaultSelectM.map(id => {
-      const foundOption = this.defaultSelect.find(option => option.id === id);
-      return {
-        id: id,
-        name: foundOption ? foundOption.name : 'Unknown'
-      };
-    });
-  
-    this.defaultSelectedNames = JSON.stringify(selectedOptions, null, 2);
-  }
-  
-
-
 
   onFolderChange(): void {
     this.selectedFolder = this.form.get('folderSelect')?.value;

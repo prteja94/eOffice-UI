@@ -15,6 +15,8 @@ import {
   Validators,
   FormsModule,
   ReactiveFormsModule,
+  FormGroup,
+  FormBuilder,
 } from '@angular/forms';
 import Dynamsoft from 'dwt';
 import { WebTwain } from 'dwt/dist/types/WebTwain';
@@ -30,6 +32,14 @@ import { TranslateService } from '@ngx-translate/core';
 
 //import { ErrorStateMatcher } from '@angular/material/core';
 import {  NgbDate, NgbDateStruct, NgbCalendar, NgbDatepickerModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { ScanningIndex, ScanningIndexService } from './scanning-index.service';
+import { OrgTypeService } from '../administration/org-type/org-type.service';
+import { OrgNameService, OrgUnit } from '../administration/org-name/org-name.service';
+import { PriorityMaster, PriorityMasterService } from '../administration/priority-master/priority-master.service';
+import { DocumentClassificationMaster, DocumentClassificationService } from '../administration/document-classification-master/document-classification.service';
+import { UserMaster, UserMasterService } from '../administration/user-master/user-master.service';
+import { ToastrService } from 'ngx-toastr';
+import { ExternalLocationMaster, ExternalLocationService } from '../administration/external-location/external-location.service';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 /*export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -44,11 +54,28 @@ import {  NgbDate, NgbDateStruct, NgbCalendar, NgbDatepickerModule, NgbDateParse
   templateUrl: './scanning-index.component.html',
   styleUrls: ['./scanning-index.component.scss']
 })
+
 export class ScanningIndexComponent implements AfterViewInit, OnInit{
+  submitted = false;
   active = 1;
+form: FormGroup<any>;
+  userOrgData: any;
+  storedData: any;
+  jsonData: any;
 
   
-  constructor(private cdr: ChangeDetectorRef, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter, private translate: TranslateService) {
+  constructor(private scanningIndexService : ScanningIndexService,
+    private  documentClassificationService :DocumentClassificationService,
+    private toastr: ToastrService,
+    private userMasterService: UserMasterService,
+    private priorityMasterService : PriorityMasterService,
+    private cdr: ChangeDetectorRef, 
+    private orgTypeService: OrgTypeService,
+    private orgNameService: OrgNameService,
+    private calendar: NgbCalendar,
+    public formatter: NgbDateParserFormatter,
+    private externalLocationService:ExternalLocationService,
+    private translate: TranslateService) {
     translate.setDefaultLang('en');
   }
     
@@ -58,6 +85,13 @@ export class ScanningIndexComponent implements AfterViewInit, OnInit{
   selectedOption: string = 'option1'; // To store the selected radio button option
   option1Value: string;   // To store form data for Option 1
   option2Value: string;   // To store form data for Option 2
+  topOrgUnitData: OrgUnit[] = [];
+  orgNameData: OrgUnit[] = [];
+  priorityData: PriorityMaster[] = [];
+  classData: DocumentClassificationMaster[] = [];
+  userData: UserMaster[] = [];
+  externalLocData: ExternalLocationMaster[] = [];
+  isFormDisabled: boolean = false;
 
   changeLanguage(lang: string) {
     this.translate.use(lang); // Switch the active language
@@ -89,6 +123,32 @@ export class ScanningIndexComponent implements AfterViewInit, OnInit{
   public outputMessages: Message[] = [];
   public historyMessages: Message[] = [];
   public bDontScrollMessages: boolean = true;
+  scanningData : ScanningIndex = {
+    activityId: 0,
+    refNo: '',
+    barcodeId: "",
+    seqno: "",
+    docRefNumber: "",
+    docRoute: "",
+    docSubRoute: "",
+    docType: 0,
+    docTypeName: "",
+    externalLocId: 0,
+    extLocName: "",
+    extUserName: '',
+    folderDesc: "",
+    folderId: 0,
+    folderPath: "",
+    internOrgId1: 0,
+    internOrgId2: 0,
+    subject: "",
+    priorityId: 0,
+    classId: 0,
+    addedOn: '',
+    internUserId: 0,
+    archiever: 0,
+    recOrSen:0
+  };
 
   /**
    * Buffer info
@@ -105,6 +165,8 @@ export class ScanningIndexComponent implements AfterViewInit, OnInit{
     PDF: false
   };
 
+  @ViewChild('myForm')
+  ngForm:FormGroup;
 
   clearMessage() {
     this.instantError = "";
@@ -128,6 +190,42 @@ export class ScanningIndexComponent implements AfterViewInit, OnInit{
     Dynamsoft.DWT.ProductKey = environment.Dynamsoft.dwtProductKey;
     Dynamsoft.DWT.ResourcesPath = environment.Dynamsoft.resourcesPath;
     Dynamsoft.DWT.Load();
+
+    this.storedData = sessionStorage.getItem('currentUser')?.toString();
+    this.jsonData = JSON.parse(this.storedData);
+
+    this.orgNameService.getTopOrgUnit().subscribe((response) => {
+      this.topOrgUnitData=response;
+    })
+
+    this.priorityMasterService.getTableData().subscribe((response) => {
+      this.priorityData = response;
+    });
+
+    this.documentClassificationService.getTableData().subscribe((response) => {
+      this.classData = response;
+    });
+
+    this.userMasterService.getUsersbyOrgUnit(this.jsonData.orgId).subscribe((response) => {
+      this.userData=response;
+    })
+
+    this.externalLocationService.getTableData().subscribe((response) => {
+      this.externalLocData = response;
+    })
+
+  }
+
+  populateOrgUnit(updatedValue: number) {
+    this.orgNameService.getOrgUnitByTopLevel(updatedValue).subscribe((response) => {
+      this.orgNameData=response;
+    })
+  }
+
+  populateOrgUsers(updatedValue: number) {
+    this.userMasterService.getUsersbyOrgUnit(updatedValue).subscribe((response) => {
+      this.userOrgData=response;
+    })
   }
   
   DWObject: WebTwain | any = null;
@@ -154,6 +252,22 @@ export class ScanningIndexComponent implements AfterViewInit, OnInit{
 	}
     else
       return false;
+  }
+
+  onSubmit(): void {
+    this.submitted = true;
+    this.scanningIndexService.create(this.scanningData).subscribe(
+      (response) => {
+        this.scanningData.refNo = response.body.refNo;
+        this.isFormDisabled = true;
+        this.cdr.detectChanges();
+        if(response.status === 201 || response.status === 200) {
+          this.toastr.success('You are awesome!', 'Date Saved Successfully!', {
+            timeOut: 3000,
+          })
+        }
+      }
+    )
   }
  
  
