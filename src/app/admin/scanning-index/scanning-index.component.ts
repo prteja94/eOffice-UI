@@ -28,8 +28,11 @@ import { environment } from '../../../environments/environment';
 
 import { TranslateService } from '@ngx-translate/core';
 
+import { TreeNode } from './tree-node.model';
+import { TreeService } from './tree.service';
+
 //import { ErrorStateMatcher } from '@angular/material/core';
-import {  NgbDate, NgbDateStruct, NgbCalendar, NgbDatepickerModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import {  NgbModal, NgbModalConfig, NgbDate, NgbDateStruct, NgbCalendar, NgbDatepickerModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 /*export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -47,8 +50,23 @@ import {  NgbDate, NgbDateStruct, NgbCalendar, NgbDatepickerModule, NgbDateParse
 export class ScanningIndexComponent implements AfterViewInit, OnInit{
   active = 1;
 
+  @Input() treeData: TreeNode[] = [];
+  nodes: TreeNode[]
+  selectedFolder = new FormControl('');
+  private currentNode?: TreeNode;
   
-  constructor(private cdr: ChangeDetectorRef, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter, private translate: TranslateService) {
+  toggleNode(node: TreeNode): void {
+    if (node.children) { // Only toggle if there are children
+      node.expanded = !node.expanded;
+    }
+  }
+  
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private calendar: NgbCalendar,
+    private modalService: NgbModal,
+    private treeService: TreeService,
+    public formatter: NgbDateParserFormatter, private translate: TranslateService) {
     translate.setDefaultLang('en');
   }
     
@@ -128,6 +146,30 @@ export class ScanningIndexComponent implements AfterViewInit, OnInit{
     Dynamsoft.DWT.ProductKey = environment.Dynamsoft.dwtProductKey;
     Dynamsoft.DWT.ResourcesPath = environment.Dynamsoft.resourcesPath;
     Dynamsoft.DWT.Load();
+
+    this.loadData();
+  }
+
+  loadData() {
+    this.treeService.fetchData().subscribe({
+      next: (data) => {
+        this.nodes = data;
+        // Optionally initialize all nodes to be collapsed
+        this.nodes.forEach(node => node.expanded = false);
+      },
+      error: (err) => console.error(err),
+    });
+  }
+
+  selectNode(node: TreeNode): void {
+    this.currentNode = node;
+    this.selectedFolder.setValue(node.label);
+  }
+  saveNode(): void {
+    if (this.currentNode) {
+      this.currentNode.label = this.selectedFolder.value || '';
+      this.currentNode = undefined;
+    }
   }
   
   DWObject: WebTwain | any = null;
@@ -185,7 +227,11 @@ export class ScanningIndexComponent implements AfterViewInit, OnInit{
             });
         });
     }
-}
+  }
+  
+  open(content: any) {
+		this.modalService.open(content, { size: 'sm' });
+	}
 
 }
 
@@ -209,3 +255,4 @@ interface Zone {
   height: number;
   index: number;
 }
+

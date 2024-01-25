@@ -134,7 +134,7 @@
 
           <div class="mb-3 ng-select">
             <label class="mb-1" for="defaultSelectM">Default Select</label>
-              <ng-select [multiple]="true" [(ngModel)]="defaultSelectM" formControlName="defaultSelectM"  placeholder="Default Select" 
+              <ng-select [multiple]="true" [(ngModel)]="defaultSelectM" (ngModelChange)="onDefaultSelectMChange()" formControlName="defaultSelectM"  placeholder="Default Select" 
               clearAllText="Clear" [ngClass]="{ 'is-invalid': submitted && f['defaultSelect'].errors }" bindLabel="name">
                 <ng-option *ngFor="let defaultSelect of defaultSelect" [value]="defaultSelect.id">
                 {{ defaultSelect.name }}</ng-option>
@@ -158,6 +158,17 @@
                 <li *ngFor="let name of defaultSelectedNames">{{ name }}</li>
               </ul>
           </div>
+
+          <div class="mb-3 ng-select">
+            <label class="mb-1" for="autoSelect">Auto Select</label>
+            <ng-select [multiple]="true"
+              [items]="reflectedSelect"
+              bindLabel="name"
+              bindValue="name"
+              placeholder="Select item"
+              [(ngModel)]="selectedOptions">
+            </ng-select>
+        </div> 
 
           <div class="mb-3 ">
             

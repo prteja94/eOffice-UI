@@ -18,3 +18,43 @@
 .mat-input-element:focus {
   border-color: #000;
 }
+
+
+/* tree.component.css */
+.tree-container {
+  list-style-type: none;
+  padding-left: 20px;
+}
+
+.tree-node{
+  ul {
+    list-style-type: none;
+  }
+  ul > li {
+    margin-left: 18px;
+  }
+}
+
+.tree-node {
+  cursor: pointer;
+  position: relative;
+}
+
+.tree-node .icon {
+  margin-right: 5px;
+}
+
+.tree-node .expanded:before {
+  content: '▼'; /* Custom expanded icon */
+  color:#5ABA8A;
+}
+
+.tree-node .collapsed:before {
+  content: '▶'; /* Custom collapsed icon */
+  color:#5ABA8A;
+}
+
+.tree-node .node-icon {
+  width:20px;
+ 
+}
