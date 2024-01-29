@@ -1,49 +1,73 @@
 [
   {
     "label": "Main",
+    "icon": "icon-main",
+    "expanded": true,
     "children": [
       {
         "label": "Users",
+        "icon": "icon-users",
+        "expanded": true,
         "children": [
           {
             "label": "Admin",
+            "icon": "icon-admin",
+            "expanded": false,
             "children": [
               {
                 "label": "Documents",
-                "type": "dir"
+                "type": "dir",
+                "icon": "icon-documents",
+                "expanded": false
               },
               {
                 "label": "Downloads",
-                "type": "dir"
+                "type": "dir",
+                "icon": "icon-downloads",
+                "expanded": false
               },
               {
                 "label": "Pictures",
-                "type": "dir"
+                "type": "dir",
+                "icon": "icon-pictures",
+                "expanded": false
               },
               {
                 "label": "Videos",
-                "type": "dir"
+                "type": "dir",
+                "icon": "icon-videos",
+                "expanded": false
               }
             ]
           },
           {
             "label": "Guest",
+            "icon": "icon-guest",
+            "expanded": false,
             "children": [
               {
                 "label": "Documents",
-                "type": "dir"
+                "type": "dir",
+                "icon": "icon-documents",
+                "expanded": false
               },
               {
                 "label": "Downloads",
-                "type": "dir"
+                "type": "dir",
+                "icon": "icon-downloads",
+                "expanded": false
               },
               {
                 "label": "Pictures",
-                "type": "dir"
+                "type": "dir",
+                "icon": "icon-pictures",
+                "expanded": false
               },
               {
                 "label": "Videos",
-                "type": "dir"
+                "type": "dir",
+                "icon": "icon-videos",
+                "expanded": false
               }
             ]
           }
@@ -51,15 +75,21 @@
       },
       {
         "label": "Program Files",
-        "type": "dir"
+        "type": "dir",
+        "icon": "icon-program-files",
+        "expanded": false
       },
       {
         "label": "Program Files (x86)",
-        "type": "dir"
+        "type": "dir",
+        "icon": "icon-program-files-x86",
+        "expanded": false
       },
       {
         "label": "Windows",
-        "type": "dir"
+        "type": "dir",
+        "icon": "icon-windows",
+        "expanded": false
       }
     ]
   }

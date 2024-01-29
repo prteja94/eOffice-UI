@@ -256,11 +256,58 @@
                       </div>
                     </div>
 
-                    <div class="row mb-2 ">
-                      <div class="col-12">
+                    <div class="row mb-2 " >
+                      <ng-template #content let-c="close" let-d="dismiss">
+                        <div class="modal-header justify-content-center">
+                           <h4 class="modal-title" id="modal-basic-title">Select The Folder</h4>
+                          <!--<button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button> -->
+                        </div>
+                        <div class="modal-body">
+
+              
+                          <ul class="tree-container">
+                            <li *ngFor="let node of nodes" class="tree-node">
+                              <div (click)="toggleNode(node); selectNode(node)">
+                                <span *ngIf="node.children?.length">
+                                  <i [ngClass]="node.expanded ? 'expanded' : 'collapsed'"></i>
+                                </span>
+                                <span [ngClass]="node.icon"></span> {{ node.label }}
+                              </div>
+                              <ul *ngIf="node.children && node.expanded">
+                                <!-- Pass the context as node to access it as 'node' in the template -->
+                                <ng-container *ngTemplateOutlet="treeTemplate; context: {$implicit: node.children, parentNode: node}"></ng-container>
+                              </ul>
+                            </li>
+                          </ul>
+                          
+                          <ng-template #treeTemplate let-nodes let-parentNode="parentNode">
+                            <li *ngFor="let child of nodes" class="tree-node">
+                              <div (click)="toggleNode(child); selectNode(child)">
+                                <span *ngIf="child.children?.length">
+                                  <i [ngClass]="child.expanded ? 'expanded' : 'collapsed'"></i>
+                                </span>
+                                <span [ngClass]="child.icon"></span> {{ child.label }}
+                              </div>
+                              <ul *ngIf="child.children && child.expanded">
+                                <!-- Recursive template calls for deeper children -->
+                                <ng-container *ngTemplateOutlet="treeTemplate; context: {$implicit: child.children, parentNode: child}"></ng-container>
+                              </ul>
+                            </li>
+                          </ng-template>
+                          
+                          
+
+                        </div>
+                        <!-- <div class="modal-footer justify-content-center">
+                          <button type="button" class="btn-save" (click)="c('Save click')">Update</button>
+                        </div> -->
+                      </ng-template>
+
+                      <div class="col-6 select-folder " *ngFor="let node of nodes">
                         <label for="folder" class="col-form-label">{{ 'Folder' | translate }}</label>
-                        <input type="text" id="folder" [(ngModel)]="scanningData.folderDesc" name="folderDesc" class="form-control" [attr.disabled]="isFormDisabled">
+                        <input type="text" id="folder" class="form-control">
                       </div>
+
                     </div>
 
                     <div class="row mb-2 " *ngIf="scanningData.docSubRoute === 'Internal'">

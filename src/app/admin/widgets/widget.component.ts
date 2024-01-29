@@ -29,6 +29,10 @@ export class NgbdModalContent {
 	constructor(public activeModal: NgbActiveModal) {}
 }
 
+interface SelectOption {
+  id: number;
+  name: string;
+}
 
 @Component({
   selector: 'app-widget',
@@ -77,7 +81,9 @@ export class WidgetComponent implements OnInit{
   singleSelect: number | null = null;
   multiSelect: number | null = null;
   defaultSelectM: number[] = [];
-  defaultSelectedNames: string[] = [];
+  defaultSelectedNamesI: any = '[]';
+  defaultSelectedNames: string = '';
+
 
   selectedOrg: { id: number; name: string } | undefined;
   defaultSelectID: { id: number; name: string } | undefined;
@@ -97,13 +103,24 @@ export class WidgetComponent implements OnInit{
     { id: 4, name: 'Multi 4' },
   ];
 
-  defaultSelect: any[] = [
+  defaultSelect: SelectOption[] = [
     { id: 1, name: 'Def Multi 1' },
     { id: 2, name: 'Def Multi 2' },
     { id: 3, name: 'Def Multi 3' },
     { id: 4, name: 'Def Multi 4' },
   ];
 
+  singleSelect: number | null = null;
+  multiSelect: number | null = null;
+  defaultSelectM: number[] = [];
+  defaultSelectedNamesI: any = '[]';
+  defaultSelectedNames: string = '';
+  
+  reflectedSelect: SelectOption[] = [];
+  selectedOptions: SelectOption[] = []; 
+
+  selectedOrg: { id: number; name: string } | undefined;
+  defaultSelectID: { id: number; name: string } | undefined;
 
   ngOnInit(): void {  
     this.form = this.formBuilder.group(
@@ -135,6 +152,7 @@ export class WidgetComponent implements OnInit{
         singleSelect: [null], 
         multiSelect: [null],
         defaultSelectM: [], 
+        reflectedSelect:[true, 'Two', 3],
       },
       {
         validators: [Validation.match('password', 'confirmPassword')],
@@ -150,8 +168,8 @@ export class WidgetComponent implements OnInit{
       this.defaultSelectM = selectedIds;
       this.updateSelectedNames(); 
     });
-  
-    
+
+
     this.nodeService.getNodes().subscribe((data: TreeNode<any>[]) => {
       this.files = data;
     });
@@ -168,6 +186,10 @@ export class WidgetComponent implements OnInit{
       defaultSelectM: ['', Validators.required]
     });
     
+
+    this.updateReflectedSelect();
+
+
   }
 
   // setEdit() {
@@ -183,6 +205,22 @@ export class WidgetComponent implements OnInit{
       this.defaultSelect.find(option => option.id === id)?.name || 'Unknown'
     );
   }
+
+
+  updateSelectedNames() {
+    const selectedOptions = this.defaultSelectM.map(id => {
+      const foundOption = this.defaultSelect.find(option => option.id === id);
+      return {
+        id: id,
+        name: foundOption ? foundOption.name : 'Unknown'
+      };
+    });
+  
+    this.defaultSelectedNames = JSON.stringify(selectedOptions, null, 2);
+  }
+  
+
+
 
   onFolderChange(): void {
     this.selectedFolder = this.form.get('folderSelect')?.value;
