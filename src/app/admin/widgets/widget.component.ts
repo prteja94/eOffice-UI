@@ -109,18 +109,9 @@ export class WidgetComponent implements OnInit{
     { id: 3, name: 'Def Multi 3' },
     { id: 4, name: 'Def Multi 4' },
   ];
-
-  singleSelect: number | null = null;
-  multiSelect: number | null = null;
-  defaultSelectM: number[] = [];
-  defaultSelectedNamesI: any = '[]';
-  defaultSelectedNames: string = '';
   
   reflectedSelect: SelectOption[] = [];
   selectedOptions: SelectOption[] = []; 
-
-  selectedOrg: { id: number; name: string } | undefined;
-  defaultSelectID: { id: number; name: string } | undefined;
 
   ngOnInit(): void {  
     this.form = this.formBuilder.group(
@@ -187,7 +178,7 @@ export class WidgetComponent implements OnInit{
     });
     
 
-    this.updateReflectedSelect();
+   // this.updateReflectedSelect();
 
 
   }
@@ -200,11 +191,11 @@ export class WidgetComponent implements OnInit{
   //   }
   // }
 
-  updateSelectedNames() { // Ensure this method is inside the class
-    this.defaultSelectedNames = this.defaultSelectM.map(id => 
-      this.defaultSelect.find(option => option.id === id)?.name || 'Unknown'
-    );
-  }
+  // updateSelectedNames() { // Ensure this method is inside the class
+  //   this.defaultSelectedNames = this.defaultSelectM.map(id => 
+  //     this.defaultSelect.find(option => option.id === id)?.name || 'Unknown'
+  //   );
+  // }
 
 
   updateSelectedNames() {

@@ -34,6 +34,14 @@ import { TreeNode } from './tree-node.model';
 import { TreeService } from './tree.service';
 
 //import { ErrorStateMatcher } from '@angular/material/core';
+import { ScanningIndex, ScanningIndexService } from './scanning-index.service';
+import { OrgTypeService } from '../administration/org-type/org-type.service';
+import { OrgNameService, OrgUnit } from '../administration/org-name/org-name.service';
+import { PriorityMaster, PriorityMasterService } from '../administration/priority-master/priority-master.service';
+import { DocumentClassificationMaster, DocumentClassificationService } from '../administration/document-classification-master/document-classification.service';
+import { UserMaster, UserMasterService } from '../administration/user-master/user-master.service';
+import { ToastrService } from 'ngx-toastr';
+import { ExternalLocationMaster, ExternalLocationService } from '../administration/external-location/external-location.service';
 import {  NgbModal, NgbModalConfig, NgbDate, NgbDateStruct, NgbCalendar, NgbDatepickerModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -53,12 +61,37 @@ import {  NgbModal, NgbModalConfig, NgbDate, NgbDateStruct, NgbCalendar, NgbDate
 export class ScanningIndexComponent implements AfterViewInit, OnInit{
   submitted = false;
   active = 1;
+form: FormGroup<any>;
+  userOrgData: any;
+  storedData: any;
+  jsonData: any;
 
+  @Input() treeData: TreeNode[] = [];
+  nodes: TreeNode[]
+  selectedFolder = new FormControl('');
+  private currentNode?: TreeNode;
   
-  constructor(private cdr: ChangeDetectorRef, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter, private translate: TranslateService) {
-    translate.setDefaultLang('en');
+  constructor(private scanningIndexService : ScanningIndexService,
+    private  documentClassificationService :DocumentClassificationService,
+    private toastr: ToastrService,
+    private userMasterService: UserMasterService,
+    private priorityMasterService : PriorityMasterService,
+    private cdr: ChangeDetectorRef, 
+    private orgTypeService: OrgTypeService,
+    private orgNameService: OrgNameService,
+    private calendar: NgbCalendar,
+    public formatter: NgbDateParserFormatter,
+    private externalLocationService:ExternalLocationService,
+    private translate: TranslateService,
+    private treeService: TreeService,
+    private modalService: NgbModal) {
+  
+  } toggleNode(node: TreeNode): void {
+    if (node.children) { // Only toggle if there are children
+      node.expanded = !node.expanded;
+    }
   }
-    
+  
   model3: string;
   model4: string;
 
@@ -170,6 +203,65 @@ export class ScanningIndexComponent implements AfterViewInit, OnInit{
     Dynamsoft.DWT.ProductKey = environment.Dynamsoft.dwtProductKey;
     Dynamsoft.DWT.ResourcesPath = environment.Dynamsoft.resourcesPath;
     Dynamsoft.DWT.Load();
+
+    this.storedData = sessionStorage.getItem('currentUser')?.toString();
+    this.jsonData = JSON.parse(this.storedData);
+
+    this.orgNameService.getTopOrgUnit().subscribe((response) => {
+      this.topOrgUnitData=response;
+    })
+
+    this.priorityMasterService.getTableData().subscribe((response) => {
+      this.priorityData = response;
+    });
+
+    this.documentClassificationService.getTableData().subscribe((response) => {
+      this.classData = response;
+    });
+
+    this.userMasterService.getUsersbyOrgUnit(this.jsonData.orgId).subscribe((response) => {
+      this.userData=response;
+    })
+
+    this.externalLocationService.getTableData().subscribe((response) => {
+      this.externalLocData = response;
+    })
+
+  }
+
+  populateOrgUnit(updatedValue: number) {
+    this.orgNameService.getOrgUnitByTopLevel(updatedValue).subscribe((response) => {
+      this.orgNameData=response;
+    })
+  }
+
+  populateOrgUsers(updatedValue: number) {
+    this.userMasterService.getUsersbyOrgUnit(updatedValue).subscribe((response) => {
+      this.userOrgData=response;
+    })
+    this.loadData();
+  }
+
+  loadData() {
+    this.treeService.fetchData().subscribe({
+      next: (data) => {
+        this.nodes = data;
+        // Optionally initialize all nodes to be collapsed
+        this.nodes.forEach(node => node.expanded = false);
+      },
+      error: (err) => console.error(err),
+    });
+  }
+
+  selectNode(node: TreeNode): void {
+    this.currentNode = node;
+    this.selectedFolder.setValue(node.label);
+  }
+  saveNode(): void {
+    if (this.currentNode) {
+      this.currentNode.label = this.selectedFolder.value || '';
+      this.currentNode = undefined;
+    }
   }
   
   DWObject: WebTwain | any = null;
