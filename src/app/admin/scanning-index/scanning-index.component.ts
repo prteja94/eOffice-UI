@@ -61,7 +61,7 @@ import {  NgbModal, NgbModalConfig, NgbDate, NgbDateStruct, NgbCalendar, NgbDate
 export class ScanningIndexComponent implements AfterViewInit, OnInit{
   submitted = false;
   active = 1;
-form: FormGroup<any>;
+  form: FormGroup<any>;
   userOrgData: any;
   storedData: any;
   jsonData: any;
@@ -70,6 +70,12 @@ form: FormGroup<any>;
   nodes: TreeNode[]
   selectedFolder = new FormControl('');
   private currentNode?: TreeNode;
+
+  toggleNode(node: TreeNode): void {
+    if (node.children) { // Only toggle if there are children
+      node.expanded = !node.expanded;
+    }
+  }
   
   constructor(private scanningIndexService : ScanningIndexService,
     private  documentClassificationService :DocumentClassificationService,
@@ -86,11 +92,7 @@ form: FormGroup<any>;
     private treeService: TreeService,
     private modalService: NgbModal) {
   
-  } toggleNode(node: TreeNode): void {
-    if (node.children) { // Only toggle if there are children
-      node.expanded = !node.expanded;
-    }
-  }
+  } 
   
   model3: string;
   model4: string;
@@ -204,6 +206,8 @@ form: FormGroup<any>;
     Dynamsoft.DWT.ResourcesPath = environment.Dynamsoft.resourcesPath;
     Dynamsoft.DWT.Load();
 
+    this.loadData();
+
     this.storedData = sessionStorage.getItem('currentUser')?.toString();
     this.jsonData = JSON.parse(this.storedData);
 
@@ -226,7 +230,7 @@ form: FormGroup<any>;
     this.externalLocationService.getTableData().subscribe((response) => {
       this.externalLocData = response;
     })
-
+    
   }
 
   populateOrgUnit(updatedValue: number) {
@@ -239,7 +243,7 @@ form: FormGroup<any>;
     this.userMasterService.getUsersbyOrgUnit(updatedValue).subscribe((response) => {
       this.userOrgData=response;
     })
-    this.loadData();
+    
   }
 
   loadData() {
@@ -254,8 +258,10 @@ form: FormGroup<any>;
   }
 
   selectNode(node: TreeNode): void {
-    this.currentNode = node;
-    this.selectedFolder.setValue(node.label);
+    if (node.type === 'dir') {
+      this.currentNode = node;
+      this.selectedFolder.setValue(node.label);
+    }
   }
   saveNode(): void {
     if (this.currentNode) {
@@ -338,9 +344,15 @@ form: FormGroup<any>;
   }
   
   open(content: any) {
-		this.modalService.open(content, { size: 'sm' });
+		this.modalService.open(content, { size: 'sm', modalDialogClass: 'custom-modal' });
 	}
 
+  isVisible: boolean = false;
+
+  toggleDiv(): void {
+    this.isVisible = !this.isVisible;
+  }
+  
 }
 
 interface Device {

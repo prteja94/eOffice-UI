@@ -23,17 +23,31 @@
 /* tree.component.css */
 .tree-container {
   list-style-type: none;
-  padding-left: 20px;
+  
+
+  .hover{
+    &:hover{
+      background-color: #ECF6FF;
+      border-radius: 0.25rem;
+      padding: 0.28rem 0.20rem;
+    }
+  }
+  
 }
 
 .tree-node{
+  line-height: 26px;
   ul {
     list-style-type: none;
+    line-height: 26px;
   }
   ul > li {
     margin-left: 18px;
+    line-height: 26px;
   }
 }
+
+
 
 .tree-node {
   cursor: pointer;
@@ -44,17 +58,59 @@
   margin-right: 5px;
 }
 
-.tree-node .expanded:before {
-  content: '▼'; /* Custom expanded icon */
-  color:#5ABA8A;
+.modal-header{
+  background-color: #01565B;
+  padding: 0.5rem;
+}
+.modal-title{
+  color:#ffffff;
+  font-size: 1.2rem;
+
 }
 
-.tree-node .collapsed:before {
-  content: '▶'; /* Custom collapsed icon */
-  color:#5ABA8A;
-}
+// .tree-node .expanded:before {
+//   content: '▼'; /* Custom expanded icon */
+//   color:#5ABA8A;
+// }
+
+// .tree-node .collapsed:before {
+//   content: '▶'; /* Custom collapsed icon */
+//   color:#5ABA8A;
+// }
 
 .tree-node .node-icon {
   width:20px;
  
+}
+
+
+
+
+.foldersel{
+  position: relative;
+}
+
+.toggle-div {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px;
+  width: 300px;
+  min-height: 100px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  z-index: 1;
+}
+.custom-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 300px; /* Adjust width as needed */
+  background-color: white;
+  z-index: 1050; /* Ensure it's above other content */
+  overflow-y: auto; /* Enable scrolling for long content */
 }

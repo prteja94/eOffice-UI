@@ -1,96 +1,89 @@
 [
   {
-    "label": "Main",
-    "icon": "icon-main",
+    "label": "Users",
+    "icon": "chevron-down",
     "expanded": true,
     "children": [
       {
-        "label": "Users",
-        "icon": "icon-users",
-        "expanded": true,
+        "label": "Admin",
+        "icon": "chevron-down",
+        "expanded": false,
         "children": [
           {
-            "label": "Admin",
-            "icon": "icon-admin",
-            "expanded": false,
-            "children": [
-              {
-                "label": "Documents",
-                "type": "dir",
-                "icon": "icon-documents",
-                "expanded": false
-              },
-              {
-                "label": "Downloads",
-                "type": "dir",
-                "icon": "icon-downloads",
-                "expanded": false
-              },
-              {
-                "label": "Pictures",
-                "type": "dir",
-                "icon": "icon-pictures",
-                "expanded": false
-              },
-              {
-                "label": "Videos",
-                "type": "dir",
-                "icon": "icon-videos",
-                "expanded": false
-              }
-            ]
+            "label": "Documents",
+            "type": "dir",
+            "icon": "chevron-right",
+            "expanded": false
           },
           {
-            "label": "Guest",
-            "icon": "icon-guest",
-            "expanded": false,
-            "children": [
-              {
-                "label": "Documents",
-                "type": "dir",
-                "icon": "icon-documents",
-                "expanded": false
-              },
-              {
-                "label": "Downloads",
-                "type": "dir",
-                "icon": "icon-downloads",
-                "expanded": false
-              },
-              {
-                "label": "Pictures",
-                "type": "dir",
-                "icon": "icon-pictures",
-                "expanded": false
-              },
-              {
-                "label": "Videos",
-                "type": "dir",
-                "icon": "icon-videos",
-                "expanded": false
-              }
-            ]
+            "label": "Downloads",
+            "type": "dir",
+            "icon": "chevron-right",
+            "expanded": false
+          },
+          {
+            "label": "Pictures",
+            "type": "dir",
+            "icon": "chevron-right",
+            "expanded": false
+          },
+          {
+            "label": "Videos",
+            "type": "dir",
+            "icon": "chevron-right",
+            "expanded": false
           }
         ]
       },
       {
-        "label": "Program Files",
-        "type": "dir",
-        "icon": "icon-program-files",
-        "expanded": false
-      },
-      {
-        "label": "Program Files (x86)",
-        "type": "dir",
-        "icon": "icon-program-files-x86",
-        "expanded": false
-      },
-      {
-        "label": "Windows",
-        "type": "dir",
-        "icon": "icon-windows",
-        "expanded": false
+        "label": "Guest",
+        "icon": "chevron-down",
+        "expanded": false,
+        "children": [
+          {
+            "label": "Documents",
+            "type": "dir",
+            "icon": "chevron-right",
+            "expanded": false
+          },
+          {
+            "label": "Downloads",
+            "type": "dir",
+            "icon": "chevron-right",
+            "expanded": false
+          },
+          {
+            "label": "Pictures",
+            "type": "dir",
+            "icon": "chevron-right",
+            "expanded": false
+          },
+          {
+            "label": "Videos",
+            "type": "dir",
+            "icon": "chevron-right",
+            "expanded": false
+          }
+        ]
       }
     ]
-  }
+  },
+  {
+    "label": "Program Files",
+    "type": "dir",
+    "icon": "chevron-right",
+    "expanded": false
+  },
+  {
+    "label": "Program Files (x86)",
+    "type": "dir",
+    "icon": "chevron-right",
+    "expanded": false
+  },
+  {
+    "label": "Windows",
+    "type": "dir",
+    "icon": "chevron-right",
+    "expanded": false
+  } 
 ]
