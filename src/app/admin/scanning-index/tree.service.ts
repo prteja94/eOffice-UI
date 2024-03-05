@@ -9,9 +9,13 @@ import { TreeNode } from './tree-node.model';
 export class TreeService {
   private dataUrl = 'assets/tree-data.json';  // URL to web API
 
+
+  private apiUrl = 'http://localhost:8081/client/folder/user';
+  
+
   constructor(private http: HttpClient) { }
 
   fetchData(): Observable<TreeNode[]> {
-    return this.http.get<TreeNode[]>(this.dataUrl);
+    return this.http.get<TreeNode[]>(this.apiUrl+'/1'+'/org-id/2');
   }
 }

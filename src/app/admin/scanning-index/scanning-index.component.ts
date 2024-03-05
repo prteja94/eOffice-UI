@@ -72,7 +72,7 @@ export class ScanningIndexComponent implements AfterViewInit, OnInit{
   private currentNode?: TreeNode;
 
   toggleNode(node: TreeNode): void {
-    if (node.children) { // Only toggle if there are children
+    if (node.subfolders) { // Only toggle if there are children
       node.expanded = !node.expanded;
     }
   }
@@ -152,7 +152,7 @@ export class ScanningIndexComponent implements AfterViewInit, OnInit{
     extLocName: "",
     extUserName: '',
     folderDesc: "",
-    folderId: 0,
+    folderId: "",
     folderPath: "",
     internOrgId1: 0,
     internOrgId2: 0,
@@ -258,14 +258,15 @@ export class ScanningIndexComponent implements AfterViewInit, OnInit{
   }
 
   selectNode(node: TreeNode): void {
-    if (node.type === 'dir') {
+   // if (node.type === 'dir') {
       this.currentNode = node;
-      this.selectedFolder.setValue(node.label);
-    }
+      this.selectedFolder.setValue(node.folderNamePath);
+      this.scanningData.folderPath = node.folderNamePath;
+  //  }
   }
   saveNode(): void {
     if (this.currentNode) {
-      this.currentNode.label = this.selectedFolder.value || '';
+      this.currentNode.folderNamePath = this.selectedFolder.value || '';
       this.currentNode = undefined;
     }
   }

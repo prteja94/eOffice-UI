@@ -37,7 +37,7 @@ export interface ScanningIndex {
   externalLocId: number,
   extLocName: string,
   extUserName: string,
-  folderId: number,
+  folderId: string,
   folderDesc: string,
   folderPath: string,
   internOrgId1: number,

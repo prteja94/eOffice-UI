@@ -262,17 +262,16 @@
                            <h4 class="modal-title" id="modal-basic-title">Select The Folder</h4>
                         </div>
                         <div class="modal-body">
-
                           <ul class="tree-container">
                             <li *ngFor="let node of nodes" class="tree-node">
                               <div (click)="toggleNode(node); selectNode(node)">
-                                <span *ngIf="node.children?.length">
+                                <span *ngIf="node.subfolders?.length">
                                   <i [ngClass]="node.expanded ? 'expanded' : 'collapsed'"></i>
                                 </span>
-                                <i-feather name="{{ node.icon }}" [ngClass]="node.icon"></i-feather> <span class="hover">{{ node.label }}</span>
+                                <i-feather name="{{ node.icon }}" class="chevron-up"></i-feather> <span class="hover">{{ node.folderName }}</span>
                               </div>
-                              <ul *ngIf="node.children && node.expanded">
-                                <ng-container *ngTemplateOutlet="treeTemplate; context: {$implicit: node.children, parentNode: node}"></ng-container>
+                              <ul *ngIf="node.subfolders && node.expanded">
+                                <ng-container *ngTemplateOutlet="treeTemplate; context: {$implicit: node.subfolders, parentNode: node}"></ng-container>
                               </ul>
                             </li>
                           </ul>
@@ -283,7 +282,7 @@
                                 <span class="hover" *ngIf="child.children?.length">
                                   <i [ngClass]="child.expanded ? 'expanded' : 'collapsed'"></i>
                                 </span>
-                                <i-feather name="{{ child.icon }}" [ngClass]="child.icon"></i-feather> <span class="hover">{{ child.label }}</span>
+                                <i-feather name="{{ child.icon }}" class='chevron-up'></i-feather> <span class="hover">{{ child.folderName }}</span>
                               </div>
                               <ul *ngIf="child.children && child.expanded">
                                 <ng-container *ngTemplateOutlet="treeTemplate; context: {$implicit: child.children, parentNode: child}"></ng-container>
@@ -298,12 +297,10 @@
                       <div class="col-6 select-folder " >
                         <label for="folder" class="col-form-label">{{ 'Folder' | translate }}</label>
                         <div class="input-group mb-3">
-
                           <input type="text" class="form-control" [formControl]="selectedFolder" placeholder="Select Folder" (blur)="saveNode()">
                           <span (click)="open(content)" class="input-group-text" id="folder"><svg class="icon"><use xlink:href="#folder"></use> </svg></span>
                         </div>
                       </div>
-
                     </div>
 
                     <div class="row mb-2 " *ngIf="scanningData.docSubRoute === 'Internal'">
