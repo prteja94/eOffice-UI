@@ -182,7 +182,7 @@ export const ROUTES: RouteInfo[] = [
   roles: ['Admin', 'User'],
   submenu: [
     {
-      path: 'democomponent',
+      path: 'queues/inbox',
       title: 'Inbox',
       icon: '',
       class: '',
@@ -190,7 +190,7 @@ export const ROUTES: RouteInfo[] = [
       submenu: [],
     },
     {
-      path: 'democomponent',
+      path: 'queues/outbox',
       title: 'Outbox',
       icon: '',
       class: '',
@@ -198,7 +198,7 @@ export const ROUTES: RouteInfo[] = [
       submenu: [],
     },
     {
-      path: 'democomponent',
+      path: 'queues/assigned',
       title: 'Assigned',
       icon: '',
       class: '',
@@ -206,7 +206,7 @@ export const ROUTES: RouteInfo[] = [
       submenu: [],
     },
     {
-      path: 'democomponent',
+      path: 'queues/archieved',
       title: 'Archieved',
       icon: '',
       class: '',
@@ -214,7 +214,7 @@ export const ROUTES: RouteInfo[] = [
       submenu: [],
     },
     {
-      path: 'democomponent',
+      path: 'queues/suspended',
       title: 'Suspended',
       icon: '',
       class: '',
@@ -222,7 +222,7 @@ export const ROUTES: RouteInfo[] = [
       submenu: [],
     },
     {
-      path: 'democomponent',
+      path: 'queues/closed',
       title: 'Closed',
       icon: '',
       class: '',
@@ -230,7 +230,7 @@ export const ROUTES: RouteInfo[] = [
       submenu: [],
     },
     {
-      path: 'democomponent',
+      path: 'queues/forwarded',
       title: 'Forwarded',
       icon: '',
       class: '',

@@ -8,5 +8,8 @@ import { DirectionService } from '../../shared/services/direction.service';
 })
 export class HomeComponent {
   constructor(public directionService: DirectionService) { }
+
+
+  
   
 }

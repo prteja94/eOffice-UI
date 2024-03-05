@@ -55,6 +55,11 @@ const routes: Routes = [
         },
       },
       {
+        path: 'queues',
+        loadChildren: () => import('./queues/queues.module').then(m => m.QueuesModule),
+       
+      },
+      {
         path: 'democomponent',
         loadChildren: () => import('./democomponent/democomponent.module').then(m => m.DemocomponentModule),
         data: {
