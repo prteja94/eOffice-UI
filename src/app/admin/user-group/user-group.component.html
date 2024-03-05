@@ -25,8 +25,6 @@
                       </mat-form-field> -->
 
 			
-
-					
 											<div class="row g-3 mb-3 align-items-center">
 												<div class="col-2">
 													<label for="subject" class="col-form-label"> Subject </label>
@@ -35,6 +33,31 @@
 													<input type="text" id="subject" class="form-control">
 												</div>
 											
+											</div>
+
+
+											<div class="row g-3 mb-3 align-items-center">
+												<div class="list-transfer-container">
+													<div class="list-box">
+														<ul>
+															<li *ngFor="let item of leftList" (click)="selectItem(item, 'right')">{{ item }}</li>
+														</ul>
+													</div>
+
+													<div class="list-box">
+														<button (click)="moveSelected('right')"> &gt; </button>
+														<button (click)="moveSelected('left')"> &lt; </button>
+														<button (click)="moveAll('right')"> &gt;&gt; </button>
+														<button (click)="moveAll('left')"> &lt;&lt; </button>
+													</div>
+
+													<div class="list-box">
+														<ul>
+															<li *ngFor="let item of rightList" (click)="selectItem(item, 'right')">{{ item }}</li>
+														</ul>
+													</div>
+												</div>
+												
 											</div>
 
 
