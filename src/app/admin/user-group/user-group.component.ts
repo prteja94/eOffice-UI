@@ -30,12 +30,13 @@ export class UserGroupComponent {
 
   //matcher = new MyErrorStateMatcher();
  
-  leftList = ['Item 1', 'Item 2', 'Item 3'];
+  leftList = ['Item 1', 'Item 2', 'Item 3','Item 1', 'Item 2', 'Item 3','Item 1', 'Item 2', 'Item 3','Item 1', 'Item 2', 'Item 3'];
   rightList = ['Item 4', 'Item 5'];
   selectedItems: { left: string[]; right: string[] } = { left: [], right: [] };
 
 
-  selectItem(item: string, side: 'left' | 'right') {
+
+  selectItem(item: string, side: 'left' | 'right'): void {
     const index = this.selectedItems[side].indexOf(item);
     if (index > -1) {
       this.selectedItems[side].splice(index, 1); // Deselect
@@ -44,11 +45,12 @@ export class UserGroupComponent {
     }
   }
 
-  moveSelected(side: 'left' | 'right') {
-    const source = side === 'left' ? this.rightList : this.leftList;
-    const destination = side === 'left' ? this.leftList : this.rightList;
+  moveSelected(side: 'left' | 'right'): void {
+    const source = side === 'left' ? this.leftList : this.rightList;
+    const destination = side === 'left' ? this.rightList : this.leftList;
+    const itemsToMove = this.selectedItems[side];
 
-    this.selectedItems[side].forEach(item => {
+    itemsToMove.forEach(item => {
       const index = source.indexOf(item);
       if (index > -1) {
         source.splice(index, 1);
@@ -56,14 +58,19 @@ export class UserGroupComponent {
       }
     });
 
-    this.selectedItems[side] = []; // Clear selection after moving
+   // Clearing the selected items from the side they were moved from
+   this.selectedItems[side] = [];
   }
 
   moveAll(side: 'left' | 'right') {
-    const source = side === 'left' ? this.rightList : this.leftList;
-    const destination = side === 'left' ? this.leftList : this.rightList;
+    const source = side === 'left' ? this.leftList : this.rightList;
+    const destination = side === 'left' ? this.rightList : this.leftList;
 
     destination.push(...source);
     source.length = 0; // Empty source list
+
+     // Clearing selected items for both lists after moving all items
+     this.selectedItems.left = [];
+     this.selectedItems.right = [];
   }
 }

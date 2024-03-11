@@ -84,12 +84,40 @@
 
 <div class="row m-0 p-0 data">
     <div class="main-table p-0 ">
-            <ul class="table-nav d-flex flex-row flex-nowrap align-items-center">                             
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <svg class="icon"><use xlink:href="#inbox"/></svg>Inbox
+            <ul class="table-nav d-flex flex-row flex-nowrap align-items-center ">
+                
+             
+                <li class="nav-item" ngbDropdown>
+                    <a href="javascript:void(0)" ngbDropdownToggle id="dropdownBasic1" aria-haspopup="true"  class="nav-link">
+                        <svg class="icon"><use xlink:href="#move"/></svg> Move
                     </a>
-                </li>              
+
+                    <div class="dropdown-menu account-details dropdown-menu-end mt-2" ngbDropdownMenu aria-labelledby="dropdownBasic1" >
+                        <a href="javascript:void(0)" class="nav-link">
+                             Movie to Other 1</a>
+                            
+                        <a href="javascript:void(0)" class="nav-link">
+                                 Movie to Other 1</a>
+                        
+                        <a href="javascript:void(0)" class="nav-link">
+                                    Movie to Other 1</a>      
+                       
+                    </div>
+                   
+                </li>
+             
+                <!-- <li class="nav-item nav-fw ">
+                    <span href="#" class="nav-link ">
+                        <svg class="icon"><use xlink:href="#search"/></svg>
+
+                        <div class="row w-100 ">
+                            <div class="col-md-12 p-0">
+                                <input type="text" class="form-control border-0 " placeholder="Search Subject, Date, Refference No, User ">
+                            </div>
+                        </div>
+                        
+                    </span>
+                </li> -->
             </ul>
   
  

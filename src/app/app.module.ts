@@ -23,6 +23,7 @@ import { DatePipe } from '@angular/common';
 import { AuthModule } from './auth/auth.module';
 import { LoginComponent } from './auth/login/login.component';
 
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 declare var $: any;
 
@@ -47,7 +48,8 @@ declare var $: any;
     ToastrModule.forRoot(),
     HttpClientModule,
     TranslationModule,
-
+    PdfViewerModule,
+    
     AuthModule
   ],
   providers: [DirectionService, MenuSidebarService, MenuService, DatePipe, 

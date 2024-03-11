@@ -1,0 +1,58 @@
+.modal-tab{
+  .nav-tabs{
+    border: 0;
+    margin-bottom: 1rem;
+
+    .btn-tab{
+      border: $border;
+      border-radius: 0.25rem;
+      border-color: $primary-color;
+      padding: 0.35rem 0.55rem;
+      margin: 8px 8px 8px 0;
+      cursor: pointer;
+      position: relative;
+      color: #333333;
+
+
+      .icon{
+        height: 20px;
+        width: 20px;
+        fill: #5ABA8A;
+      
+      }
+
+      .link-title{
+        font-size: 1rem;
+   
+      }
+
+      &:hover{
+        background-color: #ECF6FF;
+      }
+
+      
+
+      &.active{
+        color: #ffffff;
+        border-color: $primary-color;
+        border-radius: 0.25rem;
+        background-color: $primary-color;
+       
+        .icon{
+          fill: #ffffff;
+        }
+  
+      }
+      
+    }
+
+    li:first-child {
+      .btn-tab{
+        &::before{
+          display: none;
+        }
+      }
+    }
+
+  }
+}

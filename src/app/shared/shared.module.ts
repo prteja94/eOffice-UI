@@ -43,6 +43,7 @@ import { NgBootstrapModule } from './ng-bootstarp.module';
 import { PrimeNgModule } from './primeng.module';
 //import { MaterialModule } from './ng-material/ng-material.module';
 
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { PrimeNgModule } from './primeng.module';
     NgFor,
     JsonPipe,
     NgSelectModule,
-    TranslationModule
+    TranslationModule,
+    PdfViewerModule
 
 
   ],
@@ -99,8 +101,7 @@ import { PrimeNgModule } from './primeng.module';
     NgFor,
     NgSelectModule,
     TableModule,
-    
-
+    PdfViewerModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
