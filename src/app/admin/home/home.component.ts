@@ -9,7 +9,5 @@ import { DirectionService } from '../../shared/services/direction.service';
 export class HomeComponent {
   constructor(public directionService: DirectionService) { }
 
-
-  
-  
+  pdfSrc = "assets/img/file-sample_150kB.pdf";
 }

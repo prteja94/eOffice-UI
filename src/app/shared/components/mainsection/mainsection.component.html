@@ -214,6 +214,7 @@
         </div>
     </div> -->
 
+
     <div class="row m-0 p-0 data">
         <div class="main-table p-0 ">
                 <ul class="table-nav d-flex flex-row flex-nowrap align-items-center ">
@@ -266,14 +267,24 @@
                     </li> -->
                 </ul>
       
+
      
             <ng-scrollbar class="table-height" style="height: 59vh;">
-            <ngx-table [configuration]="configuration" [data]="data" [columns]="columns" > 
+
+                <!-- <ngx-table #table
+                class="bootstrap"
+                [data]="data"
+                [columns]="columns"
+                [configuration]="configuration">
+                </ngx-table> -->
+
+            <ngx-table [configuration]="configuration" [data]="data" [columns]="columns" (event)="eventEmitted($event)"> 
                 <ng-template let-row let-index="index">
-                  <td >
+                    
+                  <td>
                     <div class="form-group">
                       <label class="form-checkbox">
-                        <input type="checkbox" (change)="onChange(row)" />
+                        <input type="checkbox" (change)="onChange(row)"/>
                         <i class="form-icon"></i>
                       </label>
                     </div>
@@ -299,7 +310,10 @@
                   <td>
                     <div class="">{{ row.reference }}</div>
                   </td>
-                  
+                  <!-- <td>
+                    <button class="btn table-btn btn-edit" (click)="openModal(modalContent)">Details</button>
+                  </td>  -->
+              
                 </ng-template>
               </ngx-table>
             </ng-scrollbar>
@@ -343,3 +357,225 @@
 
         </div>
     </div>
+
+
+  <!-- Modal -->
+  <ng-template #modalContent let-modal>
+    <div class="modal-header justify-content-center">
+      <h4 class="modal-title" id="modal-basic-title">Inbox</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body ">
+
+        <div class="row align-items-stretch">
+            <div class="col-6 p-0">
+ 
+
+                <pdf-viewer
+                [src]="pdfSrc"
+                [render-text]="true"
+                [original-size]="false"
+                [fit-to-page]="false"
+                style="width: 100%; height: 100vh;margin-bottom: 0;"
+                ></pdf-viewer>
+
+            </div>
+          
+            <div class="vr p-0"> </div>
+           
+            <div class="col-5 modal-tab" >
+
+                <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs d-flex justify-content-start ">
+                    <li [ngbNavItem]="1">
+                      <button ngbNavLink class="btn btn-tab d-flex align-items-center">
+                        <svg class="icon"><use xlink:href="#eScan"></use> </svg> <span class="link-title mx-2">{{ 'Form 1' | translate }}</span>
+                      </button>
+                
+                      <ng-template ngbNavContent>
+                          <div class="tab-cnt" >
+                            <form class="form-section col-12">
+
+                                <div class="input-block mt-2">
+            
+                                    <div class="row g-3 mb-3 align-items-center">
+                                        <div class="col-2">
+                                            <label for="subject" class="col-form-label"> Subject </label>
+                                        </div>
+                                        <div class="col-10">
+                                            <input type="text" id="subject" class="form-control">
+                                        </div>
+                                    
+                                    </div>
+            
+            
+                                <div class="row g-3 mb-3 align-items-center">
+                                    <div class="col-2">
+                                        <label for="subject" class="col-form-label"> Select the Users </label>
+                                    </div>
+                                    <div class="col-10">
+                                    <div class="row list-transfer-container">
+                                        
+                                    <div class="col-5">
+                                    <div class="list-box" >
+                                        <ul>
+                                            <li *ngFor="let item of leftList; let i = index" (click)="selectItem(item, 'left')" [class.selected]="selectedItems.left.includes(item)">
+                                                {{ item }}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <button class="btn-edit btn-fixed" (click)="moveAll('left')">Move All &gt;&gt;</button>
+                                    </div>
+            
+                                    <!-- Action buttons -->
+                                    <div class="col-2" >
+                                        <div class="actions" >
+                                            <button class="btn-update" (click)="moveSelected('left')">&gt;</button>
+                                            <button class="btn-update" (click)="moveSelected('right')">&lt;</button>
+                                        </div>
+                                    </div>
+            
+                                    <div class="col-5">
+                                    <div class="list-box">
+                                        <ul>
+                                        <li *ngFor="let item of rightList; let i = index" (click)="selectItem(item, 'right')" [class.selected]="selectedItems.right.includes(item)">
+                                            {{ item }}
+                                        </li>
+                                        </ul>
+                                    </div>
+                                    <button class="btn-edit btn-fixed" (click)="moveAll('right')">&lt;&lt; Move All</button>
+                                    </div>
+            
+                                    </div>
+                                    </div>
+                                    
+                                </div>
+            
+            
+                                    <div class="row g-3 mb-3 align-items-center">
+                                            <div class="col-2">
+                                                 Reply Date
+                                            </div>
+                                            <div class="col-4">
+                                                    <input type="text" id="subject" class="form-control">
+                                            </div>
+                                            
+                                            <div class="col-2">
+                                                Folder
+                                         </div>
+                                         <div class="col-4">
+                                                <select class="form-select">
+                                                    <option selected> Select The Folder</option>
+                                                    <option value="1">One</option>
+                                                    <option value="2">Two</option>
+                                                    <option value="3">Three</option>
+                                                </select>
+                                         </div>
+                                    </div>
+            
+                                    <div class="row g-3 mb-3 align-items-center">
+                                        <div class="col-2">
+                                            Classification
+                                        </div>
+                                        <div class="col-4">
+                                            <select class="form-select">
+                                                <option selected>Select The Folder</option>
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="col-2">
+                                            Priority 
+                                     </div>
+                                     <div class="col-4">
+                                        <select class="form-select">
+                                            <option selected>Select The Folder</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+                                </div>
+            
+            
+                                <div class="row g-3 mb-3 align-items-center">
+                                    <div class="d-flex flex-row">
+                                        <div class="mx-2 form-check">
+                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                            <label class="form-check-label" for="exampleCheck1">Check</label>
+                                        </div>
+                                        <div class="mx-2">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                        <div class="mx-2 col-5">
+                                            <input class="form-control" type="file" id="formFile">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                    
+                                </div>
+                        </form>  
+                          </div>
+                      </ng-template>
+                    </li>
+                  
+                    <li [ngbNavItem]="2">
+                      <button ngbNavLink class="btn btn-tab d-flex align-items-center">
+                        <svg class="icon"><use xlink:href="#reports"></use> </svg> <span class="link-title mx-2">
+                          {{ 'Form 2' | translate }}</span>
+                      </button>
+                  
+                      <ng-template ngbNavContent>
+                           <div class="tab-cnt" >
+                            Two
+                          </div>
+                      </ng-template>
+                    </li>
+
+                    <li [ngbNavItem]="3">
+                        <button ngbNavLink class="btn btn-tab d-flex align-items-center">
+                          <svg class="icon"><use xlink:href="#reports"></use> </svg> <span class="link-title mx-2">
+                            {{ 'Form 3' | translate }}</span>
+                        </button>
+                    
+                        <ng-template ngbNavContent>
+                             <div class="tab-cnt" >
+                              Three
+                            </div>
+                        </ng-template>
+                      </li>
+
+                      <li [ngbNavItem]="4">
+                        <button ngbNavLink class="btn btn-tab d-flex align-items-center">
+                          <svg class="icon"><use xlink:href="#reports"></use> </svg> <span class="link-title mx-2">
+                            {{ 'Form 4' | translate }}</span>
+                        </button>
+                    
+                        <ng-template ngbNavContent>
+                             <div class="tab-cnt" >
+                              Four
+                            </div>
+                        </ng-template>
+                      </li>
+                  
+                   
+                  </ul>
+                  
+                  
+                  
+                  <div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+                
+            </div>
+        </div>
+         
+
+    </div>
+    <div class="modal-footer mb-2">
+        <span> {{ clicked }}</span>
+        <button type="button" class="btn btn-update mx-2" (click)="onUpdate()">Update</button>
+        <button type="button" class="btn btn-danger mx-2" (click)="modal.dismiss('Cross click')">Cancel</button>
+    </div>
+  </ng-template>

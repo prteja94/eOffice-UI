@@ -20,5 +20,24 @@
 @import "pages/_pages-dir";
 
 
+.pdfViewer.singlePageView .page {
+  margin: 0;
+}
 
+.modal-fullscreen{
 
+    .modal-header{
+      padding-top: 5px !Important;
+      padding-bottom: 5px !Important;
+      background-color: #5ABA8A;
+      color: #ffffff;
+    }
+    .modal-body{
+      padding-top: 0px;
+      padding-bottom: 0px;
+    }
+    .modal-footer{
+      padding-top: 5px !Important;
+      padding-bottom: 5px !Important;
+    }
+}

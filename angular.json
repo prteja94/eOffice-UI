@@ -20,7 +20,8 @@
           "options": {
             "allowedCommonJsDependencies": [
               "ngx-scrollbar",
-              "quill"
+              "quill",
+              "pdfjs-dist"
             ],
             "outputPath": "dist/eOffice",
             "index": "src/index.html",
@@ -46,7 +47,9 @@
               "node_modules/ngx-easy-table/style.css",
               "src/assets/scss/style.scss"
             ],
-            "scripts": []
+            "scripts": [
+
+            ]
           },
           
           "configurations": {
