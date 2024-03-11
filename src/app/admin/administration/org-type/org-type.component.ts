@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Inject,
   OnInit,
   TemplateRef,
   ViewChild, } from '@angular/core';
@@ -54,7 +55,7 @@ export class OrgTypeComponent implements OnInit {
   orgNameList: any;
   orgTypeData: OrgType | null;
   topLevel: any;
-
+  loginId : any;
 
   constructor(private formBuilder: FormBuilder, 
     private cdr: ChangeDetectorRef,private orgTypeService: OrgTypeService,
@@ -68,9 +69,13 @@ export class OrgTypeComponent implements OnInit {
         orgTypeName: ['', Validators.required],
         orgTypeNameAr: ['', Validators.required],
         topLevel: ['', Validators.required],
+        addedByUserId: ['']
       }
       
     );
+
+    const json = JSON.parse(sessionStorage.getItem('currentUser') || '{}');
+    this.loginId = json['loginId'];
 
     this.columns = [
       { key: 'orgTypeId', title: 'S.No', width: '5%' },
@@ -115,6 +120,9 @@ export class OrgTypeComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
+    this.form.patchValue({
+      addedByUserId: this.loginId,
+    });
     this.orgTypeService.create(this.form.value).subscribe((response) => {
       if(response.status === 201){
         this.toastr.success('You are awesome!', 'Date Saved Successfully!', {
@@ -189,6 +197,7 @@ export class OrgTypeComponent implements OnInit {
         this.orgTypeData.orgTypeNameAr = this.editData.get('orgNameAr')?.value;
         this.orgTypeData.topLevel=this.editData.get('topLevel')?.value;
         this.orgTypeData.status=this.editData.get('status')?.value;
+        this.orgTypeData.updatedByUserId=this.loginId;
       }
     }
   }
