@@ -171,8 +171,7 @@ export class OrgTypeComponent implements OnInit {
         orgTypeName: orgTypeData.orgTypeName,
         orgTypeNameAr: orgTypeData.orgTypeNameAr,
         status: orgTypeData.status,
-        topLevel: orgTypeData.topLevel,
-        updatedByUserId: 1
+        topLevel: orgTypeData.topLevel
       });
     }
   }
