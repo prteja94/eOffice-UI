@@ -24,6 +24,7 @@ import { API, Columns, APIDefinition, DefaultConfig, Config } from 'ngx-easy-tab
 import { OrgType, OrgTypeService } from './org-type.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService, ToastrModule } from 'ngx-toastr';
+import { DirectionService } from '../../../shared/services/direction.service';
 
 @Component({
   selector: 'app-org-type',
@@ -61,6 +62,7 @@ export class OrgTypeComponent implements OnInit {
     private cdr: ChangeDetectorRef,private orgTypeService: OrgTypeService,
     private fb: UntypedFormBuilder,
     private modalService: NgbModal,
+    public directionService: DirectionService,
     private toastr: ToastrService) {}
 
   ngOnInit(): void {

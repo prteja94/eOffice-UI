@@ -19,3 +19,59 @@
   height: 50px;
   transition: height ease-in-out 400ms;
 }
+
+
+.list-transfer-container {
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+}
+.list-box {
+  border:1px solid #E8E8F2;
+  height:110px;
+  position: relative;
+  overflow: auto;
+}
+
+.list-box ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.list-box li {
+  cursor: pointer;
+  padding: 2px 5px;
+
+}
+.list-box li:hover {
+  background-color: #ECF6FF;
+  font-weight: 600;
+}
+
+.list-box li.selected {
+  background-color: #ECF6FF;
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}
+.btn-update{
+  margin:5px 0;
+}
+
+.btn-fixed {
+  width:100%;
+  border-radius: 0;
+  color: #212529;
+}
+
+.vr {
+  border: 1px solid #dee2e6;
+  min-height: 100%;
+
+  opacity: 1;
+}

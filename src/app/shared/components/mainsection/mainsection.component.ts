@@ -7,10 +7,21 @@ import {
   TemplateRef,
   ViewChild
 } from '@angular/core';
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  FormControl,
+} from '@angular/forms';
 import { Tabledata, data } from '../../../../assets/data';
 import { API, Columns, APIDefinition, DefaultConfig, Config } from 'ngx-easy-table';
 import {  NgbDate, NgbDateStruct, NgbCalendar, NgbDatepickerModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { NgbActiveModal, ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
+import { DirectionService } from '../../../shared/services/direction.service';
 
 
 @Component({
@@ -28,25 +39,31 @@ export class MainsectionComponent implements OnInit {
   public data: Tabledata[] = [];
   public selected = new Set();
   public clicked: string;
+  submitted = false;
 
-  constructor(private cdr: ChangeDetectorRef, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter,
+  constructor(private cdr: ChangeDetectorRef, private calendar: NgbCalendar,
+    private fb: UntypedFormBuilder,
+    private formBuilder: FormBuilder,
+    public formatter: NgbDateParserFormatter,
+    private translate: TranslateService,
+    public directionService: DirectionService,
     private modalService: NgbModal) {
-
-      
   }
   DWObject: any;
 
+  selectedFolder: string;
+
+  form: FormGroup = new FormGroup({
+    folderSelect: new FormControl(''),
+  });
+
+
   ngOnInit(): void {
-    this.columns = [
-      { key: '', title: '', searchEnabled: false, width: '2%' },
-      { key: '', title: '', searchEnabled: false, width: '2%' },
-      { key: '', title: '', searchEnabled: false, width: '2%' },
-      { key: 'user', title: 'User' },
-      { key: 'subject', title: 'Subject' },
-      { key: 'project', title: 'Document Type' },
-      { key: 'timestamp', title: 'Submitted Date & Time'},
-      { key: 'reference', title: 'Reference No' }
-    ];
+    this.translateColumns();
+    
+    this.translate.onLangChange.subscribe(() => {
+      this.translateColumns();
+    });
     this.data = data;
 
     this.configuration = { ...DefaultConfig };
@@ -61,7 +78,26 @@ export class MainsectionComponent implements OnInit {
 
     //this.configuration.checkboxes = true;
     
+    this.form = this.formBuilder.group(
+      {
+        priorityName: ['', Validators.required],
+        folderSelect: [null, Validators.required],
+      }
+    );
 
+  }
+
+  translateColumns(): void {
+    this.columns = [
+      { key: '', title: '', searchEnabled: false, width: '2%' },
+      { key: '', title: '', searchEnabled: false, width: '2%' },
+      { key: '', title: '', searchEnabled: false, width: '2%' },
+      { key: 'user', title: this.translate.instant('User') },
+      { key: 'subject', title: this.translate.instant('Subject') },
+      { key: 'project', title: this.translate.instant('Document Type') },
+      { key: 'timestamp', title: this.translate.instant('Submitted Date & Time') },
+      { key: 'reference', title: this.translate.instant('Reference No') }
+    ];
   }
 
   onChange(row: any): void {
@@ -192,5 +228,27 @@ export class MainsectionComponent implements OnInit {
      this.selectedItems.right = [];
   }
   
+  onFolderChange(): void {
+    this.selectedFolder = this.form.get('folderSelect')?.value;
+  }
+
+  get f(): { [key: string]: AbstractControl } {
+    return this.form.controls;
+  }
+  onSubmit(): void {
+    this.submitted = true;
+
+    if (this.form.invalid) {
+      return;
+    }
+
+    console.log(JSON.stringify(this.form.value, null, 2));
+    this.form.reset();
+  }
+
+  onReset(): void {
+    this.submitted = false;
+    this.form.reset();
+  }
 
 }

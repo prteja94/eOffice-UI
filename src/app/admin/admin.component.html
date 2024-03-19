@@ -1,16 +1,16 @@
 <!-- <div class="app" [dir]="directionService.isRtl ? 'rtl' : 'ltr'">-->
 <div class="app" [dir]="directionService.isRtl ? 'rtl' : 'ltr'">
   <app-header></app-header>
-  <main>
-    <div class="main" >
+  <main >
+    <div class="main"  >
         <div class="navigation">
           <app-side-navbar></app-side-navbar>
         </div>
-        <div class="content-wrapper">
-          <ng-scrollbar>
-            <section class="main-content">
-               <app-breadcrumb></app-breadcrumb>
-              <div class="content-inner">
+        <div class="content-wrapper" >
+          <ng-scrollbar [dir]="directionService.isRtl ? 'rtl' : 'ltr'">
+            <section class="main-content" >
+               <app-breadcrumb [dir]="directionService.isRtl ? 'rtl' : 'ltr'"></app-breadcrumb>
+              <div class="content-inner" [dir]="directionService.isRtl ? 'rtl' : 'ltr'">
                 <!-- {{'Name' | translate}} <br>
                 {{'NameError' | translate}} <br>
                 {{'Email' | translate}} <br>

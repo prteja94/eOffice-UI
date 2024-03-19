@@ -1,6 +1,6 @@
 <section class="ejob-section">  
-	<ng-scrollbar class="w-100 h-100">
-          <form class="row g-3 datasearch justify-content-center" [formGroup]="form" (ngSubmit)="onSubmit()">
+	<ng-scrollbar class="w-100 h-100" >
+          <form class="row g-3 datasearch justify-content-center" [formGroup]="form" (ngSubmit)="onSubmit()" [dir]="directionService.isRtl ? 'rtl' : 'ltr'">
           <div class="col-md-3 ">
               <label class="mb-1">{{ 'Org Type Name' | translate }}</label>
               <input
@@ -66,7 +66,7 @@
     <div class="row m-0 p-0 data">
       <div class="table-result p-0 ">
           <ng-scrollbar class="table-height" style="height: 59vh;">
-          <ngx-table [configuration]="configuration" [data]="data" [columns]="columns"> 
+          <ngx-table [configuration]="configuration" [data]="data" [columns]="columns" [dir]="directionService.isRtl ? 'rtl' : 'ltr'"> 
               <ng-template let-row let-index="index">
                 <td>
                   <span class="">{{ row.orgTypeId }}</span>

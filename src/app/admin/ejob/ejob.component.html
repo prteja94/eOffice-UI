@@ -1,9 +1,9 @@
 <section class="ejob-section" >
-	<ng-scrollbar class="w-100 h-100">
+	<ng-scrollbar class="w-100 h-100" >
 					<div class="row">
 						<div class="col-12 d-flex justify-content-center align-items-center">
 							
-								<form class="form-section col-7">
+								<form class="form-section col-7" [dir]="directionService.isRtl ? 'rtl' : 'ltr'">
 								
 										<div class="input-block mt-2">
 
@@ -95,8 +95,15 @@
 													<button type="submit" class="btn btn-primary">{{'Submit' | translate }}</button>
 												</div>
 												<div class="mx-2 col-5">
-													<input class="form-control" type="file" id="formFile">
+													<input class="form-control" type="file" id="fileInput" 
+													(change)="onFileSelected($event)" multiple>
+
+													<ul *ngIf="files && files.length > 0">
+														<li *ngFor="let file of files">{{ file.name }}</li>
+													</ul>
 												</div>
+
+												
 											</div>
 										</div>
 										

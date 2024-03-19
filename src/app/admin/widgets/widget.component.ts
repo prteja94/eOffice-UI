@@ -210,9 +210,6 @@ export class WidgetComponent implements OnInit{
     this.defaultSelectedNames = JSON.stringify(selectedOptions, null, 2);
   }
   
-
-
-
   onFolderChange(): void {
     this.selectedFolder = this.form.get('folderSelect')?.value;
   }

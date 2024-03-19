@@ -1,6 +1,6 @@
 
 
-        <app-stats></app-stats>
+    <app-stats></app-stats>
 
     <div class="row m-0 p-0">
         <nav class="nav quick-links">
@@ -278,7 +278,7 @@
                 [configuration]="configuration">
                 </ngx-table> -->
 
-            <ngx-table [configuration]="configuration" [data]="data" [columns]="columns" (event)="eventEmitted($event)"> 
+            <ngx-table [configuration]="configuration" [data]="data" [columns]="columns" (event)="eventEmitted($event)" [dir]="directionService.isRtl ? 'rtl' : 'ltr'"> 
                 <ng-template let-row let-index="index">
                     
                   <td>
@@ -524,13 +524,130 @@
                     <li [ngbNavItem]="2">
                       <button ngbNavLink class="btn btn-tab d-flex align-items-center">
                         <svg class="icon"><use xlink:href="#reports"></use> </svg> <span class="link-title mx-2">
-                          {{ 'Form 2' | translate }}</span>
+                          {{ 'Assign' | translate }}</span>
                       </button>
                   
                       <ng-template ngbNavContent>
-                           <div class="tab-cnt" >
-                            Two
+                           <div class="tab-cnt">
+
+                            <form class="" [formGroup]="form" (ngSubmit)="onSubmit()">
+                            
+                             <div class="col-md-12 mb-3">
+                               <select class="form-select" formControlName="folderSelect" (change)="onFolderChange()">
+                                <option [ngValue]="null" selected>Select The Folder</option>
+                                <option [value]="'1'">Assign </option>
+                                <option [value]="'2'">Reply</option>
+                                <option [value]="'3'">Close</option>
+                                <option [value]="'4'">Return</option>
+                               </select>
+                             </div>
+
+                              <div class="row d-flex flex-wrap" *ngIf="selectedFolder === '1'">
+                                  
+                                <div class="col-md-6 mb-3">
+                                    <label class="mb-1">{{ 'Priority' | translate }}</label>
+                                    <select class="form-select">
+                                        <option selected>{{ 'Select the Priority' | translate }}</option>
+                                        <option value="1">{{ 'one' | translate }}</option>
+                                        <option value="2">{{ 'Two' | translate }}</option>
+                                        <option value="3">{{ 'Three' | translate }}Three</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="mb-1">{{ 'User Group' | translate }}</label>
+                                    <select class="form-select">
+                                        <option selected>{{ 'Select the User Group' | translate }}</option>
+                                        <option value="1">{{ 'one' | translate }}</option>
+                                        <option value="2">{{ 'Two' | translate }}</option>
+                                        <option value="3">{{ 'Three' | translate }}Three</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="mb-1">{{ 'Top Org Unit' | translate }}</label>
+                                    <select class="form-select">
+                                        <option selected>{{ 'Select the User Group' | translate }}</option>
+                                        <option value="1">{{ 'one' | translate }}</option>
+                                        <option value="2">{{ 'Two' | translate }}</option>
+                                        <option value="3">{{ 'Three' | translate }}Three</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="mb-1">{{ 'Expected Date of Reply' | translate }}</label>
+                                       <input type="text" id="date" class="form-control">
+                               </div>
+
+                               <div class="col-md-6 mb-3">
+                                <label class="mb-1">{{ 'Classification' | translate }}</label>
+                                <select class="form-select">
+                                    <option selected>{{ 'Select the User Group' | translate }}</option>
+                                    <option value="1">{{ 'one' | translate }}</option>
+                                    <option value="2">{{ 'Two' | translate }}</option>
+                                    <option value="3">{{ 'Three' | translate }}Three</option>
+                                </select>
+                                </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <label class=" col-form-label"
+                                    > {{ 'Remarks/Comments' | translate }}</label
+                                  >
+                                  <textarea
+                                    class="form-control"
+                                    aria-label="With textarea"
+                                    placeholder="About Project Here"
+                                  ></textarea>
+                                </div>
+                              </div>
+                              
+                              <div *ngIf="selectedFolder === '2'">
+                                <div class="col-md-12 mb-3">
+                                    <label class=" col-form-label"
+                                    >{{ 'Comments' | translate }}</label
+                                  >
+                                  <textarea
+                                    class="form-control"
+                                    aria-label="With textarea"
+                                    placeholder="About Project Here"
+                                  ></textarea>
+                                </div>
+                              </div>
+
+                              <div *ngIf="selectedFolder === '3'">
+                                <div class="col-md-12 mb-3">
+                                    <label class="col-form-label"
+                                    >{{ 'Reason for Closure' | translate }}</label
+                                  >
+                                  <textarea
+                                    class="form-control"
+                                    aria-label="With textarea"
+                                    placeholder="About Project Here"
+                                  ></textarea>
+                                </div>
+                              </div>
+
+                              <div *ngIf="selectedFolder === '4'">
+                                <div class="col-md-12 mb-3">
+                                    <label class="col-form-label"
+                                    >{{ 'Comments' | translate }}</label
+                                  >
+                                  <textarea
+                                    class="form-control"
+                                    aria-label="With textarea"
+                                    placeholder="About Project Here"
+                                  ></textarea>
+                                </div>
+                              </div>
+
+                              <div class="col-md-3 mx-auto ">
+                                <button type="button" class="btn-update w-100">Update</button>
+                                </div>
+                    
+                            </form>
+
                           </div>
+                        
                       </ng-template>
                     </li>
 
