@@ -94,12 +94,21 @@
 												<div class="mx-2">
 													<button type="submit" class="btn btn-primary">{{'Submit' | translate }}</button>
 												</div>
+
 												<div class="mx-2 col-5">
-													<input class="form-control" type="file" id="fileInput" 
-													(change)="onFileSelected($event)" multiple>
+													<div class="form-group">
+														<label for="fileInput">Select files</label>
+														<input type="file" id="fileInput" hidden (change)="onFileSelected($event)" multiple #fileInput>
+
+														<button type="button" class="btn btn-primary" (click)="fileInput.click()">Choose Files</button>
+														<!-- <button type="button" class="btn btn-success" (click)="uploadFiles()" [disabled]="files.length === 0">Upload</button> -->
+													</div>
 
 													<ul *ngIf="files && files.length > 0">
-														<li *ngFor="let file of files">{{ file.name }}</li>
+														<li *ngFor="let file of files; let i = index">
+															{{ file.name }} 
+															<button type="button" class="btn btn-danger btn-sm" (click)="deleteFile(i)">Delete</button>
+														</li>
 													</ul>
 												</div>
 
