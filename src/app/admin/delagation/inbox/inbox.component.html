@@ -78,28 +78,18 @@
           <ngx-table [configuration]="configuration" [data]="data" [columns]="columns" [dir]="directionService.isRtl ? 'rtl' : 'ltr'"> 
               <ng-template let-row let-index="index">
                 <td>
-                  <span class="">{{ row.orgTypeId }}</span>
+                  <span class="">{{ row.from }}</span>
                 </td>
                 <td>
-                  <div class="">{{ row.orgTypeName }}</div>
+                  <div class="">{{ row.fromDate }}</div>
                 </td>
                 <td>
-                  <div class="">{{ row.orgTypeNameAr }}</div>
+                  <div class="">{{ row.toDate }}</div>
                 </td>
                 <td>
-                  <div  *ngIf="row.topLevel=== 1" class="">Yes</div>
-                  <div  *ngIf="row.topLevel === 0" class="">No</div>
+                  <div class="">{{ row.delegationType }}</div>
                 </td>
-                <td>
-                  <div  *ngIf="row.status === 1" class="">Active</div>
-                  <div  *ngIf="row.status === 0" class="">In Active</div>
-                </td>
-                <td>
-                  <div class="">{{ row.addedByUserName }}</div>
-                </td>
-                <td>
-                  <div class="">{{ row.addedOn }}</div>
-                </td>
+                
              
               </ng-template>
             </ngx-table>

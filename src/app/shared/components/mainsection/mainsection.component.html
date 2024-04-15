@@ -517,6 +517,27 @@
                                     
                                 </div>
                         </form>  
+
+                        <hr class="gradient-line">
+                        
+                        <div class="row m-0 p-0 data">
+                            <div class="table-result p-0 ">
+                                <ngx-table [configuration]="configuration" [data]="data" [columns]="columns" [dir]="directionService.isRtl ? 'rtl' : 'ltr'"> 
+                                    <ng-template let-row let-index="index">
+                                      <td>
+                                        <span class="">{{ row.to }}</span>
+                                      </td>
+                                      <td>
+                                        <div class="">{{ row.fromDate }}</div>
+                                      </td>
+                                      <td>
+                                        <div class="">{{ row.toDate }}</div>
+                                      </td>
+                                    </ng-template>
+                                  </ngx-table>
+                            </div>
+                          </div>
+
                           </div>
                       </ng-template>
                     </li>

@@ -59,7 +59,7 @@ export class OrgTypeComponent implements OnInit {
   loginId : any;
 
   constructor(private formBuilder: FormBuilder, 
-    private cdr: ChangeDetectorRef,private orgTypeService: OrgTypeService,
+    private cdr: ChangeDetectorRef, private orgTypeService: OrgTypeService,
     private fb: UntypedFormBuilder,
     private modalService: NgbModal,
     public directionService: DirectionService,

@@ -16,12 +16,14 @@ import {
   FormGroup,
   FormControl,
 } from '@angular/forms';
+import Validation from '../../../shared/validation';
 import { Tabledata, data } from '../../../../assets/data';
 import { API, Columns, APIDefinition, DefaultConfig, Config } from 'ngx-easy-table';
 import {  NgbDate, NgbDateStruct, NgbCalendar, NgbDatepickerModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { NgbActiveModal, ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { DirectionService } from '../../../shared/services/direction.service';
+import { OrgType, OrgTypeService } from '../../../admin/administration/org-type/org-type.service';
 
 
 @Component({
@@ -32,6 +34,8 @@ import { DirectionService } from '../../../shared/services/direction.service';
 })
   
 export class MainsectionComponent implements OnInit {
+
+  
   @ViewChild('table') table: APIDefinition;
   active = 1;
   public configuration: Config;

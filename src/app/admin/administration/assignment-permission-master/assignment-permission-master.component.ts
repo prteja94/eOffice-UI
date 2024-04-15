@@ -67,9 +67,7 @@ export class AssignmentPermissionMasterComponent implements OnInit{
         assignPermNameAr: ['', Validators.required],
       
       }
-      
     );
-
     this.columns = [
       { key: 'assignId', title: 'S.No', width: '5%' },
       { key: 'assignPermName', title: 'Permission Name'},

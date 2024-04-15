@@ -57,7 +57,10 @@ const routes: Routes = [
       {
         path: 'queues',
         loadChildren: () => import('./queues/queues.module').then(m => m.QueuesModule),
-       
+      },
+      {
+        path: 'delegation',
+        loadChildren: () => import('./delagation/delegation.module').then(m => m.DelegationModule),
       },
       {
         path: 'democomponent',

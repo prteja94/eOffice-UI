@@ -19,6 +19,7 @@
   color: red;
 }
 
+
 .datasearch{
   width:99%;
   margin: 0 auto;
@@ -74,3 +75,27 @@
 }
 }
 
+
+.file-height{
+  min-height: 100% !important;
+}
+.file-data{
+
+  white-space: no-wrap;
+  border: 1px solid #E8E8F2;
+
+  td{
+    border: 1px solid #E8E8F2;
+    padding: 0 5px;
+  }
+  i-feather{
+    height: 35px;
+    width: 35px;
+    cursor: pointer;
+
+    &:hover{
+      stroke: $btn-danger;
+    }
+
+  }
+}

@@ -248,7 +248,7 @@ export const ROUTES: RouteInfo[] = [
   roles: ['Admin', 'User'],
   submenu: [
     {
-      path: 'democomponent',
+      path: 'delegation/history',
       title: 'Delegation History',
       icon: '',
       class: '',
@@ -256,7 +256,7 @@ export const ROUTES: RouteInfo[] = [
       submenu: [],
     },
     {
-      path: 'democomponent',
+      path: 'delegation/inbox',
       title: 'Delegation Inbox',
       icon: '',
       class: '',
@@ -264,7 +264,7 @@ export const ROUTES: RouteInfo[] = [
       submenu: [],
     },
     {
-      path: 'democomponent',
+      path: 'delegation/user',
       title: 'Delegate to User',
       icon: '',
       class: '',
